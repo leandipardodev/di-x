@@ -118,10 +118,20 @@ export default function Projects() {
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"],
+  });
+
+  const textY = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  const titleY = useTransform(scrollYProgress, [0, 1], [20, -20]);
+  const metaY = useTransform(scrollYProgress, [0, 1], [15, -15]);
 
   return (
     <ClipReveal delay={index * 0.1}>
       <motion.article
+        ref={cardRef}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className="group relative flex-shrink-0 w-[85vw] cursor-pointer lg:w-[520px]"
@@ -135,41 +145,51 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             alt={project.title}
             className="absolute inset-0 h-full w-full object-cover opacity-80 transition-opacity duration-500 group-hover:opacity-60"
           />
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
           <div className="absolute inset-0 flex flex-col justify-end p-8 lg:p-10">
             <div className="flex items-start justify-between">
               <div>
-                <span className="text-[10px] uppercase tracking-[0.3em] text-muted/60">
+                <motion.span
+                  style={{ y: metaY }}
+                  className="text-[10px] uppercase tracking-[0.3em] text-white/50"
+                >
                   {project.year}
-                </span>
-                <h3 className="mt-3 text-4xl font-bold tracking-tight lg:text-5xl">
+                </motion.span>
+                <motion.h3
+                  style={{ y: titleY }}
+                  className="mt-3 text-4xl font-bold tracking-tight text-white lg:text-5xl"
+                >
                   {project.title}
-                </h3>
+                </motion.h3>
               </div>
               <motion.div
                 animate={{
                   rotate: isHovered ? 45 : 0,
                 }}
                 transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
-                className="rounded-full border border-border p-3 transition-colors duration-300 group-hover:border-foreground group-hover:bg-foreground group-hover:text-background"
+                className="rounded-full border border-white/20 bg-white/10 p-3 backdrop-blur-sm transition-colors duration-300 group-hover:border-white group-hover:bg-white group-hover:text-black"
               >
-                <ArrowUpRight className="h-5 w-5" />
+                <ArrowUpRight className="h-5 w-5 text-white" />
               </motion.div>
             </div>
 
             <motion.div
+              style={{ y: textY }}
               initial={{ opacity: 0, y: 20 }}
               animate={isHovered ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
               className="mt-6"
             >
-              <p className="text-sm leading-relaxed text-muted/80">
+              <p className="text-sm leading-relaxed text-white/70">
                 {project.description}
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="border border-border/50 px-3 py-1 text-[10px] uppercase tracking-[0.15em] text-muted/60"
+                    className="border border-white/20 bg-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.15em] text-white/60 backdrop-blur-sm"
                   >
                     {tag}
                   </span>
@@ -178,7 +198,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             </motion.div>
           </div>
 
-          <div className="absolute top-8 left-8 text-[10px] font-mono tracking-wider text-muted/40">
+          <div className="absolute top-8 left-8 text-[10px] font-mono tracking-wider text-white/30">
             {project.id}
           </div>
         </div>
