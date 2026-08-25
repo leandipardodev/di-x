@@ -187,8 +187,8 @@ export default function Projects() {
 
   const spotlightOp = useTransform(
     scrollYProgress,
-    [0, 0.14, 0.28, 0.42, 0.55, 0.68, 0.82, 1],
-    [0.7, 1, 0.7, 1, 0.7, 1, 0.7, 0.5]
+    [0, 0.14, 0.26, 0.42, 0.53, 0.68, 0.76, 0.85, 1],
+    [1, 1, 0.05, 1, 0.05, 1, 0.05, 1, 0.7]
   );
 
   const faceData = [
@@ -229,16 +229,15 @@ export default function Projects() {
               style={{
                 opacity: spotlightOp,
               }}
-              className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2"
+              className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2"
             >
               <div
-                className="rounded-full"
                 style={{
-                  width: cubeW * 1.8,
-                  height: 200,
+                  width: cubeW * 2.2,
+                  height: 280,
                   background:
-                    "radial-gradient(ellipse at center top, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 40%, transparent 70%)",
-                  filter: "blur(30px)",
+                    "radial-gradient(ellipse at center top, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.08) 30%, transparent 65%)",
+                  filter: "blur(20px)",
                 }}
               />
             </motion.div>
@@ -286,7 +285,8 @@ export default function Projects() {
                         className="absolute bottom-5 left-5 right-5"
                         style={{
                           transformStyle: "preserve-3d",
-                          transform: "translateZ(25px)",
+                          transform: "translateZ(50px)",
+                          filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.6))",
                         }}
                       >
                         {face.project.title === "Dix gestor" ? (
