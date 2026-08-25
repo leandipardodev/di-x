@@ -12,25 +12,39 @@ export default function Manifesto() {
   });
 
   const lineHeight = useTransform(scrollYProgress, [0.1, 0.5], ["0%", "100%"]);
+  const bgXRotate = useTransform(scrollYProgress, [0, 1], [-15, 15]);
+  const bgXScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.9]);
+  const bgXOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 0.08, 0.08, 0]);
 
   return (
     <section
       id="studio"
       ref={ref}
-      className="relative py-32 lg:py-48"
+      className="relative overflow-hidden py-32 lg:py-48"
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+      <motion.div
+        style={{
+          rotate: bgXRotate,
+          scale: bgXScale,
+          opacity: bgXOpacity,
+        }}
+        className="pointer-events-none absolute inset-0 flex items-center justify-center"
+      >
+        <span className="text-[40vw] font-bold leading-none text-stroke select-none">
+          X
+        </span>
+      </motion.div>
+
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
         <div className="grid gap-16 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-5">
             <RevealLine>
-              <span className="text-[11px] uppercase tracking-[0.3em] text-muted">
-                Filosofía
-              </span>
+              <h2 className="text-5xl font-bold tracking-tighter lg:text-7xl">
+                Visión,
+              </h2>
             </RevealLine>
             <RevealLine delay={0.1}>
-              <h2 className="mt-6 text-3xl font-bold tracking-tight lg:text-4xl">
-                Visión,
-                <br />
+              <h2 className="text-5xl font-bold tracking-tighter lg:text-7xl">
                 ejecución.
               </h2>
             </RevealLine>
@@ -49,7 +63,18 @@ export default function Manifesto() {
                     En{" "}
                     <span className="text-foreground">di.X</span> creemos que el
                     software debe ser{" "}
-                    <span className="text-foreground">hermoso</span> y funcional.
+                    <span className="text-foreground">hermoso</span> y{" "}
+                    <span className="relative inline-block font-medium text-foreground">
+                      funcional
+                      <motion.span
+                        initial={{ scaleX: 0 }}
+                        whileInView={{ scaleX: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.6, ease: [0.33, 1, 0.68, 1] }}
+                        className="absolute -bottom-1 left-0 h-px w-full bg-foreground/40 origin-left"
+                      />
+                    </span>
+                    .
                   </p>
                 </RevealLine>
 
