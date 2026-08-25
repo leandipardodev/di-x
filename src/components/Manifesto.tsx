@@ -45,7 +45,7 @@ export default function Manifesto() {
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
           }}
-          className="text-[40vw] font-bold leading-none select-none"
+          className="text-[70vw] font-bold leading-none select-none"
         >
           X
         </motion.span>
