@@ -31,7 +31,7 @@ export default function Manifesto() {
           y: bgY,
           filter: useTransform(bgBlur, (v) => `blur(${v}px)`),
         }}
-        className="pointer-events-none absolute inset-0 flex items-center justify-center"
+        className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
       >
         <div className="relative select-none">
           <span className="text-[40vw] font-bold leading-none text-stroke">
@@ -39,21 +39,16 @@ export default function Manifesto() {
           </span>
           <motion.span
             style={{ x: shineX }}
-            className="pointer-events-none absolute inset-0 text-[40vw] font-bold leading-none"
+            className="pointer-events-none absolute top-0 h-full w-[30%]"
             aria-hidden
           >
             <span
               className="block h-full w-full"
               style={{
                 background:
-                  "linear-gradient(105deg, transparent 35%, rgba(250,250,250,0.5) 45%, rgba(250,250,250,0.8) 50%, rgba(250,250,250,0.5) 55%, transparent 65%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
+                  "linear-gradient(90deg, transparent, rgba(250,250,250,0.35), transparent)",
               }}
-            >
-              X
-            </span>
+            />
           </motion.span>
         </div>
       </motion.div>
