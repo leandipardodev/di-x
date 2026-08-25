@@ -6,13 +6,11 @@ import Manifesto from "@/components/Manifesto";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import ScrollProgress from "@/components/ScrollProgress";
 import { motion } from "framer-motion";
 
 export default function Home() {
   return (
     <>
-      <ScrollProgress />
       <Navbar />
 
       <main>

@@ -35,13 +35,8 @@ export default function Hero() {
   const titleScale = useTransform(scrollYProgress, [0, 0.15], [0.85, 1]);
   const overlayOpacity = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.6, 1],
-    [0.75, 0.45, 0.35, 0.65]
-  );
-  const scrollIndicatorOpacity = useTransform(
-    scrollYProgress,
-    [0.05, 0.12],
-    [1, 0]
+    [0, 0.15, 0.5, 0.75, 1],
+    [0.75, 0.3, 0.2, 0.4, 1]
   );
 
   const onReady = useCallback(() => {
@@ -146,21 +141,6 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        <motion.div
-          style={{ opacity: scrollIndicatorOpacity }}
-          className="absolute bottom-12 left-1/2 z-20 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="flex flex-col items-center gap-3"
-          >
-            <span className="text-[9px] uppercase tracking-[0.3em] text-muted">
-              Scroll
-            </span>
-            <div className="h-10 w-px bg-gradient-to-b from-foreground/40 to-transparent" />
-          </motion.div>
-        </motion.div>
       </div>
     </div>
   );
