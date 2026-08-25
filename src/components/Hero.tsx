@@ -95,11 +95,16 @@ export default function Hero() {
   }, [onReady]);
 
   const rafRef = useRef(0);
+  const lastUpdateRef = useRef(0);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
     rafRef.current = requestAnimationFrame(() => {
-      instanceRef.current?.setVideoPercentage(latest);
+      const now = performance.now();
+      if (now - lastUpdateRef.current >= 32) {
+        lastUpdateRef.current = now;
+        instanceRef.current?.setVideoPercentage(latest);
+      }
     });
 
     if (latest >= 0.7 && latest <= 0.9) {
