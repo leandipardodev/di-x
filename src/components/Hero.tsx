@@ -35,8 +35,8 @@ export default function Hero() {
   const titleScale = useTransform(scrollYProgress, [0, 0.15], [0.85, 1]);
   const overlayOpacity = useTransform(
     scrollYProgress,
-    [0, 0.15, 0.5, 0.75, 1],
-    [0.75, 0.3, 0.2, 0.4, 1]
+    [0, 0.15, 0.5, 0.85, 1],
+    [0.75, 0.3, 0.2, 0.2, 1]
   );
 
   const onReady = useCallback(() => {
