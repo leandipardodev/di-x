@@ -161,7 +161,7 @@ export default function Projects() {
   const rotateY = useTransform(
     scrollYProgress,
     [0, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 1],
-    [0, 0, -90, -90, -180, -180, -270, -270, -270, -270]
+    [-30, 0, -90, -90, -180, -180, -270, -270, -270, -270]
   );
   const rotateX = useTransform(
     scrollYProgress,
@@ -182,7 +182,7 @@ export default function Projects() {
   const cubeIntroOp = useTransform(
     scrollYProgress,
     [0, 0.03, 0.12],
-    [0, 0.3, 1]
+    [0.15, 0.4, 1]
   );
   const cubeIntroY = useTransform(
     scrollYProgress,
@@ -273,16 +273,21 @@ export default function Projects() {
 
             <motion.div
               style={{
-                width: cubeW,
-                height: cubeH,
-                rotateY,
-                rotateX,
-                y: floatY,
                 scale: cubeScale,
                 opacity: cubeIntroOp,
-                transformStyle: "preserve-3d",
+                y: cubeIntroY,
               }}
             >
+              <motion.div
+                style={{
+                  width: cubeW,
+                  height: cubeH,
+                  rotateY,
+                  rotateX,
+                  y: floatY,
+                  transformStyle: "preserve-3d",
+                }}
+              >
               {faceData.map((face, i) => (
                 <div
                   key={i}
@@ -299,9 +304,9 @@ export default function Projects() {
                       <img
                         src={face.project.image}
                         alt={face.project.title}
-                        className="absolute inset-0 h-full w-full object-cover opacity-40"
+                        className="absolute inset-0 h-full w-full object-cover opacity-30"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/30" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/50" />
                       <div
                         className="absolute inset-0"
                         style={{
@@ -332,6 +337,12 @@ export default function Projects() {
                             alt="Klip"
                             className="h-8 w-auto object-contain lg:h-10"
                           />
+                        ) : face.project.title === "Boobaa" ? (
+                          <img
+                            src="/boobaa-logo.png"
+                            alt="Boobaa"
+                            className="h-8 w-auto object-contain lg:h-10"
+                          />
                         ) : (
                           <h3 className="text-xl font-bold tracking-tight text-white lg:text-2xl">
                             {face.project.title}
@@ -344,9 +355,10 @@ export default function Projects() {
                   )}
                 </div>
               ))}
-            </motion.div>
+              </motion.div>
 
-            <div className="absolute -bottom-8 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+              <div className="absolute -bottom-8 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+            </motion.div>
           </div>
 
           <div
