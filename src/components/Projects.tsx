@@ -59,11 +59,11 @@ export default function Projects() {
   const x = useTransform(
     scrollYProgress,
     [0, 1],
-    ["5%", "-50%"]
+    ["0%", "-42%"]
   );
 
   return (
-    <section id="work" ref={containerRef} className="relative py-16 pb-48 lg:py-24 lg:pb-64">
+    <section id="work" ref={containerRef} className="relative py-16 pb-64 lg:py-24 lg:pb-80">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <div className="mb-10 flex items-end justify-between">
           <div>
