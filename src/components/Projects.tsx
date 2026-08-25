@@ -59,7 +59,7 @@ export default function Projects() {
   const x = useTransform(
     scrollYProgress,
     [0, 1],
-    ["75%", "-75%"]
+    ["0%", "-66.67%"]
   );
 
   return (
@@ -87,7 +87,7 @@ export default function Projects() {
       </div>
 
       <div ref={trackRef} className="w-full overflow-hidden">
-        <motion.div style={{ x }} className="flex w-max gap-8 pl-6 lg:pl-12">
+        <motion.div style={{ x }} className="flex w-max gap-4 pl-4 lg:gap-8 lg:pl-12">
           {projects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
           ))}
@@ -135,7 +135,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         ref={cardRef}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="group relative flex-shrink-0 w-[60vw] cursor-pointer lg:w-[420px]"
+        className="group relative flex-shrink-0 w-[calc((100vw-32px)/3)] cursor-pointer lg:w-[calc((100vw-64px)/3)]"
       >
         <div
           className="relative aspect-[4/5] overflow-hidden border border-border transition-colors duration-500 group-hover:border-muted/30"
