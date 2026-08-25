@@ -405,7 +405,7 @@ export default function Projects() {
 
         {isMobile && (
           <div className="absolute bottom-20 left-0 right-0 px-6 text-center">
-            {faceData.filter(f => f.op !== null).map((face, i) => (
+            {faceData.filter(f => f.op !== null && f.project).map((face, i) => (
               <motion.div
                 key={i}
                 style={{ opacity: face.op! }}
