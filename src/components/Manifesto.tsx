@@ -17,6 +17,8 @@ export default function Manifesto() {
   const bgY = useTransform(scrollYProgress, [0, 1], [80, -80]);
   const bgBlur = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 1], [4, 0, 0, 0, 4]);
   const bgXGradientPos = useTransform(scrollYProgress, [0, 1], ["0% 50%", "200% 50%"]);
+  const marqueeY = useTransform(scrollYProgress, [0.7, 1], [0, -50]);
+  const marqueeOpacity = useTransform(scrollYProgress, [0.75, 1], [1, 0]);
 
   return (
     <section
@@ -112,7 +114,10 @@ export default function Manifesto() {
           </div>
         </div>
 
-        <div className="mt-32 overflow-hidden border-t border-border pt-16">
+        <motion.div
+          style={{ y: marqueeY, opacity: marqueeOpacity }}
+          className="mt-32 overflow-hidden border-t border-border pt-16"
+        >
           <ParallaxText speed={0.3}>
             <div className="flex items-center gap-12 whitespace-nowrap">
               {["Diseñar", "Desarrollar", "Desplegar", "Iterar", "Diseñar", "Desarrollar"].map(
@@ -127,7 +132,7 @@ export default function Manifesto() {
               )}
             </div>
           </ParallaxText>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
