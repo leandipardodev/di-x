@@ -297,7 +297,8 @@ export default function Projects() {
                 }}
               >
               {faceData.map((face, i) => {
-                const tx = face.rx === 90 || face.rx === -90
+                const isCap = face.rx === 90 || face.rx === -90;
+                const tx = isCap
                   ? `rotateX(${face.rx}deg) translateZ(${face.tz}px)`
                   : `rotateY(${face.ry}deg) translateZ(${face.tz}px)`;
                 return (
@@ -308,6 +309,7 @@ export default function Projects() {
                       width: face.w,
                       height: face.h,
                       transform: tx,
+                      transformOrigin: isCap ? `${cubeW / 2}px ${cubeH / 2}px` : undefined,
                       backfaceVisibility: "hidden",
                       backgroundColor: "#0a0a0a",
                       border: face.project ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(255,255,255,0.03)",
