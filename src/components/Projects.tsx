@@ -258,6 +258,12 @@ export default function Projects() {
                             alt="Dix gestor"
                             className="h-8 w-auto object-contain lg:h-10"
                           />
+                        ) : face.project.title === "Klip" ? (
+                          <img
+                            src="/klip-logo.png"
+                            alt="Klip"
+                            className="h-8 w-auto object-contain lg:h-10"
+                          />
                         ) : (
                           <h3 className="text-xl font-bold tracking-tight text-white lg:text-2xl">
                             {face.project.title}
