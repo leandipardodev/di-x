@@ -114,7 +114,7 @@ export function ClipReveal({
       <motion.div
         initial={{ y: "100%" }}
         whileInView={{ y: "0%" }}
-        viewport={{ once: true, margin: "-10%" }}
+        viewport={{ once: true, margin: "0px 500px 0px 0px" }}
         transition={{
           duration: 0.9,
           delay,
