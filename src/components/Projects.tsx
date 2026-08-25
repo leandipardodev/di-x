@@ -86,7 +86,7 @@ export default function Projects() {
         </div>
       </div>
 
-      <div ref={trackRef} className="w-full overflow-hidden">
+      <div ref={trackRef} className="w-full overflow-x-hidden overflow-y-visible">
         <motion.div style={{ x }} className="flex w-max gap-4 pl-4 lg:gap-8 lg:pl-12">
           {projects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
@@ -138,7 +138,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         className="group relative flex-shrink-0 w-[calc((100vw-32px)/3)] cursor-pointer lg:w-[calc((100vw-64px)/3)]"
       >
         <div
-          className="relative aspect-[4/5] overflow-hidden border border-border transition-colors duration-500 group-hover:border-muted/30"
+          className="relative aspect-[3/2] overflow-hidden border border-border transition-colors duration-500 group-hover:border-muted/30"
           style={{ backgroundColor: project.color }}
         >
           <motion.img
