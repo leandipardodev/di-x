@@ -159,6 +159,16 @@ export default function Projects() {
   });
 
   const rotateY = useTransform(scrollYProgress, [0, 1], [0, -360]);
+  const rotateX = useTransform(
+    scrollYProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    [0, -6, 4, -5, 0]
+  );
+  const floatY = useTransform(
+    scrollYProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    [0, -12, 6, -8, 0]
+  );
 
   const scrollIndicatorOp = useTransform(scrollYProgress, [0, 0.06], [1, 0]);
 
@@ -214,6 +224,8 @@ export default function Projects() {
                 width: cubeW,
                 height: cubeH,
                 rotateY,
+                rotateX,
+                y: floatY,
                 transformStyle: "preserve-3d",
               }}
             >
