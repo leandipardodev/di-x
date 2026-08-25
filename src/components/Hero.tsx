@@ -128,8 +128,8 @@ export default function Hero() {
 
   return (
     <div ref={containerRef} className="relative" style={{ height: "350vh" }}>
-      <div className="sticky top-0 flex h-[100dvh] w-full items-center justify-center overflow-hidden">
-        <div ref={videoContainerRef} className="absolute inset-0" />
+      <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
+        <div ref={videoContainerRef} className="scrolly-container absolute inset-0" />
 
         <div className="absolute inset-0 z-10 bg-background/70" />
 
