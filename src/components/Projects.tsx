@@ -48,8 +48,8 @@ const projects: Project[] = [
 
 function useCubeSize() {
   const [size, setSize] = useState({
-    w: 350,
-    h: 460,
+    w: 340,
+    h: 440,
     perspective: 1100,
     isMobile: false,
   });
@@ -58,8 +58,8 @@ function useCubeSize() {
       const mobile = window.innerWidth < 768;
       setSize(
         mobile
-          ? { w: 220, h: 300, perspective: 750, isMobile: true }
-          : { w: 350, h: 460, perspective: 1100, isMobile: false }
+          ? { w: 200, h: 280, perspective: 750, isMobile: true }
+          : { w: 340, h: 440, perspective: 1100, isMobile: false }
       );
     };
     update();
@@ -90,7 +90,10 @@ function AnnotationBlock({
             isRight ? "flex-row-reverse" : ""
           }`}
         >
-          <div className="h-px flex-shrink-0 bg-white/15" style={{ width: 48 }} />
+          <div
+            className="h-px flex-shrink-0 bg-white/15"
+            style={{ width: 48 }}
+          />
           <span className="text-[10px] uppercase tracking-[0.25em] text-white/35">
             {project.year}
           </span>
@@ -101,7 +104,10 @@ function AnnotationBlock({
             isRight ? "flex-row-reverse" : ""
           }`}
         >
-          <div className="h-px flex-shrink-0 bg-white/25" style={{ width: 80 }} />
+          <div
+            className="h-px flex-shrink-0 bg-white/25"
+            style={{ width: 80 }}
+          />
           <h3 className="flex-shrink-0 text-xl font-bold tracking-tight text-white lg:text-2xl">
             {project.title}
           </h3>
@@ -116,9 +122,7 @@ function AnnotationBlock({
         </p>
 
         <div
-          className={`flex flex-wrap gap-1.5 ${
-            isRight ? "justify-end" : ""
-          }`}
+          className={`flex flex-wrap gap-1.5 ${isRight ? "justify-end" : ""}`}
         >
           {project.tags.map((tag) => (
             <span
@@ -134,20 +138,6 @@ function AnnotationBlock({
   );
 }
 
-function CTAFace() {
-  return (
-    <div className="flex h-full flex-col items-center justify-center bg-[#080808] text-center">
-      <span className="text-[10px] uppercase tracking-[0.35em] text-white/20">
-        ¿Tenés un proyecto?
-      </span>
-      <h3 className="mt-4 text-2xl font-bold tracking-tight text-white lg:text-3xl">
-        Hablemos
-      </h3>
-      <div className="mt-6 h-px w-12 bg-white/15" />
-    </div>
-  );
-}
-
 export default function Projects() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { w: cubeW, h: cubeH, perspective, isMobile } = useCubeSize();
@@ -158,38 +148,70 @@ export default function Projects() {
     offset: ["start start", "end end"],
   });
 
-  const rotateY = useTransform(scrollYProgress, [0, 1], [0, -360]);
+  const rotateY = useTransform(
+    scrollYProgress,
+    [0, 0.18, 0.28, 0.43, 0.53, 0.68, 0.78, 1],
+    [0, 0, -90, -90, -180, -180, -270, -270]
+  );
   const rotateX = useTransform(
     scrollYProgress,
     [0, 0.25, 0.5, 0.75, 1],
-    [0, -6, 4, -5, 0]
+    [0, -5, 4, -4, 0]
   );
   const floatY = useTransform(
     scrollYProgress,
     [0, 0.25, 0.5, 0.75, 1],
-    [0, -12, 6, -8, 0]
+    [0, -10, 5, -8, 0]
+  );
+  const cubeX = useTransform(
+    scrollYProgress,
+    [0, 0.18, 0.28, 0.43, 0.53, 0.68, 0.78, 1],
+    ["0vw", "0vw", "22vw", "22vw", "-22vw", "-22vw", "0vw", "0vw"]
+  );
+  const cubeOpacity = useTransform(
+    scrollYProgress,
+    [0.88, 0.95],
+    [1, 0]
   );
 
-  const scrollIndicatorOp = useTransform(scrollYProgress, [0, 0.06], [1, 0]);
-
-  const f0 = useTransform(scrollYProgress, [0, 0.04, 0.22, 0.3], [0, 1, 1, 0]);
-  const f1 = useTransform(
+  const hablemosOpacity = useTransform(
     scrollYProgress,
-    [0.22, 0.3, 0.47, 0.55],
+    [0.85, 0.95],
+    [0, 1]
+  );
+  const hablemosScale = useTransform(
+    scrollYProgress,
+    [0.85, 1],
+    [0.5, 1.15]
+  );
+
+  const klipOp = useTransform(
+    scrollYProgress,
+    [0, 0.03, 0.16, 0.26],
     [0, 1, 1, 0]
   );
-  const f2 = useTransform(
+  const boobaOp = useTransform(
     scrollYProgress,
-    [0.47, 0.55, 0.72, 0.8],
+    [0.2, 0.28, 0.41, 0.51],
     [0, 1, 1, 0]
   );
-  const f3 = useTransform(scrollYProgress, [0.72, 0.8, 0.95, 1], [0, 1, 1, 1]);
+  const arcaOp = useTransform(
+    scrollYProgress,
+    [0.46, 0.54, 0.66, 0.76],
+    [0, 1, 1, 0]
+  );
 
-  const faceData = [
-    { ry: 0, project: projects[0], op: f0 },
-    { ry: 90, project: projects[1], op: f1 },
-    { ry: 180, project: projects[2], op: f2 },
-    { ry: 270, project: null, op: f3 },
+  const scrollIndicatorOp = useTransform(
+    scrollYProgress,
+    [0, 0.06],
+    [1, 0]
+  );
+
+  const faces = [
+    { ry: 0, project: projects[0] },
+    { ry: 90, project: projects[1] },
+    { ry: 180, project: projects[2] },
+    { ry: 270, project: null },
   ];
 
   return (
@@ -208,104 +230,147 @@ export default function Projects() {
           />
         </div>
 
-        <div className="relative flex w-full max-w-[1400px] items-center justify-center gap-6 px-6 lg:gap-20 lg:px-16">
+        <div className="relative h-full w-full max-w-[1400px]">
           <div
-            className="relative hidden flex-shrink-0 lg:block"
-            style={{ width: 280, height: cubeH }}
+            className="absolute left-6 z-20 hidden lg:block"
+            style={{ width: 260, top: "50%", transform: "translateY(-50%)" }}
           >
-            <AnnotationBlock project={projects[0]} opacity={f0} />
-            <AnnotationBlock project={projects[1]} opacity={f1} />
-            <AnnotationBlock project={projects[2]} opacity={f2} />
-          </div>
-
-          <div className="relative z-10 flex-shrink-0" style={{ perspective }}>
-            <motion.div
-              style={{
-                width: cubeW,
-                height: cubeH,
-                rotateY,
-                rotateX,
-                y: floatY,
-                transformStyle: "preserve-3d",
-              }}
-            >
-              {faceData.map((face, i) => (
-                <div
-                  key={i}
-                  className="absolute overflow-hidden border border-white/[0.06]"
-                  style={{
-                    width: cubeW,
-                    height: cubeH,
-                    transform: `rotateY(${face.ry}deg) translateZ(${halfD}px)`,
-                    backfaceVisibility: "hidden",
-                  }}
-                >
-                  {face.project ? (
-                    <>
-                      <img
-                        src={face.project.image}
-                        alt={face.project.title}
-                        className="absolute inset-0 h-full w-full object-cover opacity-40"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/30" />
-                      <div className="absolute top-5 left-5 font-mono text-[10px] tracking-wider text-white/20">
-                        {face.project.id}
-                      </div>
-                      <div className="absolute bottom-5 left-5 right-5">
-                        <h3 className="text-xl font-bold tracking-tight text-white lg:text-2xl">
-                          {face.project.title}
-                        </h3>
-                      </div>
-                    </>
-                  ) : (
-                    <CTAFace />
-                  )}
-                </div>
-              ))}
-            </motion.div>
-
-            <div className="absolute -bottom-8 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+            <div className="relative" style={{ height: cubeH }}>
+              <AnnotationBlock project={projects[0]} opacity={klipOp} />
+              <AnnotationBlock project={projects[1]} opacity={boobaOp} />
+            </div>
           </div>
 
           <div
-            className="relative hidden flex-shrink-0 lg:block"
-            style={{ width: 280, height: cubeH }}
+            className="absolute right-6 z-20 hidden lg:block"
+            style={{ width: 260, top: "50%", transform: "translateY(-50%)" }}
           >
-            <AnnotationBlock project={projects[0]} opacity={f0} align="right" />
-            <AnnotationBlock project={projects[1]} opacity={f1} align="right" />
-            <AnnotationBlock project={projects[2]} opacity={f2} align="right" />
-            <motion.div
-              style={{ opacity: f3 }}
-              className="absolute inset-0 flex flex-col justify-center text-right"
-            >
-              <div className="flex items-center justify-end gap-3">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-white/30">
-                  Contacto
-                </span>
-                <div className="h-px w-10 bg-white/15" />
-              </div>
-            </motion.div>
+            <div className="relative" style={{ height: cubeH }}>
+              <AnnotationBlock
+                project={projects[0]}
+                opacity={klipOp}
+                align="right"
+              />
+              <AnnotationBlock
+                project={projects[2]}
+                opacity={arcaOp}
+                align="right"
+              />
+            </div>
           </div>
-        </div>
 
-        {isMobile && (
-          <div className="absolute bottom-20 left-0 right-0 px-6 text-center">
-            {faceData.slice(0, 3).map((face, i) => (
+          <div
+            className="absolute left-1/2 z-10"
+            style={{
+              perspective,
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <motion.div style={{ x: cubeX, opacity: cubeOpacity }}>
               <motion.div
-                key={i}
-                style={{ opacity: face.op }}
+                style={{
+                  width: cubeW,
+                  height: cubeH,
+                  rotateY,
+                  rotateX,
+                  y: floatY,
+                  transformStyle: "preserve-3d",
+                }}
+              >
+                {faces.map((face, i) => (
+                  <div
+                    key={i}
+                    className="absolute overflow-hidden border border-white/[0.06]"
+                    style={{
+                      width: cubeW,
+                      height: cubeH,
+                      transform: `rotateY(${face.ry}deg) translateZ(${halfD}px)`,
+                      backfaceVisibility: "hidden",
+                    }}
+                  >
+                    {face.project ? (
+                      <>
+                        <img
+                          src={face.project.image}
+                          alt={face.project.title}
+                          className="absolute inset-0 h-full w-full object-cover opacity-40"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/30" />
+                        <div className="absolute top-5 left-5 font-mono text-[10px] tracking-wider text-white/20">
+                          {face.project.id}
+                        </div>
+                        <div className="absolute bottom-5 left-5 right-5">
+                          <h3 className="text-xl font-bold tracking-tight text-white lg:text-2xl">
+                            {face.project.title}
+                          </h3>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="flex h-full flex-col items-center justify-center bg-[#080808] text-center">
+                        <span className="text-[10px] uppercase tracking-[0.35em] text-white/20">
+                          ¿Tenés un proyecto?
+                        </span>
+                        <h3 className="mt-4 text-2xl font-bold tracking-tight text-white lg:text-3xl">
+                          Hablemos
+                        </h3>
+                        <div className="mt-6 h-px w-12 bg-white/15" />
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </motion.div>
+              <div className="absolute -bottom-8 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+            </motion.div>
+          </div>
+
+          {isMobile && (
+            <div className="absolute bottom-20 left-0 right-0 px-6 text-center">
+              <motion.div
+                style={{ opacity: klipOp }}
                 className="absolute inset-x-6 bottom-0"
               >
                 <h3 className="text-base font-bold tracking-tight text-white">
-                  {face.project!.title}
+                  Klip
                 </h3>
                 <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/30">
-                  {face.project!.year} · {face.project!.tags[0]}
+                  2026 · React Native
                 </p>
               </motion.div>
-            ))}
-          </div>
-        )}
+              <motion.div
+                style={{ opacity: boobaOp }}
+                className="absolute inset-x-6 bottom-0"
+              >
+                <h3 className="text-base font-bold tracking-tight text-white">
+                  Boobaa
+                </h3>
+                <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/30">
+                  2026 · Arduino
+                </p>
+              </motion.div>
+              <motion.div
+                style={{ opacity: arcaOp }}
+                className="absolute inset-x-6 bottom-0"
+              >
+                <h3 className="text-base font-bold tracking-tight text-white">
+                  Arca
+                </h3>
+                <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/30">
+                  2025 · Next.js
+                </p>
+              </motion.div>
+            </div>
+          )}
+
+          <motion.div
+            style={{ opacity: hablemosOpacity, scale: hablemosScale }}
+            className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center"
+          >
+            <h2 className="text-6xl font-bold tracking-tight text-white lg:text-[8rem]">
+              Hablemos
+            </h2>
+          </motion.div>
+        </div>
 
         <motion.div
           style={{ opacity: scrollIndicatorOp }}
