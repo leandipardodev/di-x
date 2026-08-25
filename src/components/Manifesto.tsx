@@ -12,9 +12,11 @@ export default function Manifesto() {
   });
 
   const lineHeight = useTransform(scrollYProgress, [0.1, 0.5], ["0%", "100%"]);
-  const bgXRotate = useTransform(scrollYProgress, [0, 1], [-15, 15]);
-  const bgXScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.9]);
-  const bgXOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 0.08, 0.08, 0]);
+  const bgXRotate = useTransform(scrollYProgress, [0, 1], [-25, 25]);
+  const bgXScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.7, 1.1, 0.7]);
+  const bgXOpacity = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, 0.1, 0.12, 0.1, 0]);
+  const bgY = useTransform(scrollYProgress, [0, 1], [80, -80]);
+  const bgBlur = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 1], [4, 0, 0, 0, 4]);
 
   return (
     <section
@@ -27,6 +29,8 @@ export default function Manifesto() {
           rotate: bgXRotate,
           scale: bgXScale,
           opacity: bgXOpacity,
+          y: bgY,
+          filter: useTransform(bgBlur, (v) => `blur(${v}px)`),
         }}
         className="pointer-events-none absolute inset-0 flex items-center justify-center"
       >

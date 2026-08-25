@@ -48,6 +48,11 @@ export default function Hero() {
   useEffect(() => {
     if (!videoContainerRef.current || instanceRef.current) return;
 
+    const isIOS =
+      typeof navigator !== "undefined" &&
+      (/iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1));
+
     const loadAndInit = async () => {
       if (!window.ScrollyVideo) {
         await new Promise<void>((resolve, reject) => {
@@ -65,7 +70,7 @@ export default function Hero() {
           src: "/video.mp4",
           trackScroll: false,
           lockScroll: false,
-          useWebCodecs: true,
+          useWebCodecs: !isIOS,
           cover: true,
           sticky: false,
           full: false,
@@ -74,7 +79,7 @@ export default function Hero() {
       }
     };
 
-    loadAndInit();
+    loadAndInit().catch(() => {});
 
     return () => {
       instanceRef.current?.destroy();
