@@ -42,9 +42,9 @@ export default function Hero() {
       const v = videoRef.current;
       if (v && v.duration) {
         const velocity = velocityRef.current;
-        const speed = Math.max(-3, Math.min(3, velocity * 0.15));
+        const speed = Math.max(0, Math.min(3, velocity * 0.15));
 
-        if (Math.abs(speed) > 0.01) {
+        if (speed > 0.01) {
           v.playbackRate = speed;
           if (v.paused) v.play().catch(() => {});
         } else {
