@@ -127,6 +127,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   const textY = useTransform(scrollYProgress, [0, 1], [30, -30]);
   const titleY = useTransform(scrollYProgress, [0, 1], [20, -20]);
   const metaY = useTransform(scrollYProgress, [0, 1], [15, -15]);
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
 
   return (
     <ClipReveal delay={index * 0.1}>
@@ -140,10 +141,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           className="relative aspect-[4/5] overflow-hidden border border-border transition-colors duration-500 group-hover:border-muted/30"
           style={{ backgroundColor: project.color }}
         >
-          <img
+          <motion.img
             src={project.image}
             alt={project.title}
-            className="absolute inset-0 h-full w-full object-cover opacity-80 transition-opacity duration-500 group-hover:opacity-60"
+            style={{ y: imageY }}
+            className="absolute inset-0 h-[120%] w-full object-cover object-center opacity-80 transition-opacity duration-500 group-hover:opacity-60"
           />
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
