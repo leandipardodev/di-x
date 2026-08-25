@@ -59,7 +59,7 @@ export default function Projects() {
   const x = useTransform(
     scrollYProgress,
     [0, 1],
-    ["0%", "-42%"]
+    ["50%", "-50%"]
   );
 
   return (
