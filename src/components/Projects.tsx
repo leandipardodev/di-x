@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 import { RevealLine, ClipReveal } from "./Animations";
 import { ArrowUpRight } from "lucide-react";
 
@@ -46,19 +46,51 @@ const projects: Project[] = [
 
 export default function Projects() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [scrollRange, setScrollRange] = useState<[number, number]>([0, 1]);
+  const [translateX, setTranslateX] = useState(0);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  const x = useTransform(
-    scrollYProgress,
-    [0.1, 0.9],
-    ["0%", "-40%"]
-  );
+  const x = useTransform(scrollYProgress, scrollRange, ["0px", `${translateX}px`]);
+
+  useEffect(() => {
+    const measure = () => {
+      if (!containerRef.current || !trackRef.current) return;
+      const section = containerRef.current;
+      const track = trackRef.current;
+      const sectionRect = section.getBoundingClientRect();
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const viewportHeight = window.innerHeight;
+      const scrollableDistance = sectionHeight - viewportHeight;
+      const trackWidth = track.scrollWidth;
+      const visibleWidth = section.clientWidth;
+      const maxTranslate = -(trackWidth - visibleWidth);
+
+      if (maxTranslate >= 0) {
+        setScrollRange([0, 1]);
+        setTranslateX(0);
+        return;
+      }
+
+      const startProgress = viewportHeight / (sectionHeight + viewportHeight);
+      const endProgress = 1 - viewportHeight / (sectionHeight + viewportHeight);
+
+      setScrollRange([startProgress, endProgress]);
+      setTranslateX(maxTranslate);
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
 
   return (
-    <section id="work" ref={containerRef} className="relative py-32 lg:py-48">
+    <section id="work" ref={containerRef} className="relative min-h-screen py-32 lg:py-48">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <div className="mb-20 flex items-end justify-between">
           <div>
@@ -82,7 +114,7 @@ export default function Projects() {
       </div>
 
       <div className="overflow-hidden">
-        <motion.div style={{ x }} className="flex gap-8 pl-6 lg:pl-12">
+        <motion.div ref={trackRef} style={{ x }} className="flex gap-8 pl-6 lg:pl-12">
           {projects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
           ))}
