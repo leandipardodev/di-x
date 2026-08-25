@@ -4,15 +4,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { RevealLine } from "./Animations";
 
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t;
-}
-
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const targetRef = useRef(0);
-  const currentRef = useRef(0);
+  const lastScrollRef = useRef(0);
+  const velocityRef = useRef(0);
   const rafRef = useRef(0);
 
   const { scrollYProgress } = useScroll({
@@ -34,22 +30,34 @@ export default function Hero() {
     if (!video) return;
 
     video.playbackRate = 0;
-    video.currentTime = 0;
 
     const unsubscribe = scrollYProgress.on("change", (v) => {
-      targetRef.current = v;
+      const scrollY = v * (document.documentElement.scrollHeight - window.innerHeight);
+      const delta = scrollY - lastScrollRef.current;
+      lastScrollRef.current = scrollY;
+      velocityRef.current = delta;
     });
 
     function tick() {
       const v = videoRef.current;
       if (v && v.duration) {
-        const target = targetRef.current;
-        currentRef.current = lerp(currentRef.current, target, 0.08);
-        const seekTo = currentRef.current * v.duration * 0.92;
-        if (Math.abs(v.currentTime - seekTo) > 0.03) {
-          v.currentTime = seekTo;
+        const velocity = velocityRef.current;
+        const speed = Math.max(-3, Math.min(3, velocity * 0.15));
+
+        if (Math.abs(speed) > 0.01) {
+          v.playbackRate = speed;
+          if (v.paused) v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+
+        const progress = v.currentTime / v.duration;
+        if (progress >= 0.92 && velocity >= 0) {
+          v.pause();
         }
       }
+
+      velocityRef.current *= 0.92;
       rafRef.current = requestAnimationFrame(tick);
     }
 
@@ -69,6 +77,7 @@ export default function Hero() {
           muted
           playsInline
           preload="auto"
+          loop
           className="absolute inset-0 h-full w-full object-cover"
         >
           <source src="/video.mp4" type="video/mp4" />
