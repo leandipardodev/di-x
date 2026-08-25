@@ -36,7 +36,7 @@ const projects: Project[] = [
   },
   {
     id: "03",
-    title: "Arca",
+    title: "Dix gestor",
     description:
       "Plataforma para cobrar virtualmente y organizar monotributo, impuestos y facturación.",
     tags: ["Next.js", "API AFIP", "TypeScript"],
@@ -252,9 +252,17 @@ export default function Projects() {
                         {face.project.id}
                       </div>
                       <div className="absolute bottom-5 left-5 right-5">
-                        <h3 className="text-xl font-bold tracking-tight text-white lg:text-2xl">
-                          {face.project.title}
-                        </h3>
+                        {face.project.title === "Dix gestor" ? (
+                          <img
+                            src="/dix-gestor-logo.png"
+                            alt="Dix gestor"
+                            className="h-8 w-auto object-contain lg:h-10"
+                          />
+                        ) : (
+                          <h3 className="text-xl font-bold tracking-tight text-white lg:text-2xl">
+                            {face.project.title}
+                          </h3>
+                        )}
                       </div>
                     </>
                   ) : (
