@@ -16,7 +16,7 @@ export default function Manifesto() {
   const bgXOpacity = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, 0.1, 0.12, 0.1, 0]);
   const bgY = useTransform(scrollYProgress, [0, 1], [80, -80]);
   const bgBlur = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 1], [4, 0, 0, 0, 4]);
-  const shineX = useTransform(scrollYProgress, [0, 1], ["-100%", "200%"]);
+  const bgXGradientPos = useTransform(scrollYProgress, [0, 1], ["0% 50%", "200% 50%"]);
 
   return (
     <section
@@ -31,26 +31,22 @@ export default function Manifesto() {
           y: bgY,
           filter: useTransform(bgBlur, (v) => `blur(${v}px)`),
         }}
-        className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
+        className="pointer-events-none absolute inset-0 flex items-center justify-center"
       >
-        <div className="relative select-none">
-          <span className="text-[40vw] font-bold leading-none text-stroke">
-            X
-          </span>
-          <motion.span
-            style={{ x: shineX }}
-            className="pointer-events-none absolute top-0 h-full w-[30%]"
-            aria-hidden
-          >
-            <span
-              className="block h-full w-full"
-              style={{
-                background:
-                  "linear-gradient(90deg, transparent, rgba(250,250,250,0.35), transparent)",
-              }}
-            />
-          </motion.span>
-        </div>
+        <motion.span
+          style={{
+            backgroundImage:
+              "linear-gradient(105deg, rgba(250,250,250,0.2) 0%, rgba(250,250,250,0.2) 40%, rgba(250,250,250,0.8) 50%, rgba(250,250,250,0.2) 60%, rgba(250,250,250,0.2) 100%)",
+            backgroundSize: "200% 100%",
+            backgroundPosition: bgXGradientPos,
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+          }}
+          className="text-[40vw] font-bold leading-none select-none"
+        >
+          X
+        </motion.span>
       </motion.div>
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
