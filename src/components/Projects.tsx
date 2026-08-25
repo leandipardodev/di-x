@@ -63,9 +63,9 @@ export default function Projects() {
   );
 
   return (
-    <section id="work" ref={containerRef} className="relative py-32 lg:py-48">
+    <section id="work" ref={containerRef} className="relative py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <div className="mb-20 flex items-end justify-between">
+        <div className="mb-10 flex items-end justify-between">
           <div>
             <RevealLine>
               <span className="text-[11px] uppercase tracking-[0.3em] text-muted">
