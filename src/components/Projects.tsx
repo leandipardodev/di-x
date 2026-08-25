@@ -219,11 +219,19 @@ export default function Projects() {
     [0, 0, 1, 1, 0.05, 1, 0.05, 1, 0.05, 1, 0.6]
   );
 
+  const faceDarken = useTransform(
+    scrollYProgress,
+    [0, 0.12, 0.15, 0.25, 0.33, 0.45, 0.53, 0.65, 0.73, 0.85, 1],
+    [1, 0.25, 0, 0, 0.25, 0, 0.25, 0, 0.25, 0, 0.15]
+  );
+
   const faceData = [
-    { ry: 0, project: projects[0], op: f0 },
-    { ry: 90, project: projects[1], op: f1 },
-    { ry: 180, project: projects[2], op: f2 },
-    { ry: 270, project: null, op: f3 },
+    { ry: 0, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: projects[0], op: f0 },
+    { ry: 90, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: projects[1], op: f1 },
+    { ry: 180, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: projects[2], op: f2 },
+    { ry: 270, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: null, op: f3 },
+    { ry: 0, rx: 90, tz: cubeH / 2, w: cubeW, h: cubeW, project: null, op: null },
+    { ry: 0, rx: -90, tz: cubeH / 2, w: cubeW, h: cubeW, project: null, op: null },
   ];
 
   return (
@@ -288,73 +296,85 @@ export default function Projects() {
                   transformStyle: "preserve-3d",
                 }}
               >
-              {faceData.map((face, i) => (
-                <div
-                  key={i}
-                  className="absolute overflow-hidden border border-white/[0.06]"
-                  style={{
-                    width: cubeW,
-                    height: cubeH,
-                    transform: `rotateY(${face.ry}deg) translateZ(${halfD}px)`,
-                    backfaceVisibility: "hidden",
-                  }}
-                >
-                  {face.project ? (
-                    <>
-                      <img
-                        src={face.project.image}
-                        alt={face.project.title}
-                        className="absolute inset-0 h-full w-full object-cover opacity-30"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/50" />
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          background:
-                            "linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 50%, rgba(0,0,0,0.3) 100%)",
-                        }}
-                      />
-                      <div className="absolute top-5 left-5 font-mono text-[10px] tracking-wider text-white/20">
-                        {face.project.id}
-                      </div>
-                      <div
-                        className="absolute bottom-5 left-5 right-5"
-                        style={{
-                          transformStyle: "preserve-3d",
-                          transform: "translateZ(50px)",
-                          filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.6))",
-                        }}
-                      >
-                        {face.project.title === "Dix gestor" ? (
-                          <img
-                            src="/dix-gestor-logo.png"
-                            alt="Dix gestor"
-                            className="h-8 w-auto object-contain lg:h-10"
-                          />
-                        ) : face.project.title === "Klip" ? (
-                          <img
-                            src="/klip-logo.png"
-                            alt="Klip"
-                            className="h-8 w-auto object-contain lg:h-10"
-                          />
-                        ) : face.project.title === "Boobaa" ? (
-                          <img
-                            src="/boobaa-logo.png"
-                            alt="Boobaa"
-                            className="h-8 w-auto object-contain lg:h-10"
-                          />
-                        ) : (
-                          <h3 className="text-xl font-bold tracking-tight text-white lg:text-2xl">
-                            {face.project.title}
-                          </h3>
-                        )}
-                      </div>
-                    </>
-                  ) : (
-                    <CTAFace />
-                  )}
-                </div>
-              ))}
+              {faceData.map((face, i) => {
+                const tx = face.rx === 90 || face.rx === -90
+                  ? `rotateX(${face.rx}deg) translateZ(${face.tz}px)`
+                  : `rotateY(${face.ry}deg) translateZ(${face.tz}px)`;
+                return (
+                  <div
+                    key={i}
+                    className="absolute overflow-hidden"
+                    style={{
+                      width: face.w,
+                      height: face.h,
+                      transform: tx,
+                      backfaceVisibility: "hidden",
+                      backgroundColor: "#0a0a0a",
+                      border: face.project ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(255,255,255,0.03)",
+                    }}
+                  >
+                    {face.project ? (
+                      <>
+                        <img
+                          src={face.project.image}
+                          alt={face.project.title}
+                          className="absolute inset-0 h-full w-full object-cover opacity-30"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/50" />
+                        <div
+                          className="absolute inset-0"
+                          style={{
+                            background:
+                              "linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 50%, rgba(0,0,0,0.3) 100%)",
+                          }}
+                        />
+                        <div className="absolute top-5 left-5 font-mono text-[10px] tracking-wider text-white/20">
+                          {face.project.id}
+                        </div>
+                        <div
+                          className="absolute bottom-5 left-5 right-5"
+                          style={{
+                            transformStyle: "preserve-3d",
+                            transform: "translateZ(50px)",
+                            filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.6))",
+                          }}
+                        >
+                          {face.project.title === "Dix gestor" ? (
+                            <img
+                              src="/dix-gestor-logo.png"
+                              alt="Dix gestor"
+                              className="h-8 w-auto object-contain lg:h-10"
+                            />
+                          ) : face.project.title === "Klip" ? (
+                            <img
+                              src="/klip-logo.png"
+                              alt="Klip"
+                              className="h-8 w-auto object-contain lg:h-10"
+                            />
+                          ) : face.project.title === "Boobaa" ? (
+                            <img
+                              src="/boobaa-logo.png"
+                              alt="Boobaa"
+                              className="h-8 w-auto object-contain lg:h-10"
+                            />
+                          ) : (
+                            <h3 className="text-xl font-bold tracking-tight text-white lg:text-2xl">
+                              {face.project.title}
+                            </h3>
+                          )}
+                        </div>
+                      </>
+                    ) : (
+                      <CTAFace />
+                    )}
+
+                    <motion.div
+                      style={{ opacity: faceDarken }}
+                      className="absolute inset-0 bg-[#0a0a0a]"
+                    />
+                  </div>
+                );
+              })}
               </motion.div>
 
               <div className="absolute -bottom-8 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
@@ -384,10 +404,10 @@ export default function Projects() {
 
         {isMobile && (
           <div className="absolute bottom-20 left-0 right-0 px-6 text-center">
-            {faceData.slice(0, 3).map((face, i) => (
+            {faceData.filter(f => f.op !== null).map((face, i) => (
               <motion.div
                 key={i}
-                style={{ opacity: face.op }}
+                style={{ opacity: face.op! }}
                 className="absolute inset-x-6 bottom-0"
               >
                 <h3 className="text-base font-bold tracking-tight text-white">
