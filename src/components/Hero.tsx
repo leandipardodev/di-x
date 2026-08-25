@@ -43,6 +43,7 @@ export default function Hero() {
 
   const labelOpacity = useTransform(scrollYProgress, [0.28, 0.42], [0, 1]);
   const footerOpacity = useTransform(scrollYProgress, [0.28, 0.42], [0, 1]);
+  const endOverlay = useTransform(scrollYProgress, [0.88, 1], [0, 1]);
 
   useEffect(() => {
     const suppressVideoAbort = (e: PromiseRejectionEvent) => {
@@ -132,6 +133,11 @@ export default function Hero() {
         <div ref={videoContainerRef} className="scrolly-container absolute inset-0" />
 
         <div className="absolute inset-0 z-10 bg-background/70" />
+
+        <motion.div
+          style={{ opacity: endOverlay }}
+          className="absolute inset-0 z-10 bg-background"
+        />
 
         <motion.div
           className="relative z-20 flex flex-col items-center px-6"
