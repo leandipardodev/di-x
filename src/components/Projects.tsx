@@ -59,7 +59,7 @@ export default function Projects() {
   const x = useTransform(
     scrollYProgress,
     [0, 1],
-    ["8%", "-20%"]
+    ["2%", "-20%"]
   );
 
   return (
@@ -135,7 +135,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         ref={cardRef}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="group relative flex-shrink-0 w-[85vw] cursor-pointer lg:w-[520px]"
+        className="group relative flex-shrink-0 w-[75vw] cursor-pointer lg:w-[520px]"
       >
         <div
           className="relative aspect-[4/5] overflow-hidden border border-border transition-colors duration-500 group-hover:border-muted/30"
