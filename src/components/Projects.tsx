@@ -12,6 +12,7 @@ interface Project {
   tags: string[];
   year: string;
   color: string;
+  image: string;
 }
 
 const projects: Project[] = [
@@ -19,28 +20,31 @@ const projects: Project[] = [
     id: "01",
     title: "Klip",
     description:
-      "Plataforma de contenido digital que redefine la experiencia de consumo de medios.",
-    tags: ["React", "TypeScript", "D3.js"],
+      "App de gestión de turnos, finanzas y administración integral para locales.",
+    tags: ["React Native", "Node.js", "PostgreSQL"],
     year: "2026",
     color: "#1a1a2e",
+    image: "/klip.webp",
   },
   {
     id: "02",
     title: "Boobaa",
     description:
-      "Ecosistema de software diseñado para escalar con elegancia y precisión.",
-    tags: ["Next.js", "Stripe", "PostgreSQL"],
+      "Kiosco automático con Arduino. Máquina dispensadora inteligente con gestión remota.",
+    tags: ["Arduino", "IoT", "React"],
     year: "2026",
     color: "#0f2e1a",
+    image: "/booba.webp",
   },
   {
     id: "03",
-    title: "Afip",
+    title: "Arca",
     description:
-      "Sistema de gestión y cumplimiento tributario con una interfaz clara y eficiente.",
-    tags: ["Next.js", "MapLibre", "Go"],
+      "Plataforma para cobrar virtualmente y organizar monotributo, impuestos y facturación.",
+    tags: ["Next.js", "API AFIP", "TypeScript"],
     year: "2025",
     color: "#2e1a1a",
+    image: "/arca.webp",
   },
 ];
 
@@ -126,6 +130,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           className="relative aspect-[4/5] overflow-hidden border border-border transition-colors duration-500 group-hover:border-muted/30"
           style={{ backgroundColor: project.color }}
         >
+          <img
+            src={project.image}
+            alt={project.title}
+            className="absolute inset-0 h-full w-full object-cover opacity-80 transition-opacity duration-500 group-hover:opacity-60"
+          />
           <div className="absolute inset-0 flex flex-col justify-end p-8 lg:p-10">
             <div className="flex items-start justify-between">
               <div>
