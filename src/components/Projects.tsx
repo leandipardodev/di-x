@@ -158,37 +158,65 @@ export default function Projects() {
     offset: ["start start", "end end"],
   });
 
-  const rotateY = useTransform(scrollYProgress, [0, 1], [0, -270]);
+  const rotateY = useTransform(
+    scrollYProgress,
+    [0, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 1],
+    [0, 0, -90, -90, -180, -180, -270, -270, -270, -270]
+  );
   const rotateX = useTransform(
     scrollYProgress,
-    [0, 0.25, 0.5, 0.75, 1],
-    [0, -6, 4, -5, 0]
+    [0, 0.15, 0.35, 0.55, 0.75, 1],
+    [0, 0, -5, 4, -4, 0]
   );
   const floatY = useTransform(
     scrollYProgress,
-    [0, 0.25, 0.5, 0.75, 1],
-    [0, -12, 6, -8, 0]
+    [0, 0.15, 0.35, 0.55, 0.75, 1],
+    [0, 0, -10, 5, -8, 0]
+  );
+
+  const cubeScale = useTransform(
+    scrollYProgress,
+    [0, 0.15],
+    [0.25, 1]
+  );
+  const cubeIntroOp = useTransform(
+    scrollYProgress,
+    [0, 0.03, 0.12],
+    [0, 0.3, 1]
+  );
+  const cubeIntroY = useTransform(
+    scrollYProgress,
+    [0, 0.15],
+    [-80, 0]
   );
 
   const scrollIndicatorOp = useTransform(scrollYProgress, [0, 0.06], [1, 0]);
 
-  const f0 = useTransform(scrollYProgress, [0, 0.04, 0.22, 0.3], [0, 1, 1, 0]);
+  const f0 = useTransform(
+    scrollYProgress,
+    [0.12, 0.17, 0.32, 0.4],
+    [0, 1, 1, 0]
+  );
   const f1 = useTransform(
     scrollYProgress,
-    [0.22, 0.3, 0.47, 0.55],
+    [0.33, 0.4, 0.55, 0.63],
     [0, 1, 1, 0]
   );
   const f2 = useTransform(
     scrollYProgress,
-    [0.47, 0.55, 0.72, 0.8],
+    [0.56, 0.63, 0.78, 0.86],
     [0, 1, 1, 0]
   );
-  const f3 = useTransform(scrollYProgress, [0.72, 0.8, 0.95, 1], [0, 1, 1, 1]);
+  const f3 = useTransform(
+    scrollYProgress,
+    [0.79, 0.86, 0.97, 1],
+    [0, 1, 1, 1]
+  );
 
   const spotlightOp = useTransform(
     scrollYProgress,
-    [0, 0.14, 0.26, 0.42, 0.53, 0.68, 0.76, 0.85, 1],
-    [1, 1, 0.05, 1, 0.05, 1, 0.05, 1, 0.7]
+    [0, 0.12, 0.15, 0.25, 0.33, 0.45, 0.53, 0.65, 0.73, 0.85, 1],
+    [0, 0, 1, 1, 0.05, 1, 0.05, 1, 0.05, 1, 0.6]
   );
 
   const faceData = [
@@ -199,7 +227,7 @@ export default function Projects() {
   ];
 
   return (
-    <section ref={containerRef} className="relative h-[400vh]">
+    <section ref={containerRef} className="relative h-[450vh]">
       <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
         <div className="absolute top-8 left-1/2 -translate-x-1/2">
           <span className="text-[11px] uppercase tracking-[0.3em] text-white/15">
@@ -229,15 +257,16 @@ export default function Projects() {
               style={{
                 opacity: spotlightOp,
               }}
-              className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2"
+              className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2"
             >
               <div
                 style={{
-                  width: cubeW * 2.2,
-                  height: 280,
+                  width: cubeW * 1.2,
+                  height: cubeH * 1.4,
                   background:
-                    "radial-gradient(ellipse at center top, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.08) 30%, transparent 65%)",
-                  filter: "blur(20px)",
+                    "linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.08) 35%, rgba(255,255,255,0.02) 60%, transparent 100%)",
+                  filter: "blur(25px)",
+                  borderRadius: "50% 50% 50% 50% / 30% 30% 70% 70%",
                 }}
               />
             </motion.div>
@@ -249,6 +278,8 @@ export default function Projects() {
                 rotateY,
                 rotateX,
                 y: floatY,
+                scale: cubeScale,
+                opacity: cubeIntroOp,
                 transformStyle: "preserve-3d",
               }}
             >
