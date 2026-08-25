@@ -6,8 +6,7 @@ import {
   useTransform,
   useMotionValueEvent,
 } from "framer-motion";
-import { useRef, useEffect, useCallback } from "react";
-import { RevealLine } from "./Animations";
+import { useRef, useEffect, useCallback, useState } from "react";
 
 declare global {
   interface Window {
@@ -18,6 +17,11 @@ declare global {
   }
 }
 
+const descriptionWords =
+  "Diseño y desarrollo de software con precisión y propósito. Experiencias digitales que generan impacto.".split(
+    " "
+  );
+
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
@@ -26,18 +30,19 @@ export default function Hero() {
     setVideoPercentage: (p: number, opts?: { jump?: boolean }) => void;
   } | null>(null);
 
+  const [visibleWords, setVisibleWords] = useState(0);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  const textOpacity = useTransform(scrollYProgress, [0, 0.1, 0.3], [0, 1, 0]);
-  const titleScale = useTransform(scrollYProgress, [0, 0.15], [0.85, 1]);
-  const overlayOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.15, 0.5, 0.85, 1],
-    [0.75, 0.3, 0.2, 0.2, 1]
-  );
+  const titleBlur = useTransform(scrollYProgress, [0, 0.3], [20, 0]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.25], [0.3, 1]);
+  const titleScale = useTransform(scrollYProgress, [0, 0.3], [1.05, 1]);
+
+  const labelOpacity = useTransform(scrollYProgress, [0.28, 0.35], [0, 1]);
+  const footerOpacity = useTransform(scrollYProgress, [0.28, 0.35], [0, 1]);
 
   const onReady = useCallback(() => {
     if (instanceRef.current) {
@@ -59,7 +64,8 @@ export default function Hero() {
           const script = document.createElement("script");
           script.src = "/scrolly-video.js";
           script.onload = () => resolve();
-          script.onerror = () => reject(new Error("Failed to load scrolly-video.js"));
+          script.onerror = () =>
+            reject(new Error("Failed to load scrolly-video.js"));
           document.head.appendChild(script);
         });
       }
@@ -89,6 +95,15 @@ export default function Hero() {
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     instanceRef.current?.setVideoPercentage(latest);
+
+    if (latest >= 0.7 && latest <= 0.9) {
+      const t = (latest - 0.7) / 0.2;
+      setVisibleWords(Math.floor(t * descriptionWords.length));
+    } else if (latest < 0.7) {
+      setVisibleWords(0);
+    } else {
+      setVisibleWords(descriptionWords.length);
+    }
   });
 
   return (
@@ -96,29 +111,26 @@ export default function Hero() {
       <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
         <div ref={videoContainerRef} className="absolute inset-0" />
 
-        <motion.div
-          style={{ opacity: overlayOpacity }}
-          className="absolute inset-0 bg-background z-10"
-        />
+        <div className="absolute inset-0 z-10 bg-background/70" />
 
         <motion.div
-          style={{ opacity: textOpacity, scale: titleScale }}
           className="relative z-20 flex flex-col items-center px-6"
         >
-          <RevealLine className="mb-4">
-            <span className="text-[11px] uppercase tracking-[0.4em] text-muted">
-              Estudio de Software
-            </span>
-          </RevealLine>
+          <motion.span
+            style={{
+              opacity: labelOpacity,
+            }}
+            className="mb-4 text-[11px] uppercase tracking-[0.4em] text-muted"
+          >
+            Estudio de Software
+          </motion.span>
 
           <div className="overflow-hidden">
             <motion.h1
-              initial={{ y: "110%" }}
-              animate={{ y: "0%" }}
-              transition={{
-                duration: 1.2,
-                ease: [0.33, 1, 0.68, 1],
-                delay: 0.2,
+              style={{
+                filter: useTransform(titleBlur, (v) => `blur(${v}px)`),
+                opacity: titleOpacity,
+                scale: titleScale,
               }}
               className="text-center text-[clamp(3.5rem,12vw,11rem)] font-bold leading-[0.9] tracking-tighter"
             >
@@ -128,24 +140,28 @@ export default function Hero() {
           </div>
 
           <div className="mt-10 flex flex-col items-center gap-6">
-            <RevealLine delay={0.5}>
-              <p className="max-w-md text-center text-sm leading-relaxed text-muted">
-                Diseño y desarrollo de software con precisión y propósito.
-                <br />
-                Experiencias digitales que generan impacto.
-              </p>
-            </RevealLine>
+            <p className="max-w-md text-center text-sm leading-relaxed text-muted">
+              {descriptionWords.map((word, i) => (
+                <span
+                  key={i}
+                  className="inline-block transition-opacity duration-200"
+                  style={{ opacity: i < visibleWords ? 1 : 0 }}
+                >
+                  {word}{" "}
+                </span>
+              ))}
+            </p>
 
-            <RevealLine delay={0.7}>
-              <div className="flex items-center gap-4 text-[10px] uppercase tracking-[0.3em] text-muted">
-                <span>Buenos Aires</span>
-                <span className="h-px w-8 bg-border" />
-                <span>2026</span>
-              </div>
-            </RevealLine>
+            <motion.div
+              style={{ opacity: footerOpacity }}
+              className="flex items-center gap-4 text-[10px] uppercase tracking-[0.3em] text-muted"
+            >
+              <span>Buenos Aires</span>
+              <span className="h-px w-8 bg-border" />
+              <span>2026</span>
+            </motion.div>
           </div>
         </motion.div>
-
       </div>
     </div>
   );
