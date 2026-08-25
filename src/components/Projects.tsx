@@ -46,14 +46,15 @@ const projects: Project[] = [
 
 export default function Projects() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: trackRef,
     offset: ["start end", "end start"],
   });
 
   const x = useTransform(
     scrollYProgress,
-    [0, 0.7],
+    [0, 1],
     ["0%", "-25%"]
   );
 
@@ -81,7 +82,7 @@ export default function Projects() {
         </div>
       </div>
 
-      <div className="overflow-hidden">
+      <div ref={trackRef} className="overflow-hidden">
         <motion.div style={{ x }} className="flex gap-8 pl-6 lg:pl-12">
           {projects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
