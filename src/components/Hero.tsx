@@ -44,6 +44,15 @@ export default function Hero() {
   const labelOpacity = useTransform(scrollYProgress, [0.28, 0.42], [0, 1]);
   const footerOpacity = useTransform(scrollYProgress, [0.28, 0.42], [0, 1]);
 
+  useEffect(() => {
+    const suppressVideoAbort = (e: PromiseRejectionEvent) => {
+      if (e.reason?.name === "AbortError") e.preventDefault();
+    };
+    window.addEventListener("unhandledrejection", suppressVideoAbort);
+    return () =>
+      window.removeEventListener("unhandledrejection", suppressVideoAbort);
+  }, []);
+
   const onReady = useCallback(() => {
     if (instanceRef.current) {
       instanceRef.current.setVideoPercentage(0, { jump: true });
