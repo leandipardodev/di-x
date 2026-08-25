@@ -41,8 +41,8 @@ export default function Hero() {
   const titleOpacity = useTransform(scrollYProgress, [0, 0.25], [0.3, 1]);
   const titleScale = useTransform(scrollYProgress, [0, 0.3], [1.05, 1]);
 
-  const labelOpacity = useTransform(scrollYProgress, [0.28, 0.35], [0, 1]);
-  const footerOpacity = useTransform(scrollYProgress, [0.28, 0.35], [0, 1]);
+  const labelOpacity = useTransform(scrollYProgress, [0.28, 0.42], [0, 1]);
+  const footerOpacity = useTransform(scrollYProgress, [0.28, 0.42], [0, 1]);
 
   const onReady = useCallback(() => {
     if (instanceRef.current) {
@@ -131,7 +131,7 @@ export default function Hero() {
             Estudio de Software
           </motion.span>
 
-          <div className="overflow-hidden">
+          <div>
             <motion.h1
               style={{
                 filter: useTransform(titleBlur, (v) => `blur(${v}px)`),
@@ -150,10 +150,10 @@ export default function Hero() {
               {descriptionWords.map((word, i) => (
                 <span
                   key={i}
-                  className="inline-block transition-opacity duration-200"
+                  className="inline-block mr-[0.25em] transition-opacity duration-200"
                   style={{ opacity: i < visibleWords ? 1 : 0 }}
                 >
-                  {word}{" "}
+                  {word}
                 </span>
               ))}
             </p>
