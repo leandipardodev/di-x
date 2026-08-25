@@ -1,33 +1,33 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useEffect } from "react";
 import { RevealLine } from "./Animations";
+
+function lerp(a: number, b: number, t: number) {
+  return a + (b - a) * t;
+}
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoReady, setVideoReady] = useState(false);
+  const targetRef = useRef(0);
+  const currentRef = useRef(0);
+  const rafRef = useRef(0);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  const videoTime = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.15, 0.35], [0, 1, 0]);
-  const titleScale = useTransform(scrollYProgress, [0, 0.2], [0.8, 1]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.7, 0.4, 0.3, 0.6]);
-  const scrollIndicatorOpacity = useTransform(scrollYProgress, [0.05, 0.15], [1, 0]);
-
-  useMotionValueEvent(videoTime, "change", (v) => {
-    if (videoRef.current && videoReady) {
-      const duration = videoRef.current.duration;
-      if (duration) {
-        videoRef.current.currentTime = v * duration * 0.92;
-      }
-    }
-  });
+  const textOpacity = useTransform(scrollYProgress, [0, 0.1, 0.3], [0, 1, 0]);
+  const titleScale = useTransform(scrollYProgress, [0, 0.15], [0.85, 1]);
+  const overlayOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.6, 1],
+    [0.75, 0.45, 0.35, 0.65]
+  );
+  const scrollIndicatorOpacity = useTransform(scrollYProgress, [0.05, 0.12], [1, 0]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -36,10 +36,30 @@ export default function Hero() {
     video.playbackRate = 0;
     video.currentTime = 0;
 
-    const handleLoaded = () => setVideoReady(true);
-    video.addEventListener("loadeddata", handleLoaded);
-    return () => video.removeEventListener("loadeddata", handleLoaded);
-  }, []);
+    const unsubscribe = scrollYProgress.on("change", (v) => {
+      targetRef.current = v;
+    });
+
+    function tick() {
+      const v = videoRef.current;
+      if (v && v.duration) {
+        const target = targetRef.current;
+        currentRef.current = lerp(currentRef.current, target, 0.08);
+        const seekTo = currentRef.current * v.duration * 0.92;
+        if (Math.abs(v.currentTime - seekTo) > 0.03) {
+          v.currentTime = seekTo;
+        }
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    }
+
+    rafRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      unsubscribe();
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, [scrollYProgress]);
 
   return (
     <div ref={containerRef} className="relative" style={{ height: "350vh" }}>
