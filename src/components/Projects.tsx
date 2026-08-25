@@ -158,7 +158,7 @@ export default function Projects() {
     offset: ["start start", "end end"],
   });
 
-  const rotateY = useTransform(scrollYProgress, [0, 1], [0, -360]);
+  const rotateY = useTransform(scrollYProgress, [0, 1], [0, -270]);
   const rotateX = useTransform(
     scrollYProgress,
     [0, 0.25, 0.5, 0.75, 1],
