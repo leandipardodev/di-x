@@ -136,14 +136,14 @@ function AnnotationBlock({
 
 function CTAFace() {
   return (
-    <div className="flex h-full flex-col items-center justify-center bg-[#080808] text-center">
-      <span className="text-[10px] uppercase tracking-[0.35em] text-white/20">
+    <div className="flex h-full flex-col items-center justify-center text-center">
+      <span className="text-[10px] uppercase tracking-[0.35em] text-white/40">
         ¿Tenés un proyecto?
       </span>
       <h3 className="mt-4 text-2xl font-bold tracking-tight text-white lg:text-3xl">
         Hablemos
       </h3>
-      <div className="mt-6 h-px w-12 bg-white/15" />
+      <div className="mt-6 h-px w-12 bg-white/25" />
     </div>
   );
 }
@@ -215,14 +215,14 @@ export default function Projects() {
 
   const spotlightOp = useTransform(
     scrollYProgress,
-    [0, 0.08, 0.15, 0.29, 0.43, 0.58, 0.72, 0.86, 1],
-    [0, 0, 1, 0.05, 1, 0.05, 1, 0.05, 0]
+    [0, 0.08, 0.15, 0.29, 0.43, 0.58, 0.72, 0.86, 0.93, 1],
+    [0, 0, 1, 0.05, 1, 0.05, 1, 0.05, 0.8, 1]
   );
 
   const faceDarken = useTransform(
     scrollYProgress,
-    [0, 0.08, 0.15, 0.29, 0.43, 0.58, 0.72, 0.86, 1],
-    [0.9, 0.9, 0, 0.8, 0, 0.8, 0, 0.8, 0.2]
+    [0, 0.08, 0.15, 0.29, 0.43, 0.58, 0.72, 0.86, 0.93, 1],
+    [0.9, 0.9, 0, 0.8, 0, 0.8, 0, 0.8, 0.15, 0]
   );
 
   const imgOpacity = useTransform(spotlightOp, [0, 1], [0.15, 0.55]);
@@ -308,8 +308,9 @@ export default function Projects() {
                     style={{
                       width: face.w,
                       height: face.h,
+                      top: isCap ? (cubeH - cubeW) / 2 : 0,
+                      left: isCap ? (cubeW - face.w) / 2 : 0,
                       transform: tx,
-                      transformOrigin: isCap ? `${cubeW / 2}px ${cubeH / 2}px` : undefined,
                       backfaceVisibility: "hidden",
                       backgroundColor: "#0a0a0a",
                       border: face.project ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(255,255,255,0.03)",
