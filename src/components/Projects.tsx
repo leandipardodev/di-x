@@ -86,8 +86,8 @@ export default function Projects() {
         </div>
       </div>
 
-      <div ref={trackRef} className="overflow-hidden">
-        <motion.div style={{ x }} className="flex gap-8 pl-6 lg:pl-12">
+      <div ref={trackRef} className="w-full overflow-hidden">
+        <motion.div style={{ x }} className="flex w-max gap-8 pl-6 lg:pl-12">
           {projects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
           ))}
