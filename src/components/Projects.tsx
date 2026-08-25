@@ -222,16 +222,18 @@ export default function Projects() {
   const faceDarken = useTransform(
     scrollYProgress,
     [0, 0.12, 0.15, 0.25, 0.33, 0.45, 0.53, 0.65, 0.73, 0.85, 1],
-    [1, 0.25, 0, 0, 0.25, 0, 0.25, 0, 0.25, 0, 0.15]
+    [0.9, 0.25, 0, 0, 0.25, 0, 0.25, 0, 0.25, 0, 0.15]
   );
+
+  const imgOpacity = useTransform(spotlightOp, [0, 1], [0.15, 0.55]);
 
   const faceData = [
     { ry: 0, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: projects[0], op: f0 },
     { ry: 90, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: projects[1], op: f1 },
     { ry: 180, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: projects[2], op: f2 },
     { ry: 270, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: null, op: f3 },
-    { ry: 0, rx: 90, tz: cubeH / 2, w: cubeW, h: cubeW, project: null, op: null },
     { ry: 0, rx: -90, tz: cubeH / 2, w: cubeW, h: cubeW, project: null, op: null },
+    { ry: 0, rx: 90, tz: cubeH / 2, w: cubeW, h: cubeW, project: null, op: null },
   ];
 
   return (
@@ -260,25 +262,23 @@ export default function Projects() {
             <AnnotationBlock project={projects[2]} opacity={f2} />
           </div>
 
-          <div className="relative z-10 flex-shrink-0" style={{ perspective }}>
+          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-full z-20">
             <motion.div
-              style={{
-                opacity: spotlightOp,
-              }}
-              className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2"
+              style={{ opacity: spotlightOp }}
             >
               <div
                 style={{
-                  width: cubeW * 1.2,
-                  height: cubeH * 1.4,
+                  width: cubeW * 1.3,
+                  height: cubeH * 0.8,
                   background:
-                    "linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.08) 35%, rgba(255,255,255,0.02) 60%, transparent 100%)",
-                  filter: "blur(25px)",
-                  borderRadius: "50% 50% 50% 50% / 30% 30% 70% 70%",
+                    "radial-gradient(ellipse at center bottom, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 40%, transparent 70%)",
+                  filter: "blur(30px)",
                 }}
               />
             </motion.div>
+          </div>
 
+          <div className="relative z-10 flex-shrink-0" style={{ perspective }}>
             <motion.div
               style={{
                 scale: cubeScale,
@@ -315,17 +315,18 @@ export default function Projects() {
                   >
                     {face.project ? (
                       <>
-                        <img
+                        <motion.img
                           src={face.project.image}
                           alt={face.project.title}
-                          className="absolute inset-0 h-full w-full object-cover opacity-30"
+                          className="absolute inset-0 h-full w-full object-cover"
+                          style={{ opacity: imgOpacity }}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/50" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
                         <div
                           className="absolute inset-0"
                           style={{
                             background:
-                              "linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 50%, rgba(0,0,0,0.3) 100%)",
+                              "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 40%, rgba(0,0,0,0.15) 100%)",
                           }}
                         />
                         <div className="absolute top-5 left-5 font-mono text-[10px] tracking-wider text-white/20">
