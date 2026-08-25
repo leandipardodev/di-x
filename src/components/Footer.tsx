@@ -1,0 +1,87 @@
+"use client";
+
+import { RevealLine } from "./Animations";
+
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className="border-t border-border">
+      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-12 lg:py-20">
+        <div className="grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-6">
+            <RevealLine>
+              <div className="flex items-baseline gap-0">
+                <span className="text-4xl font-bold tracking-tighter">di</span>
+                <span className="text-4xl font-light text-muted">.</span>
+                <span className="text-4xl font-bold tracking-tighter">X</span>
+              </div>
+            </RevealLine>
+            <RevealLine delay={0.1}>
+              <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
+                Estudio de software creando experiencias digitales de alto impacto.
+              </p>
+            </RevealLine>
+          </div>
+
+          <div className="lg:col-span-5 lg:col-start-8">
+            <div className="grid grid-cols-2 gap-8">
+              <RevealLine delay={0.1}>
+                <div>
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-muted">
+                    Navegación
+                  </span>
+                  <div className="mt-4 flex flex-col gap-3">
+                    {["Estudio", "Proyectos", "Contacto"].map((item) => (
+                      <a
+                        key={item}
+                        href={`#${item.toLowerCase() === "estudio" ? "studio" : item.toLowerCase() === "proyectos" ? "work" : "contact"}`}
+                        className="text-sm text-muted transition-colors hover:text-foreground"
+                      >
+                        {item}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </RevealLine>
+
+              <RevealLine delay={0.2}>
+                <div>
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-muted">
+                    Redes
+                  </span>
+                  <div className="mt-4 flex flex-col gap-3">
+                    {[
+                      { name: "GitHub", href: "https://github.com/di-x" },
+                      { name: "LinkedIn", href: "https://linkedin.com" },
+                      { name: "Twitter", href: "https://twitter.com" },
+                    ].map((link) => (
+                      <a
+                        key={link.name}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-muted transition-colors hover:text-foreground"
+                      >
+                        {link.name}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </RevealLine>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-muted">
+            &copy; {currentYear} di.X. Todos los derechos reservados.
+          </span>
+          <span className="text-[10px] uppercase tracking-[0.2em] text-muted">
+            Construido con precisión
+          </span>
+        </div>
+      </div>
+    </footer>
+  );
+}
