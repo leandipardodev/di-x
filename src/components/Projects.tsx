@@ -185,6 +185,12 @@ export default function Projects() {
   );
   const f3 = useTransform(scrollYProgress, [0.72, 0.8, 0.95, 1], [0, 1, 1, 1]);
 
+  const spotlightOp = useTransform(
+    scrollYProgress,
+    [0, 0.14, 0.28, 0.42, 0.55, 0.68, 0.82, 1],
+    [0.7, 1, 0.7, 1, 0.7, 1, 0.7, 0.5]
+  );
+
   const faceData = [
     { ry: 0, project: projects[0], op: f0 },
     { ry: 90, project: projects[1], op: f1 },
@@ -221,6 +227,24 @@ export default function Projects() {
           <div className="relative z-10 flex-shrink-0" style={{ perspective }}>
             <motion.div
               style={{
+                opacity: spotlightOp,
+              }}
+              className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2"
+            >
+              <div
+                className="rounded-full"
+                style={{
+                  width: cubeW * 1.8,
+                  height: 200,
+                  background:
+                    "radial-gradient(ellipse at center top, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 40%, transparent 70%)",
+                  filter: "blur(30px)",
+                }}
+              />
+            </motion.div>
+
+            <motion.div
+              style={{
                 width: cubeW,
                 height: cubeH,
                 rotateY,
@@ -248,10 +272,23 @@ export default function Projects() {
                         className="absolute inset-0 h-full w-full object-cover opacity-40"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/30" />
+                      <div
+                        className="absolute inset-0"
+                        style={{
+                          background:
+                            "linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 50%, rgba(0,0,0,0.3) 100%)",
+                        }}
+                      />
                       <div className="absolute top-5 left-5 font-mono text-[10px] tracking-wider text-white/20">
                         {face.project.id}
                       </div>
-                      <div className="absolute bottom-5 left-5 right-5">
+                      <div
+                        className="absolute bottom-5 left-5 right-5"
+                        style={{
+                          transformStyle: "preserve-3d",
+                          transform: "translateZ(25px)",
+                        }}
+                      >
                         {face.project.title === "Dix gestor" ? (
                           <img
                             src="/dix-gestor-logo.png"
