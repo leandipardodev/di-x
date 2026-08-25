@@ -160,17 +160,17 @@ export default function Projects() {
 
   const rotateY = useTransform(
     scrollYProgress,
-    [0, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 1],
-    [-30, 0, -90, -90, -180, -180, -270, -270, -270, -270]
+    [0, 0.15, 1],
+    [-30, 0, -270]
   );
   const rotateX = useTransform(
     scrollYProgress,
-    [0, 0.15, 0.35, 0.55, 0.75, 1],
+    [0, 0.15, 0.4, 0.65, 0.9, 1],
     [0, 0, -5, 4, -4, 0]
   );
   const floatY = useTransform(
     scrollYProgress,
-    [0, 0.15, 0.35, 0.55, 0.75, 1],
+    [0, 0.15, 0.4, 0.65, 0.9, 1],
     [0, 0, -10, 5, -8, 0]
   );
 
@@ -194,35 +194,35 @@ export default function Projects() {
 
   const f0 = useTransform(
     scrollYProgress,
-    [0.12, 0.17, 0.32, 0.4],
-    [0, 1, 1, 0]
+    [0.10, 0.15, 0.20],
+    [0, 1, 0]
   );
   const f1 = useTransform(
     scrollYProgress,
-    [0.33, 0.4, 0.55, 0.63],
-    [0, 1, 1, 0]
+    [0.38, 0.43, 0.48],
+    [0, 1, 0]
   );
   const f2 = useTransform(
     scrollYProgress,
-    [0.56, 0.63, 0.78, 0.86],
-    [0, 1, 1, 0]
+    [0.67, 0.72, 0.77],
+    [0, 1, 0]
   );
   const f3 = useTransform(
     scrollYProgress,
-    [0.79, 0.86, 0.97, 1],
-    [0, 1, 1, 1]
+    [0.92, 0.97, 1],
+    [0, 1, 1]
   );
 
   const spotlightOp = useTransform(
     scrollYProgress,
-    [0, 0.12, 0.15, 0.25, 0.33, 0.45, 0.53, 0.65, 0.73, 0.85, 1],
-    [0, 0, 1, 1, 0.05, 1, 0.05, 1, 0.05, 1, 0.6]
+    [0, 0.08, 0.15, 0.29, 0.43, 0.58, 0.72, 0.86, 1],
+    [0, 0, 1, 0.05, 1, 0.05, 1, 0.05, 0]
   );
 
   const faceDarken = useTransform(
     scrollYProgress,
-    [0, 0.12, 0.15, 0.25, 0.33, 0.45, 0.53, 0.65, 0.73, 0.85, 1],
-    [0.9, 0.25, 0, 0, 0.25, 0, 0.25, 0, 0.25, 0, 0.15]
+    [0, 0.08, 0.15, 0.29, 0.43, 0.58, 0.72, 0.86, 1],
+    [0.9, 0.9, 0, 0.8, 0, 0.8, 0, 0.8, 0.2]
   );
 
   const imgOpacity = useTransform(spotlightOp, [0, 1], [0.15, 0.55]);
@@ -231,9 +231,9 @@ export default function Projects() {
     { ry: 0, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: projects[0], op: f0 },
     { ry: 90, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: projects[1], op: f1 },
     { ry: 180, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: projects[2], op: f2 },
-    { ry: 270, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: null, op: f3 },
-    { ry: 0, rx: -90, tz: cubeH / 2, w: cubeW, h: cubeW, project: null, op: null },
-    { ry: 0, rx: 90, tz: cubeH / 2, w: cubeW, h: cubeW, project: null, op: null },
+    { ry: 270, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: null, op: f3, cta: true },
+    { ry: 0, rx: -90, tz: cubeH / 2, w: cubeW, h: cubeW, cap: true },
+    { ry: 0, rx: 90, tz: cubeH / 2, w: cubeW, h: cubeW, cap: true },
   ];
 
   return (
@@ -365,9 +365,9 @@ export default function Projects() {
                           )}
                         </div>
                       </>
-                    ) : (
+                    ) : face.cta ? (
                       <CTAFace />
-                    )}
+                    ) : null}
 
                     <motion.div
                       style={{ opacity: faceDarken }}
