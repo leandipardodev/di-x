@@ -50,67 +50,47 @@ const projects: Project[] = [
 
 export default function Projects() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: trackRef,
-    offset: ["start end", "end start"],
+    target: containerRef,
+    offset: ["start start", "end end"],
   });
 
   const x = useTransform(
     scrollYProgress,
     [0, 1],
-    ["0%", "-66.67%"]
+    ["8%", "-68%"]
   );
 
   return (
-    <section id="work" ref={containerRef} className="relative py-16 pb-64 lg:py-24 lg:pb-80">
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <div className="mb-10 flex items-end justify-between">
-          <div>
-            <RevealLine>
-              <span className="text-[11px] uppercase tracking-[0.3em] text-muted">
-                Proyectos seleccionados
+    <section id="work" ref={containerRef} className="relative h-[300vh]">
+      <div className="sticky top-0 h-screen overflow-hidden pt-16 lg:pt-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <div className="mb-8 flex items-end justify-between">
+            <div>
+              <RevealLine>
+                <span className="text-[11px] uppercase tracking-[0.3em] text-muted">
+                  Proyectos seleccionados
+                </span>
+              </RevealLine>
+              <RevealLine delay={0.1}>
+                <h2 className="mt-6 text-3xl font-bold tracking-tight lg:text-5xl">
+                  Proyectos
+                </h2>
+              </RevealLine>
+            </div>
+            <RevealLine delay={0.2}>
+              <span className="hidden text-sm text-muted lg:block">
+                {projects.length} proyectos
               </span>
             </RevealLine>
-            <RevealLine delay={0.1}>
-              <h2 className="mt-6 text-3xl font-bold tracking-tight lg:text-5xl">
-                Proyectos
-              </h2>
-            </RevealLine>
           </div>
-          <RevealLine delay={0.2}>
-            <span className="hidden text-sm text-muted lg:block">
-              {projects.length} proyectos
-            </span>
-          </RevealLine>
         </div>
-      </div>
 
-      <div ref={trackRef} className="w-full overflow-x-hidden overflow-y-visible">
         <motion.div style={{ x }} className="flex w-max gap-4 pl-4 lg:gap-8 lg:pl-12">
           {projects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
           ))}
         </motion.div>
-      </div>
-
-      <div className="mx-auto mt-24 max-w-7xl px-6 lg:px-12">
-        <RevealLine>
-          <div className="grid gap-8 border-t border-border pt-16 lg:grid-cols-3">
-            <div>
-              <span className="text-5xl font-bold tracking-tighter">3</span>
-              <p className="mt-2 text-[11px] uppercase tracking-[0.2em] text-muted">
-                Proyectos entregados
-              </p>
-            </div>
-            <div>
-              <span className="text-5xl font-bold tracking-tighter">1</span>
-              <p className="mt-2 text-[11px] uppercase tracking-[0.2em] text-muted">
-                Misión
-              </p>
-            </div>
-          </div>
-        </RevealLine>
       </div>
     </section>
   );
@@ -135,10 +115,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         ref={cardRef}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="group relative flex-shrink-0 w-[calc((100vw-32px)/3)] cursor-pointer lg:w-[calc((100vw-64px)/3)]"
+        className="group relative flex-shrink-0 w-[70vw] lg:w-[400px]"
       >
         <div
-          className="relative aspect-[3/2] overflow-hidden border border-border transition-colors duration-500 group-hover:border-muted/30"
+          className="relative h-[60vh] overflow-hidden border border-border transition-colors duration-500 group-hover:border-muted/30"
           style={{ backgroundColor: project.color }}
         >
           <motion.img
