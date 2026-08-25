@@ -88,13 +88,19 @@ export default function Hero() {
     loadAndInit().catch(() => {});
 
     return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
       instanceRef.current?.destroy();
       instanceRef.current = null;
     };
   }, [onReady]);
 
+  const rafRef = useRef(0);
+
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    instanceRef.current?.setVideoPercentage(latest);
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      instanceRef.current?.setVideoPercentage(latest);
+    });
 
     if (latest >= 0.7 && latest <= 0.9) {
       const t = (latest - 0.7) / 0.2;
