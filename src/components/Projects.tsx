@@ -17,39 +17,30 @@ interface Project {
 const projects: Project[] = [
   {
     id: "01",
-    title: "Meridian",
+    title: "Klip",
     description:
-      "Un dashboard fintech que hace que datos financieros complejos se sientan intuitivos y accionables.",
+      "Plataforma de contenido digital que redefine la experiencia de consumo de medios.",
     tags: ["React", "TypeScript", "D3.js"],
     year: "2026",
     color: "#1a1a2e",
   },
   {
     id: "02",
-    title: "Flora",
+    title: "Boobaa",
     description:
-      "Plataforma e-commerce para moda sustentable. Combinando estética minimalista con potentes herramientas de comercio.",
+      "Ecosistema de software diseñado para escalar con elegancia y precisión.",
     tags: ["Next.js", "Stripe", "PostgreSQL"],
     year: "2026",
     color: "#0f2e1a",
   },
   {
     id: "03",
-    title: "Sonora",
+    title: "Afip",
     description:
-      "Plataforma de colaboración musical conectando artistas de todo el mundo en tiempo real.",
-    tags: ["WebAudio", "Socket.io", "React"],
-    year: "2025",
-    color: "#2e1a1a",
-  },
-  {
-    id: "04",
-    title: "Atlas",
-    description:
-      "Sistema de gestión logística diseñado para la claridad. Optimización de rutas con una UX elegante.",
+      "Sistema de gestión y cumplimiento tributario con una interfaz clara y eficiente.",
     tags: ["Next.js", "MapLibre", "Go"],
     year: "2025",
-    color: "#1a2e2a",
+    color: "#2e1a1a",
   },
 ];
 
@@ -102,7 +93,7 @@ export default function Projects() {
         <RevealLine>
           <div className="grid gap-8 border-t border-border pt-16 lg:grid-cols-3">
             <div>
-              <span className="text-5xl font-bold tracking-tighter">4</span>
+              <span className="text-5xl font-bold tracking-tighter">3</span>
               <p className="mt-2 text-[11px] uppercase tracking-[0.2em] text-muted">
                 Proyectos entregados
               </p>
