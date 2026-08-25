@@ -43,6 +43,8 @@ export default function Hero() {
 
   const labelOpacity = useTransform(scrollYProgress, [0.28, 0.42], [0, 1]);
   const footerOpacity = useTransform(scrollYProgress, [0.28, 0.42], [0, 1]);
+  const textExitY = useTransform(scrollYProgress, [0.82, 1], [0, -60]);
+  const textExitOpacity = useTransform(scrollYProgress, [0.82, 0.95], [1, 0]);
 
   useEffect(() => {
     const suppressVideoAbort = (e: PromiseRejectionEvent) => {
@@ -159,7 +161,10 @@ export default function Hero() {
             </motion.h1>
           </div>
 
-          <div className="mt-10 flex flex-col items-center gap-6">
+          <motion.div
+            style={{ y: textExitY, opacity: textExitOpacity }}
+            className="mt-10 flex flex-col items-center gap-6"
+          >
             <p className="max-w-md text-center text-sm leading-relaxed text-muted">
               {descriptionWords.map((word, i) => (
                 <span
@@ -180,7 +185,7 @@ export default function Hero() {
               <span className="h-px w-8 bg-border" />
               <span>2026</span>
             </motion.div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </div>
