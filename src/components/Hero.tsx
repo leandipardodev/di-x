@@ -1,13 +1,19 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useEffect } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValueEvent,
+} from "framer-motion";
+import { useRef, useEffect, useCallback } from "react";
 import { RevealLine } from "./Animations";
 
 declare global {
   interface Window {
     ScrollyVideo: new (opts: Record<string, unknown>) => {
       destroy: () => void;
+      setVideoPercentage: (p: number, opts?: { jump?: boolean }) => void;
     };
   }
 }
@@ -15,7 +21,10 @@ declare global {
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
-  const instanceRef = useRef<{ destroy: () => void } | null>(null);
+  const instanceRef = useRef<{
+    destroy: () => void;
+    setVideoPercentage: (p: number, opts?: { jump?: boolean }) => void;
+  } | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -35,27 +44,37 @@ export default function Hero() {
     [1, 0]
   );
 
+  const onReady = useCallback(() => {
+    if (instanceRef.current) {
+      instanceRef.current.setVideoPercentage(0, { jump: true });
+    }
+  }, []);
+
   useEffect(() => {
     if (!videoContainerRef.current || instanceRef.current) return;
 
     const loadAndInit = async () => {
-      await new Promise<void>((resolve) => {
-        const script = document.createElement("script");
-        script.src =
-          "https://cdn.jsdelivr.net/npm/scrolly-video@latest/dist/scrolly-video.js";
-        script.onload = () => resolve();
-        document.head.appendChild(script);
-      });
+      if (!window.ScrollyVideo) {
+        await new Promise<void>((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = "/scrolly-video.js";
+          script.onload = () => resolve();
+          script.onerror = () => reject(new Error("Failed to load scrolly-video.js"));
+          document.head.appendChild(script);
+        });
+      }
 
       if (videoContainerRef.current && window.ScrollyVideo) {
         instanceRef.current = new window.ScrollyVideo({
           scrollyVideoContainer: videoContainerRef.current,
           src: "/video.mp4",
-          trackScroll: true,
+          trackScroll: false,
+          lockScroll: false,
           useWebCodecs: true,
           cover: true,
           sticky: false,
           full: false,
+          onReady,
         });
       }
     };
@@ -66,7 +85,11 @@ export default function Hero() {
       instanceRef.current?.destroy();
       instanceRef.current = null;
     };
-  }, []);
+  }, [onReady]);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    instanceRef.current?.setVideoPercentage(latest);
+  });
 
   return (
     <div ref={containerRef} className="relative" style={{ height: "350vh" }}>
