@@ -42,23 +42,25 @@ export default function Hero() {
       const v = videoRef.current;
       if (v && v.duration) {
         const velocity = velocityRef.current;
-        const raw = velocity * 0.15;
-        const speed = raw < 0.25 ? 0 : Math.min(2, raw);
 
-        if (speed > 0) {
+        if (velocity > 2) {
+          const speed = Math.min(2, velocity * 0.12);
           v.playbackRate = speed;
           if (v.paused) v.play().catch(() => {});
+        } else if (velocity < -2) {
+          if (!v.paused) v.pause();
+          const step = Math.max(-0.15, velocity * 0.005);
+          v.currentTime = Math.max(0, v.currentTime + step);
         } else {
           v.pause();
         }
 
-        const progress = v.currentTime / v.duration;
-        if (progress >= 0.92 && velocity >= 0) {
+        if (v.currentTime >= v.duration * 0.92 && velocity >= 0) {
           v.pause();
         }
       }
 
-      velocityRef.current *= 0.92;
+      velocityRef.current *= 0.9;
       rafRef.current = requestAnimationFrame(tick);
     }
 
@@ -78,7 +80,6 @@ export default function Hero() {
           muted
           playsInline
           preload="auto"
-          loop
           className="absolute inset-0 h-full w-full object-cover"
         >
           <source src="/video.mp4" type="video/mp4" />
