@@ -4,12 +4,18 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { RevealLine } from "./Animations";
 
+declare global {
+  interface Window {
+    ScrollyVideo: new (opts: Record<string, unknown>) => {
+      destroy: () => void;
+    };
+  }
+}
+
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const lastScrollRef = useRef(0);
-  const velocityRef = useRef(0);
-  const rafRef = useRef(0);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
+  const instanceRef = useRef<{ destroy: () => void } | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -23,76 +29,58 @@ export default function Hero() {
     [0, 0.2, 0.6, 1],
     [0.75, 0.45, 0.35, 0.65]
   );
-  const scrollIndicatorOpacity = useTransform(scrollYProgress, [0.05, 0.12], [1, 0]);
+  const scrollIndicatorOpacity = useTransform(
+    scrollYProgress,
+    [0.05, 0.12],
+    [1, 0]
+  );
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+    if (!videoContainerRef.current || instanceRef.current) return;
 
-    video.playbackRate = 0;
+    const loadAndInit = async () => {
+      await new Promise<void>((resolve) => {
+        const script = document.createElement("script");
+        script.src =
+          "https://cdn.jsdelivr.net/npm/scrolly-video@latest/dist/scrolly-video.js";
+        script.onload = () => resolve();
+        document.head.appendChild(script);
+      });
 
-    const unsubscribe = scrollYProgress.on("change", (v) => {
-      const scrollY = v * (document.documentElement.scrollHeight - window.innerHeight);
-      const delta = scrollY - lastScrollRef.current;
-      lastScrollRef.current = scrollY;
-      velocityRef.current = delta;
-    });
-
-    function tick() {
-      const v = videoRef.current;
-      if (v && v.duration) {
-        const velocity = velocityRef.current;
-
-        if (velocity > 2) {
-          const speed = Math.min(2, velocity * 0.12);
-          v.playbackRate = speed;
-          if (v.paused) v.play().catch(() => {});
-        } else if (velocity < -2) {
-          if (!v.paused) v.pause();
-          const step = Math.max(-0.15, velocity * 0.005);
-          v.currentTime = Math.max(0, v.currentTime + step);
-        } else {
-          v.pause();
-        }
-
-        if (v.currentTime >= v.duration * 0.92 && velocity >= 0) {
-          v.pause();
-        }
+      if (videoContainerRef.current && window.ScrollyVideo) {
+        instanceRef.current = new window.ScrollyVideo({
+          scrollyVideoContainer: videoContainerRef.current,
+          src: "/video.mp4",
+          trackScroll: true,
+          useWebCodecs: true,
+          cover: true,
+          sticky: false,
+          full: false,
+        });
       }
+    };
 
-      velocityRef.current *= 0.9;
-      rafRef.current = requestAnimationFrame(tick);
-    }
-
-    rafRef.current = requestAnimationFrame(tick);
+    loadAndInit();
 
     return () => {
-      unsubscribe();
-      cancelAnimationFrame(rafRef.current);
+      instanceRef.current?.destroy();
+      instanceRef.current = null;
     };
-  }, [scrollYProgress]);
+  }, []);
 
   return (
     <div ref={containerRef} className="relative" style={{ height: "350vh" }}>
       <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
-        <video
-          ref={videoRef}
-          muted
-          playsInline
-          preload="auto"
-          className="absolute inset-0 h-full w-full object-cover"
-        >
-          <source src="/video.mp4" type="video/mp4" />
-        </video>
+        <div ref={videoContainerRef} className="absolute inset-0" />
 
         <motion.div
           style={{ opacity: overlayOpacity }}
-          className="absolute inset-0 bg-background"
+          className="absolute inset-0 bg-background z-10"
         />
 
         <motion.div
           style={{ opacity: textOpacity, scale: titleScale }}
-          className="relative z-10 flex flex-col items-center px-6"
+          className="relative z-20 flex flex-col items-center px-6"
         >
           <RevealLine className="mb-4">
             <span className="text-[11px] uppercase tracking-[0.4em] text-muted">
@@ -137,7 +125,7 @@ export default function Hero() {
 
         <motion.div
           style={{ opacity: scrollIndicatorOpacity }}
-          className="absolute bottom-12 left-1/2 z-10 -translate-x-1/2"
+          className="absolute bottom-12 left-1/2 z-20 -translate-x-1/2"
         >
           <motion.div
             animate={{ y: [0, 8, 0] }}
