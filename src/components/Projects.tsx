@@ -229,36 +229,42 @@ export default function Projects() {
     [0.10, 0.15, 0.20],
     [0, 1, 0]
   );
-
-  useMotionValueEvent(f0, "change", (v) => {
-    const vid = videoKlipRef.current;
-    if (!vid) return;
-    if (v > 0.5) {
-      const dist = Math.abs(scrollYProgress.get() - scrollAtPauseKlip.current);
-      if (dist > 0.30) vid.currentTime = 0;
-      vid.play().catch(() => {});
-    } else {
-      vid.pause();
-      scrollAtPauseKlip.current = scrollYProgress.get();
-    }
-  });
-
   const f1 = useTransform(
     scrollYProgress,
     [0.38, 0.43, 0.48],
     [0, 1, 0]
   );
 
-  useMotionValueEvent(f1, "change", (v) => {
-    const vid = videoBoobaaRef.current;
-    if (!vid) return;
-    if (v > 0.5) {
-      const dist = Math.abs(scrollYProgress.get() - scrollAtPauseBoobaa.current);
-      if (dist > 0.30) vid.currentTime = 0;
-      vid.play().catch(() => {});
-    } else {
-      vid.pause();
-      scrollAtPauseBoobaa.current = scrollYProgress.get();
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const vidKlip = videoKlipRef.current;
+    const vidBoobaa = videoBoobaaRef.current;
+
+    if (vidKlip) {
+      const klipVisible = latest >= 0.10 && latest <= 0.20;
+      if (klipVisible) {
+        const dist = Math.abs(latest - scrollAtPauseKlip.current);
+        if (dist > 0.30 && vidKlip.paused) {
+          vidKlip.currentTime = 0;
+        }
+        if (vidKlip.paused) vidKlip.play().catch(() => {});
+      } else if (!vidKlip.paused) {
+        vidKlip.pause();
+        scrollAtPauseKlip.current = latest;
+      }
+    }
+
+    if (vidBoobaa) {
+      const boobaaVisible = latest >= 0.38 && latest <= 0.48;
+      if (boobaaVisible) {
+        const dist = Math.abs(latest - scrollAtPauseBoobaa.current);
+        if (dist > 0.30 && vidBoobaa.paused) {
+          vidBoobaa.currentTime = 0;
+        }
+        if (vidBoobaa.paused) vidBoobaa.play().catch(() => {});
+      } else if (!vidBoobaa.paused) {
+        vidBoobaa.pause();
+        scrollAtPauseBoobaa.current = latest;
+      }
     }
   });
 
