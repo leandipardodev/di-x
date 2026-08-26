@@ -162,17 +162,20 @@ export default function Hero() {
           </motion.span>
 
           <div>
-            <motion.h1
+            <motion.div
               style={{
                 filter: useTransform(titleBlur, (v) => `blur(${v}px)`),
                 opacity: titleOpacity,
                 scale: titleScale,
               }}
-              className="text-center text-[clamp(3.5rem,12vw,11rem)] font-bold leading-[0.9] tracking-tighter"
+              className="flex justify-center"
             >
-              di
-              <span className="font-light text-muted">.</span>X
-            </motion.h1>
+              <img
+                src="/logo di.x.webp"
+                alt="di.X"
+                className="h-[clamp(3rem,10vw,8rem)] w-auto"
+              />
+            </motion.div>
           </div>
 
           <div className="mt-10 flex flex-col items-center gap-6">
