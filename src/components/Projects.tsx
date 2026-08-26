@@ -152,8 +152,10 @@ export default function Projects() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoBoobaaRef = useRef<HTMLVideoElement>(null);
   const videoKlipRef = useRef<HTMLVideoElement>(null);
+  const videoDixRef = useRef<HTMLVideoElement>(null);
   const scrollAtPauseKlip = useRef(0);
   const scrollAtPauseBoobaa = useRef(0);
+  const scrollAtPauseDix = useRef(0);
   const lastScrollTime = useRef(0);
   const snapRef = useRef(false);
   const snapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -264,6 +266,21 @@ export default function Projects() {
       } else if (!vidBoobaa.paused) {
         vidBoobaa.pause();
         scrollAtPauseBoobaa.current = latest;
+      }
+    }
+
+    const vidDix = videoDixRef.current;
+    if (vidDix) {
+      const dixVisible = latest >= 0.67 && latest <= 0.77;
+      if (dixVisible) {
+        const dist = Math.abs(latest - scrollAtPauseDix.current);
+        if (dist > 0.30 && vidDix.paused) {
+          vidDix.currentTime = 0;
+        }
+        if (vidDix.paused) vidDix.play().catch(() => {});
+      } else if (!vidDix.paused) {
+        vidDix.pause();
+        scrollAtPauseDix.current = latest;
       }
     }
   });
@@ -398,6 +415,16 @@ export default function Projects() {
                           <motion.video
                             ref={videoKlipRef}
                             src="/video klip.mp4"
+                            muted
+                            playsInline
+                            preload="auto"
+                            className="absolute inset-0 h-full w-full object-cover"
+                            style={{ opacity: imgOpacity }}
+                          />
+                        ) : face.project.title === "Dix gestor" ? (
+                          <motion.video
+                            ref={videoDixRef}
+                            src="/dix-gestor video.mp4"
                             muted
                             playsInline
                             preload="auto"
