@@ -32,7 +32,7 @@ const projects: Project[] = [
     tags: ["Arduino", "IoT", "React"],
     year: "2026",
     color: "#0f2e1a",
-    image: "/booba.webp",
+    image: "/booba-2.webp",
   },
   {
     id: "03",
@@ -50,7 +50,7 @@ function useCubeSize() {
   const [size, setSize] = useState({
     w: 350,
     h: 460,
-    perspective: 1100,
+    perspective: 800,
     isMobile: false,
   });
   useEffect(() => {
@@ -58,8 +58,8 @@ function useCubeSize() {
       const mobile = window.innerWidth < 768;
       setSize(
         mobile
-          ? { w: 220, h: 300, perspective: 750, isMobile: true }
-          : { w: 350, h: 460, perspective: 1100, isMobile: false }
+          ? { w: 220, h: 300, perspective: 500, isMobile: true }
+          : { w: 350, h: 460, perspective: 800, isMobile: false }
       );
     };
     update();
