@@ -103,10 +103,10 @@ export default function Manifesto() {
 
                 <RevealLine delay={0.3}>
                   <p className="text-lg leading-relaxed text-muted lg:text-xl">
-                    No hacemos plantillas. Construimos{" "}
-                    <span className="text-foreground">soluciones a medida</span>{" "}
-                    que resuelven problemas reales y se sienten{" "}
-                    <span className="text-foreground">sin esfuerzo</span> de usar.
+                    No hacemos plantillas. Creamos{" "}
+                    <span className="text-foreground">productos digitales</span>{" "}
+                    precisos, performantes y{" "}
+                    <span className="text-foreground">pensados para durar</span>.
                   </p>
                 </RevealLine>
               </div>
