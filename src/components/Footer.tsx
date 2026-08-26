@@ -74,8 +74,10 @@ export default function Footer() {
         </div>
 
         <div className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-muted">
-            &copy; {currentYear} di.X. Todos los derechos reservados.
+          <span className="flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-muted">
+            &copy; {currentYear}
+            <img src="/logo di.x.webp" alt="di.X" className="h-3 w-auto" />
+            Todos los derechos reservados.
           </span>
           <span className="text-[10px] uppercase tracking-[0.2em] text-muted">
             Construido con precisión
