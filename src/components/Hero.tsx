@@ -31,10 +31,20 @@ export default function Hero() {
   } | null>(null);
 
   const [visibleWords, setVisibleWords] = useState(0);
+  const [showScroll, setShowScroll] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
+  });
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowScroll(true), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useMotionValueEvent(scrollYProgress, "change", () => {
+    if (showScroll) setShowScroll(false);
   });
 
   const titleBlur = useTransform(scrollYProgress, [0, 0.3], [20, 0]);
@@ -187,6 +197,18 @@ export default function Hero() {
               <span>2026</span>
             </motion.div>
           </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: showScroll ? 1 : 0 }}
+          transition={{ duration: 0.6 }}
+          className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-2"
+        >
+          <span className="text-[9px] uppercase tracking-[0.35em] text-white/25">
+            Scroll
+          </span>
+          <div className="h-5 w-px bg-gradient-to-b from-white/25 to-transparent" />
         </motion.div>
       </div>
     </div>
