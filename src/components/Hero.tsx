@@ -166,7 +166,7 @@ export default function Hero() {
           </div>
 
           <div className="mt-10 flex flex-col items-center gap-6">
-            <p className="max-w-md cursor-default text-center text-sm leading-relaxed text-muted">
+            <p className="max-w-md text-center text-sm leading-relaxed text-muted">
               {descriptionWords.map((word, i) => (
                 <span
                   key={i}

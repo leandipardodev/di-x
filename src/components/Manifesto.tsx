@@ -116,7 +116,7 @@ export default function Manifesto() {
 
         <motion.div
           style={{ y: marqueeY, opacity: marqueeOpacity }}
-          className="mt-32 overflow-hidden border-t border-border pt-16"
+          className="mt-32 cursor-default overflow-hidden border-t border-border pt-16"
         >
           <ParallaxText speed={0.3}>
             <div className="flex items-center gap-12 whitespace-nowrap">
