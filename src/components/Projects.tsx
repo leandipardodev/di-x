@@ -152,8 +152,8 @@ export default function Projects() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoBoobaaRef = useRef<HTMLVideoElement>(null);
   const videoKlipRef = useRef<HTMLVideoElement>(null);
-  const lastPausedKlip = useRef(0);
-  const lastPausedBoobaa = useRef(0);
+  const scrollAtPauseKlip = useRef(0);
+  const scrollAtPauseBoobaa = useRef(0);
   const lastScrollTime = useRef(0);
   const snapRef = useRef(false);
   const snapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -233,15 +233,14 @@ export default function Projects() {
   useMotionValueEvent(f0, "change", (v) => {
     const vid = videoKlipRef.current;
     if (!vid) return;
-    const now = Date.now();
     if (v > 0.5) {
-      if (now - lastPausedKlip.current > 1500) {
+      const dist = Math.abs(scrollYProgress.get() - scrollAtPauseKlip.current);
+      if (dist > 0.11) {
         vid.currentTime = 0;
       }
       vid.play().catch(() => {});
     } else {
-      vid.pause();
-      lastPausedKlip.current = now;
+      scrollAtPauseKlip.current = scrollYProgress.get();
     }
   });
 
@@ -254,15 +253,14 @@ export default function Projects() {
   useMotionValueEvent(f1, "change", (v) => {
     const vid = videoBoobaaRef.current;
     if (!vid) return;
-    const now = Date.now();
     if (v > 0.5) {
-      if (now - lastPausedBoobaa.current > 1500) {
+      const dist = Math.abs(scrollYProgress.get() - scrollAtPauseBoobaa.current);
+      if (dist > 0.11) {
         vid.currentTime = 0;
       }
       vid.play().catch(() => {});
     } else {
-      vid.pause();
-      lastPausedBoobaa.current = now;
+      scrollAtPauseBoobaa.current = scrollYProgress.get();
     }
   });
 
