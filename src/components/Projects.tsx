@@ -227,12 +227,6 @@ export default function Projects() {
 
   const imgOpacity = useTransform(spotlightOp, [0, 1], [0.15, 0.55]);
 
-  const logoShineX = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["-120%", "220%"]
-  );
-
   const faceData = [
     { ry: 0, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: projects[0], op: f0 },
     { ry: 90, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: projects[1], op: f1 },
@@ -349,8 +343,7 @@ export default function Projects() {
                             filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.6))",
                           }}
                         >
-                          <div className="relative inline-block">
-                            {face.project.title === "Dix gestor" ? (
+                          {face.project.title === "Dix gestor" ? (
                               <img
                                 src="/dix-gestor-logo.png"
                                 alt="Dix gestor"
@@ -373,13 +366,6 @@ export default function Projects() {
                                 {face.project.title}
                               </h3>
                             )}
-                            <motion.div
-                              style={{ left: logoShineX }}
-                              className="pointer-events-none absolute inset-y-0 w-32 -skew-x-12"
-                            >
-                              <div className="h-full w-full bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
-                            </motion.div>
-                          </div>
                         </div>
                       </>
                     ) : face.cta ? (
