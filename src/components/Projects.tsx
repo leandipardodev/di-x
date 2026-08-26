@@ -154,7 +154,9 @@ export default function Projects() {
   const videoKlipRef = useRef<HTMLVideoElement>(null);
   const lastPausedKlip = useRef(0);
   const lastPausedBoobaa = useRef(0);
+  const lastScrollTime = useRef(0);
   const snapRef = useRef(false);
+  const snapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { w: cubeW, h: cubeH, perspective, isMobile } = useCubeSize();
   const halfD = cubeW / 2;
 
@@ -164,10 +166,11 @@ export default function Projects() {
   });
 
   const facePositions = [0.15, 0.43, 0.72, 1.0];
-  const faceAngles = [0, -90, -180, -270];
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    lastScrollTime.current = Date.now();
     if (snapRef.current) return;
+    if (snapTimerRef.current) clearTimeout(snapTimerRef.current);
     let closest = facePositions[0];
     let minDist = Math.abs(latest - closest);
     for (const pos of facePositions) {
@@ -175,15 +178,17 @@ export default function Projects() {
       if (dist < minDist) { closest = pos; minDist = dist; }
     }
     if (minDist < 0.015) {
-      snapRef.current = true;
-      const angle = faceAngles[facePositions.indexOf(closest)];
-      animate(scrollYProgress, closest, {
-        type: "spring",
-        stiffness: 200,
-        damping: 30,
-        duration: 0.4,
-        onComplete: () => { snapRef.current = false; },
-      });
+      snapTimerRef.current = setTimeout(() => {
+        if (Date.now() - lastScrollTime.current >= 450 && !snapRef.current) {
+          snapRef.current = true;
+          animate(scrollYProgress, closest, {
+            type: "spring",
+            stiffness: 200,
+            damping: 30,
+            onComplete: () => { snapRef.current = false; },
+          });
+        }
+      }, 500);
     }
   });
 
