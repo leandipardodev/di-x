@@ -167,7 +167,7 @@ export default function Projects() {
     offset: ["start start", "end end"],
   });
 
-  const facePositions = [0.15, 0.43, 0.72, 1.0];
+  const facePositions = [0.15, 0.4333, 0.7167, 1.0];
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     lastScrollTime.current = Date.now();
@@ -201,12 +201,12 @@ export default function Projects() {
   );
   const rotateX = useTransform(
     scrollYProgress,
-    [0, 0.15, 0.29, 0.43, 0.58, 0.72, 0.86, 1],
+    [0, 0.15, 0.2917, 0.4333, 0.575, 0.7167, 0.858, 1],
     [0, 0, -3, 0, 3, 0, -3, 0]
   );
   const floatY = useTransform(
     scrollYProgress,
-    [0, 0.15, 0.29, 0.43, 0.58, 0.72, 0.86, 1],
+    [0, 0.15, 0.2917, 0.4333, 0.575, 0.7167, 0.858, 1],
     [0, 0, -5, 0, 4, 0, -4, 0]
   );
 
@@ -233,7 +233,7 @@ export default function Projects() {
   );
   const f1 = useTransform(
     scrollYProgress,
-    [0.38, 0.43, 0.48],
+    [0.3833, 0.4333, 0.4833],
     [0, 1, 0]
   );
 
@@ -256,7 +256,7 @@ export default function Projects() {
     }
 
     if (vidBoobaa) {
-      const boobaaVisible = latest >= 0.38 && latest <= 0.48;
+      const boobaaVisible = latest >= 0.3833 && latest <= 0.4833;
       if (boobaaVisible) {
         const dist = Math.abs(latest - scrollAtPauseBoobaa.current);
         if (dist > 0.30 && vidBoobaa.paused) {
@@ -271,7 +271,7 @@ export default function Projects() {
 
     const vidDix = videoDixRef.current;
     if (vidDix) {
-      const dixVisible = latest >= 0.67 && latest <= 0.77;
+      const dixVisible = latest >= 0.6667 && latest <= 0.7667;
       if (dixVisible) {
         const dist = Math.abs(latest - scrollAtPauseDix.current);
         if (dist > 0.30 && vidDix.paused) {
@@ -287,7 +287,7 @@ export default function Projects() {
 
   const f2 = useTransform(
     scrollYProgress,
-    [0.67, 0.72, 0.77],
+    [0.6667, 0.7167, 0.7667],
     [0, 1, 0]
   );
   const f3 = useTransform(
@@ -298,13 +298,13 @@ export default function Projects() {
 
   const spotlightOp = useTransform(
     scrollYProgress,
-    [0, 0.08, 0.15, 0.29, 0.43, 0.58, 0.72, 0.86, 0.93, 1],
+    [0, 0.08, 0.15, 0.29, 0.4333, 0.575, 0.7167, 0.858, 0.93, 1],
     [0, 0, 1, 0.05, 1, 0.05, 1, 0.05, 0.8, 1]
   );
 
   const faceDarken = useTransform(
     scrollYProgress,
-    [0, 0.08, 0.15, 0.29, 0.43, 0.58, 0.72, 0.86, 0.93, 1],
+    [0, 0.08, 0.15, 0.29, 0.4333, 0.575, 0.7167, 0.858, 0.93, 1],
     [0.9, 0.9, 0, 0.8, 0, 0.8, 0, 0.8, 0.15, 0]
   );
 
