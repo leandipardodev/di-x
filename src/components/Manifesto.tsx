@@ -77,7 +77,7 @@ export default function Manifesto() {
                 <RevealLine delay={0.1}>
                   <p className="text-lg leading-relaxed text-muted lg:text-xl">
                     En{" "}
-                    <span className="text-foreground">di.X</span> creemos que el
+                    <img src="/logo di.x.webp" alt="di.X" className="inline-block h-5 w-auto align-middle" /> creemos que el
                     software debe ser{" "}
                     <span className="text-foreground">hermoso</span> y{" "}
                     <span className="relative inline-block font-medium text-foreground">
