@@ -119,14 +119,14 @@ export default function Manifesto() {
           className="mt-32 cursor-default overflow-hidden border-t border-border pt-16"
         >
           <ParallaxText speed={0.3}>
-            <div className="flex items-center gap-12 whitespace-nowrap">
+            <div className="flex flex-wrap items-center gap-4 gap-y-2 lg:flex-nowrap lg:gap-12 lg:gap-y-0">
               {["Diseñar", "Desarrollar", "Desplegar", "Iterar", "Diseñar", "Desarrollar"].map(
                 (word, i) => (
-                  <span key={`${word}-${i}`} className="flex items-center gap-12">
-                    <span className="text-stroke text-5xl font-bold uppercase tracking-widest lg:text-7xl transition-all duration-300">
+                  <span key={`${word}-${i}`} className="flex items-center gap-4 lg:gap-12">
+                    <span className="text-stroke text-3xl font-bold uppercase tracking-widest sm:text-5xl lg:text-7xl transition-all duration-300">
                       {word}
                     </span>
-                    <span className="text-border text-3xl">—</span>
+                    <span className="text-border hidden text-3xl lg:inline">—</span>
                   </span>
                 )
               )}
