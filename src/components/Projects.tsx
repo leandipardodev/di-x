@@ -414,7 +414,7 @@ export default function Projects() {
                         ) : face.project.title === "Klip" ? (
                           <motion.video
                             ref={videoKlipRef}
-                            src="/video klip.mp4"
+                            src="/klip video final.mp4"
                             muted
                             playsInline
                             preload="auto"
