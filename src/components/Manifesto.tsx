@@ -135,7 +135,7 @@ export default function Manifesto() {
     <section
       id="studio"
       ref={ref}
-      className="relative overflow-hidden py-32 lg:py-48"
+      className="relative overflow-hidden pt-32 pb-0 lg:pt-48 lg:pb-0"
     >
       <motion.div
         style={{
