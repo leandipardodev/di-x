@@ -56,19 +56,10 @@ function FlickerWord({ children }: { children: React.ReactNode }) {
   }, [flicker]);
 
   const color = useTransform(glow, [0, 1], ["rgba(255,255,255,0.15)", "rgba(255,255,255,1)"]);
-  const shadow = useTransform(
-    glow,
-    [0, 0.5, 1],
-    [
-      "0 0 0px rgba(255,255,255,0)",
-      "0 0 15px rgba(255,255,255,0.3), 0 0 30px rgba(255,255,255,0.1)",
-      "0 0 20px rgba(255,255,255,0.6), 0 0 50px rgba(255,255,255,0.3), 0 0 80px rgba(255,255,255,0.1)",
-    ]
-  );
 
   return (
     <motion.span
-      style={{ opacity, color, textShadow: shadow }}
+      style={{ opacity, color }}
       className="text-3xl font-bold uppercase tracking-widest sm:text-5xl lg:text-7xl transition-all duration-300"
     >
       {children}
