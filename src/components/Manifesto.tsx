@@ -1,8 +1,60 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
+import { useRef, useEffect, useCallback } from "react";
 import { RevealLine, ParallaxText } from "./Animations";
+
+let flickeringCount = 0;
+const MAX_FLICKERING = 2;
+
+function FlickerWord({ children }: { children: React.ReactNode }) {
+  const opacity = useMotionValue(1);
+
+  const flicker = useCallback(() => {
+    if (flickeringCount >= MAX_FLICKERING) {
+      setTimeout(flicker, 2000 + Math.random() * 3000);
+      return;
+    }
+    flickeringCount++;
+
+    const sequence = [
+      { o: 0.3, d: 50 },
+      { o: 1, d: 40 },
+      { o: 0.15, d: 60 },
+      { o: 0.9, d: 30 },
+      { o: 0.2, d: 50 },
+      { o: 1, d: 40 },
+      { o: 0.4, d: 30 },
+      { o: 1, d: 0 },
+    ];
+
+    let i = 0;
+    const step = () => {
+      if (i < sequence.length) {
+        opacity.set(sequence[i].o);
+        setTimeout(step, sequence[i].d);
+        i++;
+      } else {
+        flickeringCount--;
+        const next = 8000 + Math.random() * 12000;
+        setTimeout(flicker, next);
+      }
+    };
+    step();
+  }, [opacity]);
+
+  useEffect(() => {
+    const delay = Math.random() * 5000;
+    const t = setTimeout(flicker, delay);
+    return () => clearTimeout(t);
+  }, [flicker]);
+
+  return (
+    <motion.span style={{ opacity }} className="text-stroke text-3xl font-bold uppercase tracking-widest sm:text-5xl lg:text-7xl transition-all duration-300">
+      {children}
+    </motion.span>
+  );
+}
 
 export default function Manifesto() {
   const ref = useRef<HTMLDivElement>(null);
@@ -123,9 +175,7 @@ export default function Manifesto() {
               {["Diseñar", "Desarrollar", "Desplegar", "Iterar", "Diseñar", "Desarrollar"].map(
                 (word, i) => (
                   <span key={`${word}-${i}`} className="flex items-center gap-4 lg:gap-12">
-                    <span className="text-stroke text-3xl font-bold uppercase tracking-widest sm:text-5xl lg:text-7xl transition-all duration-300">
-                      {word}
-                    </span>
+                    <FlickerWord>{word}</FlickerWord>
                     <span className="text-border hidden text-3xl lg:inline">—</span>
                   </span>
                 )
