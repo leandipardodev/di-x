@@ -2,10 +2,10 @@
 
 import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
 import { useRef, useEffect, useCallback } from "react";
-import { RevealLine, ParallaxText } from "./Animations";
+import { RevealLine } from "./Animations";
 
 let flickeringCount = 0;
-const MAX_FLICKERING = 2;
+const MAX_FLICKERING = 3;
 
 function FlickerWord({ children }: { children: React.ReactNode }) {
   const opacity = useMotionValue(1);
@@ -76,6 +76,55 @@ function FlickerWord({ children }: { children: React.ReactNode }) {
   );
 }
 
+function MarqueeLine({
+  word,
+  direction,
+  speed,
+  scrollYProgress,
+  flickerEvery = 1,
+}: {
+  word: string;
+  direction: "left" | "right";
+  speed: number;
+  scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"];
+  flickerEvery?: number;
+}) {
+  const x = useTransform(
+    scrollYProgress,
+    [0, 1],
+    direction === "right" ? [200 * speed, -200 * speed] : [-200 * speed, 200 * speed]
+  );
+
+  const repeats = Array.from({ length: 20 }, (_, i) => i);
+
+  return (
+    <div className="overflow-hidden whitespace-nowrap py-1">
+      <motion.div style={{ x }} className="flex w-max gap-6 sm:gap-10 lg:gap-14">
+        {repeats.map((i) => (
+          <span key={i} className="flex shrink-0 items-center gap-6 sm:gap-10 lg:gap-14">
+            {i % flickerEvery === 0 ? (
+              <FlickerWord>{word}</FlickerWord>
+            ) : (
+              <span className="text-stroke text-3xl font-bold uppercase tracking-widest sm:text-5xl lg:text-7xl">
+                {word}
+              </span>
+            )}
+          </span>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
+const lines: { word: string; direction: "left" | "right"; speed: number; flickerEvery: number }[] = [
+  { word: "Diseñar", direction: "right", speed: 0.3, flickerEvery: 3 },
+  { word: "Desarrollar", direction: "left", speed: 0.4, flickerEvery: 3 },
+  { word: "Desplegar", direction: "right", speed: 0.35, flickerEvery: 3 },
+  { word: "Iterar", direction: "left", speed: 0.25, flickerEvery: 3 },
+  { word: "Diseñar", direction: "right", speed: 0.3, flickerEvery: 3 },
+  { word: "Desarrollar", direction: "left", speed: 0.4, flickerEvery: 3 },
+];
+
 export default function Manifesto() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -89,7 +138,6 @@ export default function Manifesto() {
   const bgY = useTransform(scrollYProgress, [0, 1], [80, -80]);
   const bgBlur = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 1], [4, 0, 0, 0, 4]);
   const bgXGradientPos = useTransform(scrollYProgress, [0, 1], ["0% 50%", "200% 50%"]);
-  const marqueeY = useTransform(scrollYProgress, [0.7, 1], [0, -50]);
   const marqueeOpacity = useTransform(scrollYProgress, [0.75, 1], [1, 0]);
 
   return (
@@ -187,21 +235,21 @@ export default function Manifesto() {
         </div>
 
         <motion.div
-          style={{ y: marqueeY, opacity: marqueeOpacity }}
+          style={{ opacity: marqueeOpacity }}
           className="mt-32 cursor-default overflow-hidden border-t border-border pt-16"
         >
-          <ParallaxText speed={0.3}>
-            <div className="flex flex-wrap items-center gap-4 gap-y-2 lg:flex-nowrap lg:gap-12 lg:gap-y-0">
-              {["Diseñar", "Desarrollar", "Desplegar", "Iterar", "Diseñar", "Desarrollar"].map(
-                (word, i) => (
-                  <span key={`${word}-${i}`} className="flex items-center gap-4 lg:gap-12">
-                    <FlickerWord>{word}</FlickerWord>
-                    <span className="text-border hidden text-3xl lg:inline">—</span>
-                  </span>
-                )
-              )}
-            </div>
-          </ParallaxText>
+          <div className="-rotate-3 scale-110">
+            {lines.map((line, i) => (
+              <MarqueeLine
+                key={`${line.word}-${i}`}
+                word={line.word}
+                direction={line.direction}
+                speed={line.speed}
+                flickerEvery={line.flickerEvery}
+                scrollYProgress={scrollYProgress}
+              />
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>
