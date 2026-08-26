@@ -166,13 +166,13 @@ export default function Projects() {
   );
   const rotateX = useTransform(
     scrollYProgress,
-    [0, 0.15, 0.4, 0.65, 0.9, 1],
-    [0, 0, -5, 4, -4, 0]
+    [0, 0.15, 0.29, 0.43, 0.58, 0.72, 0.86, 1],
+    [0, 0, -3, 0, 3, 0, -3, 0]
   );
   const floatY = useTransform(
     scrollYProgress,
-    [0, 0.15, 0.4, 0.65, 0.9, 1],
-    [0, 0, -10, 5, -8, 0]
+    [0, 0.15, 0.29, 0.43, 0.58, 0.72, 0.86, 1],
+    [0, 0, -5, 0, 4, 0, -4, 0]
   );
 
   const cubeScale = useTransform(
