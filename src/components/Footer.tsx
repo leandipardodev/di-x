@@ -11,11 +11,7 @@ export default function Footer() {
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-6">
             <RevealLine>
-              <div className="flex items-baseline gap-0">
-                <span className="text-4xl font-bold tracking-tighter">di</span>
-                <span className="text-4xl font-light text-muted">.</span>
-                <span className="text-4xl font-bold tracking-tighter">X</span>
-              </div>
+              <img src="/logo di.x.webp" alt="di.X" className="h-10 w-auto" />
             </RevealLine>
             <RevealLine delay={0.1}>
               <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">

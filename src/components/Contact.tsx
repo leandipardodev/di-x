@@ -48,7 +48,6 @@ export default function Contact() {
 
             <RevealLine delay={0.3}>
               <div className="mt-16 space-y-6">
-                <img src="/logo di.x.webp" alt="di.X" className="h-6 w-auto" />
                 <a
                   href="mailto:hello@di-x.studio"
                   className="group flex items-center gap-3 text-sm text-muted transition-colors hover:text-foreground"
