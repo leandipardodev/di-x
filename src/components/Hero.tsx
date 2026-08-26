@@ -39,7 +39,7 @@ export default function Hero() {
   });
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowScroll(true), 2000);
+    const timer = setTimeout(() => setShowScroll(true), 4000);
     return () => clearTimeout(timer);
   }, []);
 
