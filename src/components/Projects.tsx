@@ -235,7 +235,7 @@ export default function Projects() {
     if (!vid) return;
     if (v > 0.5) {
       const dist = Math.abs(scrollYProgress.get() - scrollAtPauseKlip.current);
-      if (dist > 0.11) vid.currentTime = 0;
+      if (dist > 0.30) vid.currentTime = 0;
       vid.play().catch(() => {});
     } else {
       vid.pause();
@@ -254,7 +254,7 @@ export default function Projects() {
     if (!vid) return;
     if (v > 0.5) {
       const dist = Math.abs(scrollYProgress.get() - scrollAtPauseBoobaa.current);
-      if (dist > 0.11) vid.currentTime = 0;
+      if (dist > 0.30) vid.currentTime = 0;
       vid.play().catch(() => {});
     } else {
       vid.pause();
