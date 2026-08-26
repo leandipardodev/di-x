@@ -227,6 +227,12 @@ export default function Projects() {
 
   const imgOpacity = useTransform(spotlightOp, [0, 1], [0.15, 0.55]);
 
+  const logoShineX = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["-120%", "220%"]
+  );
+
   const faceData = [
     { ry: 0, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: projects[0], op: f0 },
     { ry: 90, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: projects[1], op: f1 },
@@ -343,29 +349,37 @@ export default function Projects() {
                             filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.6))",
                           }}
                         >
-                          {face.project.title === "Dix gestor" ? (
-                            <img
-                              src="/dix-gestor-logo.png"
-                              alt="Dix gestor"
-                              className="h-8 w-auto object-contain lg:h-10"
-                            />
-                          ) : face.project.title === "Klip" ? (
-                            <img
-                              src="/klip-logo.png"
-                              alt="Klip"
-                              className="h-8 w-auto object-contain lg:h-10"
-                            />
-                          ) : face.project.title === "Boobaa" ? (
-                            <img
-                              src="/boobaa-logo.png"
-                              alt="Boobaa"
-                              className="h-8 w-auto object-contain lg:h-10"
-                            />
-                          ) : (
-                            <h3 className="text-xl font-bold tracking-tight text-white lg:text-2xl">
-                              {face.project.title}
-                            </h3>
-                          )}
+                          <div className="relative inline-block">
+                            {face.project.title === "Dix gestor" ? (
+                              <img
+                                src="/dix-gestor-logo.png"
+                                alt="Dix gestor"
+                                className="h-8 w-auto object-contain lg:h-10"
+                              />
+                            ) : face.project.title === "Klip" ? (
+                              <img
+                                src="/klip-logo.png"
+                                alt="Klip"
+                                className="h-8 w-auto object-contain lg:h-10"
+                              />
+                            ) : face.project.title === "Boobaa" ? (
+                              <img
+                                src="/boobaa-logo.png"
+                                alt="Boobaa"
+                                className="h-8 w-auto object-contain lg:h-10"
+                              />
+                            ) : (
+                              <h3 className="text-xl font-bold tracking-tight text-white lg:text-2xl">
+                                {face.project.title}
+                              </h3>
+                            )}
+                            <motion.div
+                              style={{ left: logoShineX }}
+                              className="pointer-events-none absolute inset-y-0 w-16 -skew-x-12"
+                            >
+                              <div className="h-full w-full bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+                            </motion.div>
+                          </div>
                         </div>
                       </>
                     ) : face.cta ? (
