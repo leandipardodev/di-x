@@ -190,8 +190,6 @@ export default function Projects() {
     [-80, 0]
   );
 
-  const scrollIndicatorOp = useTransform(scrollYProgress, [0, 0.06], [1, 0]);
-
   const f0 = useTransform(
     scrollYProgress,
     [0.10, 0.15, 0.20],
@@ -392,17 +390,6 @@ export default function Projects() {
             <AnnotationBlock project={projects[0]} opacity={f0} align="right" />
             <AnnotationBlock project={projects[1]} opacity={f1} align="right" />
             <AnnotationBlock project={projects[2]} opacity={f2} align="right" />
-            <motion.div
-              style={{ opacity: f3 }}
-              className="absolute inset-0 flex flex-col justify-center text-right"
-            >
-              <div className="flex items-center justify-end gap-3">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-white/30">
-                  Contacto
-                </span>
-                <div className="h-px w-10 bg-white/15" />
-              </div>
-            </motion.div>
           </div>
         </div>
 
@@ -424,16 +411,6 @@ export default function Projects() {
             ))}
           </div>
         )}
-
-        <motion.div
-          style={{ opacity: scrollIndicatorOp }}
-          className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
-        >
-          <span className="text-[9px] uppercase tracking-[0.35em] text-white/20">
-            Scroll
-          </span>
-          <div className="h-5 w-px bg-gradient-to-b from-white/20 to-transparent" />
-        </motion.div>
       </div>
     </section>
   );
