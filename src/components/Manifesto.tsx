@@ -9,6 +9,7 @@ const MAX_FLICKERING = 2;
 
 function FlickerWord({ children }: { children: React.ReactNode }) {
   const opacity = useMotionValue(1);
+  const glow = useMotionValue(0);
 
   const flicker = useCallback(() => {
     if (flickeringCount >= MAX_FLICKERING) {
@@ -18,20 +19,25 @@ function FlickerWord({ children }: { children: React.ReactNode }) {
     flickeringCount++;
 
     const sequence = [
-      { o: 0.3, d: 50 },
-      { o: 1, d: 40 },
-      { o: 0.15, d: 60 },
-      { o: 0.9, d: 30 },
-      { o: 0.2, d: 50 },
-      { o: 1, d: 40 },
-      { o: 0.4, d: 30 },
-      { o: 1, d: 0 },
+      { o: 0.4, g: 0.2, d: 40 },
+      { o: 1, g: 1, d: 30 },
+      { o: 0.15, g: 0, d: 70 },
+      { o: 0.8, g: 0.6, d: 35 },
+      { o: 0.1, g: 0, d: 60 },
+      { o: 1, g: 1, d: 25 },
+      { o: 0.3, g: 0.1, d: 45 },
+      { o: 1, g: 1, d: 30 },
+      { o: 0.6, g: 0.4, d: 40 },
+      { o: 1, g: 1, d: 150 },
+      { o: 0.7, g: 0.5, d: 30 },
+      { o: 1, g: 0, d: 0 },
     ];
 
     let i = 0;
     const step = () => {
       if (i < sequence.length) {
         opacity.set(sequence[i].o);
+        glow.set(sequence[i].g);
         setTimeout(step, sequence[i].d);
         i++;
       } else {
@@ -41,7 +47,7 @@ function FlickerWord({ children }: { children: React.ReactNode }) {
       }
     };
     step();
-  }, [opacity]);
+  }, [opacity, glow]);
 
   useEffect(() => {
     const delay = Math.random() * 5000;
@@ -49,8 +55,22 @@ function FlickerWord({ children }: { children: React.ReactNode }) {
     return () => clearTimeout(t);
   }, [flicker]);
 
+  const color = useTransform(glow, [0, 1], ["rgba(255,255,255,0.15)", "rgba(255,255,255,1)"]);
+  const shadow = useTransform(
+    glow,
+    [0, 0.5, 1],
+    [
+      "0 0 0px rgba(255,255,255,0)",
+      "0 0 15px rgba(255,255,255,0.3), 0 0 30px rgba(255,255,255,0.1)",
+      "0 0 20px rgba(255,255,255,0.6), 0 0 50px rgba(255,255,255,0.3), 0 0 80px rgba(255,255,255,0.1)",
+    ]
+  );
+
   return (
-    <motion.span style={{ opacity }} className="text-stroke text-3xl font-bold uppercase tracking-widest sm:text-5xl lg:text-7xl transition-all duration-300">
+    <motion.span
+      style={{ opacity, color, textShadow: shadow }}
+      className="text-3xl font-bold uppercase tracking-widest sm:text-5xl lg:text-7xl transition-all duration-300"
+    >
       {children}
     </motion.span>
   );
