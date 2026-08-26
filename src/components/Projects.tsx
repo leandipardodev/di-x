@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValueEvent, animate } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
 interface Project {
@@ -152,12 +152,39 @@ export default function Projects() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoBoobaaRef = useRef<HTMLVideoElement>(null);
   const videoKlipRef = useRef<HTMLVideoElement>(null);
+  const lastPausedKlip = useRef(0);
+  const lastPausedBoobaa = useRef(0);
+  const snapRef = useRef(false);
   const { w: cubeW, h: cubeH, perspective, isMobile } = useCubeSize();
   const halfD = cubeW / 2;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
+  });
+
+  const facePositions = [0.15, 0.43, 0.72, 1.0];
+  const faceAngles = [0, -90, -180, -270];
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (snapRef.current) return;
+    let closest = facePositions[0];
+    let minDist = Math.abs(latest - closest);
+    for (const pos of facePositions) {
+      const dist = Math.abs(latest - pos);
+      if (dist < minDist) { closest = pos; minDist = dist; }
+    }
+    if (minDist < 0.015) {
+      snapRef.current = true;
+      const angle = faceAngles[facePositions.indexOf(closest)];
+      animate(scrollYProgress, closest, {
+        type: "spring",
+        stiffness: 200,
+        damping: 30,
+        duration: 0.4,
+        onComplete: () => { snapRef.current = false; },
+      });
+    }
   });
 
   const rotateY = useTransform(
@@ -201,11 +228,15 @@ export default function Projects() {
   useMotionValueEvent(f0, "change", (v) => {
     const vid = videoKlipRef.current;
     if (!vid) return;
+    const now = Date.now();
     if (v > 0.5) {
-      vid.currentTime = 0;
+      if (now - lastPausedKlip.current > 1500) {
+        vid.currentTime = 0;
+      }
       vid.play().catch(() => {});
     } else {
       vid.pause();
+      lastPausedKlip.current = now;
     }
   });
 
@@ -218,11 +249,15 @@ export default function Projects() {
   useMotionValueEvent(f1, "change", (v) => {
     const vid = videoBoobaaRef.current;
     if (!vid) return;
+    const now = Date.now();
     if (v > 0.5) {
-      vid.currentTime = 0;
+      if (now - lastPausedBoobaa.current > 1500) {
+        vid.currentTime = 0;
+      }
       vid.play().catch(() => {});
     } else {
       vid.pause();
+      lastPausedBoobaa.current = now;
     }
   });
 
