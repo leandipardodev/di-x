@@ -151,6 +151,7 @@ function CTAFace() {
 export default function Projects() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoBoobaaRef = useRef<HTMLVideoElement>(null);
+  const videoKlipRef = useRef<HTMLVideoElement>(null);
   const { w: cubeW, h: cubeH, perspective, isMobile } = useCubeSize();
   const halfD = cubeW / 2;
 
@@ -196,6 +197,18 @@ export default function Projects() {
     [0.10, 0.15, 0.20],
     [0, 1, 0]
   );
+
+  useMotionValueEvent(f0, "change", (v) => {
+    const vid = videoKlipRef.current;
+    if (!vid) return;
+    if (v > 0.5) {
+      vid.currentTime = 0;
+      vid.play().catch(() => {});
+    } else {
+      vid.pause();
+    }
+  });
+
   const f1 = useTransform(
     scrollYProgress,
     [0.38, 0.43, 0.48],
@@ -333,6 +346,16 @@ export default function Projects() {
                           <motion.video
                             ref={videoBoobaaRef}
                             src="/video booba.mp4"
+                            muted
+                            playsInline
+                            preload="auto"
+                            className="absolute inset-0 h-full w-full object-cover"
+                            style={{ opacity: imgOpacity }}
+                          />
+                        ) : face.project.title === "Klip" ? (
+                          <motion.video
+                            ref={videoKlipRef}
+                            src="/video klip.mp4"
                             muted
                             playsInline
                             preload="auto"
