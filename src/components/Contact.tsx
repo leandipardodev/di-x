@@ -48,6 +48,7 @@ export default function Contact() {
 
             <RevealLine delay={0.3}>
               <div className="mt-16 space-y-6">
+                <img src="/logo di.x.webp" alt="di.X" className="h-6 w-auto" />
                 <a
                   href="mailto:hello@di-x.studio"
                   className="group flex items-center gap-3 text-sm text-muted transition-colors hover:text-foreground"
@@ -141,7 +142,7 @@ export default function Contact() {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="group flex items-center gap-4 border border-border bg-foreground px-8 py-4 text-[11px] uppercase tracking-[0.2em] text-background transition-all duration-300 hover:bg-transparent hover:text-foreground"
+                  className="group flex cursor-pointer items-center gap-4 border border-border bg-foreground px-8 py-4 text-[11px] uppercase tracking-[0.2em] text-background transition-all duration-300 hover:bg-transparent hover:text-foreground"
                 >
                   <span>Enviar mensaje</span>
                   <Send className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
