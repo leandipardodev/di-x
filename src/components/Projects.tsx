@@ -375,7 +375,7 @@ export default function Projects() {
                             )}
                             <motion.div
                               style={{ left: logoShineX }}
-                              className="pointer-events-none absolute -inset-y-4 w-20 -skew-x-12"
+                              className="pointer-events-none absolute inset-y-0 w-20 -skew-x-12"
                             >
                               <div className="h-full w-full bg-gradient-to-r from-transparent via-white/15 to-transparent" />
                             </motion.div>
