@@ -173,7 +173,7 @@ export default function Hero() {
               <img
                 src="/logo di.x.webp"
                 alt="di.X"
-                className="h-[clamp(3rem,10vw,8rem)] w-auto"
+                className="h-[clamp(5.5rem,20vw,8rem)] lg:h-[clamp(3rem,10vw,8rem)] w-auto"
               />
             </motion.div>
           </div>
