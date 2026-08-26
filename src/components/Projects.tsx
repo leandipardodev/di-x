@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
 interface Project {
@@ -150,6 +150,7 @@ function CTAFace() {
 
 export default function Projects() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoBoobaaRef = useRef<HTMLVideoElement>(null);
   const { w: cubeW, h: cubeH, perspective, isMobile } = useCubeSize();
   const halfD = cubeW / 2;
 
@@ -200,6 +201,18 @@ export default function Projects() {
     [0.38, 0.43, 0.48],
     [0, 1, 0]
   );
+
+  useMotionValueEvent(f1, "change", (v) => {
+    const vid = videoBoobaaRef.current;
+    if (!vid) return;
+    if (v > 0.5) {
+      vid.currentTime = 0;
+      vid.play().catch(() => {});
+    } else {
+      vid.pause();
+    }
+  });
+
   const f2 = useTransform(
     scrollYProgress,
     [0.67, 0.72, 0.77],
@@ -316,12 +329,24 @@ export default function Projects() {
                   >
                     {face.project ? (
                       <>
-                        <motion.img
-                          src={face.project.image}
-                          alt={face.project.title}
-                          className="absolute inset-0 h-full w-full object-cover"
-                          style={{ opacity: imgOpacity }}
-                        />
+                        {face.project.title === "Boobaa" ? (
+                          <motion.video
+                            ref={videoBoobaaRef}
+                            src="/video booba.mp4"
+                            muted
+                            playsInline
+                            preload="auto"
+                            className="absolute inset-0 h-full w-full object-cover"
+                            style={{ opacity: imgOpacity }}
+                          />
+                        ) : (
+                          <motion.img
+                            src={face.project.image}
+                            alt={face.project.title}
+                            className="absolute inset-0 h-full w-full object-cover"
+                            style={{ opacity: imgOpacity }}
+                          />
+                        )}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
                         <div
                           className="absolute inset-0"
