@@ -83,7 +83,7 @@ function MarqueeLine({
   const x = useTransform(
     scrollYProgress,
     [0, 1],
-    direction === "right" ? [200 * speed, -200 * speed] : [-200 * speed, 200 * speed]
+    direction === "right" ? [100 * speed, -300 * speed] : [-200 * speed, 200 * speed]
   );
 
   const repeats = Array.from({ length: 20 }, (_, i) => i);
@@ -135,7 +135,7 @@ export default function Manifesto() {
     <section
       id="studio"
       ref={ref}
-      className="relative overflow-hidden pt-32 pb-0 lg:pt-48 lg:pb-0"
+      className="relative overflow-hidden pt-32 pb-10 lg:pt-48 lg:pb-16"
     >
       <motion.div
         style={{
@@ -227,7 +227,7 @@ export default function Manifesto() {
 
         <motion.div
           style={{ opacity: marqueeOpacity }}
-          className="mt-32 cursor-default overflow-hidden border-t border-border pt-16"
+          className="-mx-6 mt-16 cursor-default overflow-hidden border-t border-border py-10 sm:-mx-10 lg:-mx-12 lg:mt-24 lg:py-16"
         >
           <div className="-rotate-3 scale-110">
             {lines.map((line, i) => (
