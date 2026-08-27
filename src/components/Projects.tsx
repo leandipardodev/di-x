@@ -352,7 +352,7 @@ export default function Projects() {
             >
               <div
                 style={{
-                  width: cubeW * 1.8,
+                  width: cubeW * 2.4,
                   height: cubeH * 0.9,
                   background:
                     "linear-gradient(to bottom, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.10) 55%, transparent 85%)",
