@@ -139,12 +139,11 @@ export default function Contact() {
 
               <ClipReveal delay={0.5}>
                 <motion.button
-                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="group flex cursor-pointer items-center gap-4 border border-border bg-foreground px-8 py-4 text-[11px] uppercase tracking-[0.2em] text-background transition-all duration-300 hover:bg-transparent hover:text-foreground"
+                  className="group flex cursor-pointer items-center gap-4 border border-border bg-foreground px-8 py-4 text-[11px] uppercase tracking-[0.2em] text-background transition-colors duration-100 hover:bg-transparent hover:text-foreground"
                 >
                   <span>Enviar mensaje</span>
-                  <Send className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  <Send className="h-3.5 w-3.5 transition-transform duration-100 group-hover:translate-x-0.5" />
                 </motion.button>
               </ClipReveal>
             </form>

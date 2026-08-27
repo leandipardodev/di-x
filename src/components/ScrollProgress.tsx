@@ -39,7 +39,7 @@ export default function ScrollProgress() {
         {sections.map((section, i) => (
           <div key={section} className="flex items-center gap-3">
             <div
-              className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ${
+              className={`w-1.5 h-1.5 transition-all duration-300 ${
                 activeSection === i
                   ? "bg-foreground scale-125"
                   : "bg-border"

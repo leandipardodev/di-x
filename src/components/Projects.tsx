@@ -185,8 +185,8 @@ export default function Projects() {
           snapRef.current = true;
           animate(scrollYProgress, closest, {
             type: "spring",
-            stiffness: 200,
-            damping: 30,
+            stiffness: 320,
+            damping: 40,
             onComplete: () => { snapRef.current = false; },
           });
         }
@@ -201,13 +201,13 @@ export default function Projects() {
   );
   const rotateX = useTransform(
     scrollYProgress,
-    [0, 0.15, 0.2917, 0.4333, 0.575, 0.7167, 0.858, 1],
-    [0, 0, -3, 0, 3, 0, -3, 0]
+    [0, 0.15, 0.29, 0.4333, 0.575, 0.7167, 0.858, 1],
+    [0, 0, -1.5, 0, 1.5, 0, -1.5, 0]
   );
   const floatY = useTransform(
     scrollYProgress,
-    [0, 0.15, 0.2917, 0.4333, 0.575, 0.7167, 0.858, 1],
-    [0, 0, -5, 0, 4, 0, -4, 0]
+    [0, 0.15, 1],
+    [0, 0, 0]
   );
 
   const cubeScale = useTransform(
@@ -348,14 +348,17 @@ export default function Projects() {
           <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-full z-20">
             <motion.div
               style={{ opacity: spotlightOp }}
+              className="relative"
             >
               <div
                 style={{
                   width: cubeW * 1.3,
-                  height: cubeH * 0.8,
+                  height: cubeH * 0.9,
                   background:
-                    "radial-gradient(ellipse at center bottom, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 40%, transparent 70%)",
-                  filter: "blur(30px)",
+                    "linear-gradient(to bottom, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.10) 55%, transparent 85%)",
+                  filter: "blur(6px)",
+                  clipPath:
+                    "polygon(42% 0%, 58% 0%, 62% 100%, 38% 100%)",
                 }}
               />
             </motion.div>
