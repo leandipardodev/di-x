@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionValueEvent, animate } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValueEvent, useMotionValue, useSpring, animate } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
 interface Project {
@@ -187,7 +187,7 @@ export default function Projects() {
             type: "spring",
             stiffness: 320,
             damping: 40,
-            onComplete: () => { snapRef.current = false; },
+            onComplete: () => { snapRef.current = false; runFlicker(); },
           });
         }
       }, 500);
@@ -309,6 +309,40 @@ export default function Projects() {
   );
 
   const imgOpacity = useTransform(spotlightOp, [0, 1], [0.15, 0.55]);
+
+  const flickerBase = useMotionValue(0);
+  const flickerSpring = useSpring(flickerBase, { stiffness: 120, damping: 18 });
+  const flickerTarget = useMotionValue(0);
+
+  const runFlicker = () => {
+    const ticks = [0.25, 1, 0.4, 0.9, 0.2, 1, 0.6, 1];
+    const delays = [45, 30, 60, 40, 55, 35, 50, 0];
+    let i = 0;
+    const step = () => {
+      if (i < ticks.length) {
+        flickerTarget.set(ticks[i]);
+        animate(flickerBase, flickerTarget.get(), {
+          type: "tween",
+          duration: delays[i] / 1000,
+          ease: "linear",
+          onComplete: () => {
+            i++;
+            step();
+          },
+        });
+      } else {
+        flickerBase.set(0);
+        flickerTarget.set(0);
+      }
+    };
+    step();
+  };
+
+  const illumination = useTransform(
+    [imgOpacity, flickerSpring],
+    ([base, f]: number[]) => Math.max(0, Math.min(1, base + f * 0.5))
+  );
+
 
   const faceData = [
     { ry: 0, rx: 0, tz: halfD, w: cubeW, h: cubeH, project: projects[0], op: f0 },
@@ -446,9 +480,9 @@ export default function Projects() {
                         <motion.div
                           className="absolute inset-0"
                           style={{
-                            opacity: imgOpacity,
+                            opacity: illumination,
                             background:
-                              "linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.12) 25%, transparent 55%, rgba(0,0,0,0.25) 100%)",
+                              "linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.16) 25%, transparent 55%, rgba(0,0,0,0.25) 100%)",
                           }}
                         />
                         <div className="absolute top-5 left-5 font-mono text-[10px] tracking-wider text-white/20">
