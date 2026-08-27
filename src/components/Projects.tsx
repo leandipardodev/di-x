@@ -443,11 +443,12 @@ export default function Projects() {
                           />
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
-                        <div
+                        <motion.div
                           className="absolute inset-0"
                           style={{
+                            opacity: imgOpacity,
                             background:
-                              "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 40%, rgba(0,0,0,0.15) 100%)",
+                              "linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.12) 25%, transparent 55%, rgba(0,0,0,0.25) 100%)",
                           }}
                         />
                         <div className="absolute top-5 left-5 font-mono text-[10px] tracking-wider text-white/20">
