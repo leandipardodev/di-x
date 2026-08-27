@@ -352,13 +352,13 @@ export default function Projects() {
             >
               <div
                 style={{
-                  width: cubeW * 1.3,
+                  width: cubeW * 1.8,
                   height: cubeH * 0.9,
                   background:
                     "linear-gradient(to bottom, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.10) 55%, transparent 85%)",
                   filter: "blur(6px)",
                   clipPath:
-                    "polygon(42% 0%, 58% 0%, 62% 100%, 38% 100%)",
+                    "polygon(35% 0%, 65% 0%, 70% 100%, 30% 100%)",
                 }}
               />
             </motion.div>
