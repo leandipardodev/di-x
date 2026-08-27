@@ -311,36 +311,37 @@ export default function Projects() {
   const imgOpacity = useTransform(spotlightOp, [0, 1], [0.15, 0.55]);
 
   const flickerBase = useMotionValue(0);
-  const flickerSpring = useSpring(flickerBase, { stiffness: 120, damping: 18 });
-  const flickerTarget = useMotionValue(0);
+  const flickerSpring = useSpring(flickerBase, { stiffness: 400, damping: 28, restDelta: 0.001 });
 
-  const runFlicker = () => {
-    const ticks = [0.25, 1, 0.4, 0.9, 0.2, 1, 0.6, 1];
-    const delays = [45, 30, 60, 40, 55, 35, 50, 0];
+  const runFlicker = (done?: () => void) => {
+    const nTicks = 3 + Math.floor(Math.random() * 6);
     let i = 0;
     const step = () => {
-      if (i < ticks.length) {
-        flickerTarget.set(ticks[i]);
-        animate(flickerBase, flickerTarget.get(), {
-          type: "tween",
-          duration: delays[i] / 1000,
-          ease: "linear",
-          onComplete: () => {
-            i++;
-            step();
-          },
-        });
+      if (i < nTicks) {
+        const on = Math.random() < 0.6;
+        flickerBase.set(on ? 0.7 + Math.random() * 0.3 : 0.08 + Math.random() * 0.3);
+        const wait = (on ? 40 + Math.random() * 50 : 25 + Math.random() * 60);
+        setTimeout(() => { i++; step(); }, wait);
       } else {
         flickerBase.set(0);
-        flickerTarget.set(0);
+        if (done) done();
       }
     };
     step();
   };
 
+  useEffect(() => {
+    runFlicker();
+    const interval = setInterval(() => {
+      runFlicker();
+    }, 4000 + Math.random() * 6000);
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const illumination = useTransform(
     [imgOpacity, flickerSpring],
-    ([base, f]: number[]) => Math.max(0, Math.min(1, base + f * 0.5))
+    ([base, f]: number[]) => Math.max(0, Math.min(1, base + f * 0.6))
   );
 
 
