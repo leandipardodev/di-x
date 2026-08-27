@@ -135,7 +135,7 @@ export default function Manifesto() {
     <section
       id="studio"
       ref={ref}
-      className="relative overflow-hidden pt-32 pb-10 lg:pt-48 lg:pb-16"
+      className="relative overflow-hidden pt-32 pb-0 lg:pt-48 lg:pb-0"
     >
       <motion.div
         style={{
@@ -227,7 +227,7 @@ export default function Manifesto() {
 
         <motion.div
           style={{ opacity: marqueeOpacity }}
-          className="-mx-6 mt-16 cursor-default overflow-hidden border-t border-border py-10 sm:-mx-10 lg:-mx-12 lg:mt-24 lg:py-16"
+          className="-mx-6 mt-4 cursor-default overflow-hidden py-4 sm:-mx-10 lg:-mx-12 lg:mt-8 lg:py-8"
         >
           <div className="-rotate-3 scale-110">
             {lines.map((line, i) => (
