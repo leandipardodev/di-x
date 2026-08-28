@@ -2,7 +2,6 @@
 
 import { motion, useScroll, useTransform, useMotionValueEvent, useMotionValue, useSpring, animate } from "framer-motion";
 import { useRef, useState, useEffect, useCallback } from "react";
-import LogoTransition from "./LogoTransition";
 
 interface Project {
   id: string;
@@ -164,13 +163,12 @@ export default function Projects() {
   const lastScrollTime = useRef(0);
   const snapRef = useRef(false);
   const snapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [transition, setTransition] = useState<{ url: string } | null>(null);
   const { w: cubeW, h: cubeH, perspective, isMobile } = useCubeSize();
   const halfD = cubeW / 2;
 
   const handleFaceClick = useCallback((project: Project) => {
     if (!project.url) return;
-    setTransition({ url: project.url });
+    window.open(project.url, "_blank", "noopener");
   }, []);
 
   const { scrollYProgress } = useScroll({
@@ -585,13 +583,6 @@ export default function Projects() {
           </div>
         )}
       </div>
-
-      {transition && (
-        <LogoTransition
-          url={transition.url}
-          onDone={() => setTransition(null)}
-        />
-      )}
     </section>
   );
 }
