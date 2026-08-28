@@ -19,7 +19,7 @@ export default function BifurcateLink({
   const [open, setOpen] = useState(false);
 
   return (
-    <div>
+    <div className="relative inline-block">
       <button
         onClick={() => setOpen((o) => !o)}
         className={`group flex cursor-pointer items-center gap-3 text-sm transition-colors ${
@@ -39,13 +39,13 @@ export default function BifurcateLink({
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
-            className="overflow-hidden pl-11"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="absolute left-full top-1/2 z-10 -translate-y-1/2 ml-2"
           >
-            <div className="relative mt-2 h-14 w-[220px]">
+            <div className="relative h-14 w-[220px]">
               <svg
                 viewBox="0 0 120 56"
                 width="120"
