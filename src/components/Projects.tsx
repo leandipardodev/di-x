@@ -141,6 +141,13 @@ function AnnotationBlock({
 function CTAFace() {
   return (
     <div className="flex h-full flex-col items-center justify-center text-center">
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(125% 125% at 50% 42%, transparent 38%, rgba(0,0,0,0.55) 100%)",
+        }}
+      />
       <span className="text-[10px] uppercase tracking-[0.35em] text-white/40">
         ¿Tenés un proyecto?
       </span>
@@ -148,6 +155,13 @@ function CTAFace() {
         Hablemos
       </h3>
       <div className="mt-6 h-px w-12 bg-white/25" />
+      <div className="pointer-events-none absolute inset-3">
+        <span className="absolute left-0 top-0 h-5 w-5 border-l-2 border-t-2 border-white/20" />
+        <span className="absolute right-0 top-0 h-5 w-5 border-r-2 border-t-2 border-white/20" />
+        <span className="absolute bottom-0 left-0 h-5 w-5 border-b-2 border-l-2 border-white/20" />
+        <span className="absolute bottom-0 right-0 h-5 w-5 border-b-2 border-r-2 border-white/20" />
+      </div>
+      <div className="pointer-events-none absolute inset-x-6 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-white/25 to-transparent" />
     </div>
   );
 }
@@ -501,6 +515,19 @@ const rotateY = useTransform(
                               "linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.14) 25%, transparent 55%, rgba(0,0,0,0.25) 100%)",
                           }}
                         />
+                        <div
+                          className="absolute inset-0"
+                          style={{
+                            background: `linear-gradient(180deg, ${face.project.color}38 0%, transparent 32%, transparent 68%, ${face.project.color}45 100%)`,
+                          }}
+                        />
+                        <div
+                          className="absolute inset-0"
+                          style={{
+                            background:
+                              "radial-gradient(125% 125% at 50% 42%, transparent 38%, rgba(0,0,0,0.55) 100%)",
+                          }}
+                        />
                         <div className="absolute top-5 left-5 font-mono text-[10px] tracking-wider text-white/20">
                           {face.project.id}
                         </div>
@@ -536,6 +563,18 @@ const rotateY = useTransform(
                               </h3>
                             )}
                         </div>
+                        <div className="pointer-events-none absolute inset-3">
+                          <span className="absolute left-0 top-0 h-5 w-5 border-l-2 border-t-2 border-white/25" />
+                          <span className="absolute right-0 top-0 h-5 w-5 border-r-2 border-t-2 border-white/25" />
+                          <span className="absolute bottom-0 left-0 h-5 w-5 border-b-2 border-l-2 border-white/25" />
+                          <span className="absolute bottom-0 right-0 h-5 w-5 border-b-2 border-r-2 border-white/25" />
+                        </div>
+                        <div
+                          className="pointer-events-none absolute inset-x-6 bottom-0 h-[2px]"
+                          style={{
+                            background: `linear-gradient(90deg, transparent, ${face.project.color}, transparent)`,
+                          }}
+                        />
                       </>
                     ) : face.cta ? (
                       <CTAFace />
