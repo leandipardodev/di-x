@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ArrowUpRight } from "lucide-react";
 
 export interface BifurcateOption {
@@ -17,10 +17,22 @@ export default function BifurcateLink({
   options: BifurcateOption[];
 }) {
   const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleClick = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", handleClick);
+    return () => document.removeEventListener("pointerdown", handleClick);
+  }, [open]);
 
   return (
     <div className="block">
-      <div className="relative inline-block">
+      <div ref={containerRef} className="relative inline-block">
         <button
           onClick={() => setOpen((o) => !o)}
           className={`group flex cursor-pointer items-center gap-3 text-sm transition-colors ${
