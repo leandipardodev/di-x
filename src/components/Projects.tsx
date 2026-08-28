@@ -156,10 +156,10 @@ function CTAFace() {
       </h3>
       <div className="mt-6 h-px w-12 bg-white/25" />
       <div className="pointer-events-none absolute inset-3">
-        <span className="absolute left-0 top-0 h-5 w-5 border-l-2 border-t-2 border-white/20" />
-        <span className="absolute right-0 top-0 h-5 w-5 border-r-2 border-t-2 border-white/20" />
-        <span className="absolute bottom-0 left-0 h-5 w-5 border-b-2 border-l-2 border-white/20" />
-        <span className="absolute bottom-0 right-0 h-5 w-5 border-b-2 border-r-2 border-white/20" />
+        <span className="absolute left-0 top-0 h-4 w-4 border-l border-t border-white/15" />
+        <span className="absolute right-0 top-0 h-4 w-4 border-r border-t border-white/15" />
+        <span className="absolute bottom-0 left-0 h-4 w-4 border-b border-l border-white/15" />
+        <span className="absolute bottom-0 right-0 h-4 w-4 border-b border-r border-white/15" />
       </div>
       <div className="pointer-events-none absolute inset-x-6 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-white/25 to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 left-0 w-[3px]">
@@ -558,6 +558,13 @@ const rotateY = useTransform(
                             filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.6))",
                           }}
                         >
+                          <div
+                            className="pointer-events-none absolute -inset-x-8 -bottom-10 -top-6"
+                            style={{
+                              background:
+                                "radial-gradient(70% 130% at 25% 100%, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0) 80%)",
+                            }}
+                          />
                           {face.project.title === "Dix gestor" ? (
                               <img
                                 src="/dix-gestor-logo.png"
@@ -583,10 +590,10 @@ const rotateY = useTransform(
                             )}
                         </div>
                         <div className="pointer-events-none absolute inset-3">
-                          <span className="absolute left-0 top-0 h-5 w-5 border-l-2 border-t-2 border-white/25" />
-                          <span className="absolute right-0 top-0 h-5 w-5 border-r-2 border-t-2 border-white/25" />
-                          <span className="absolute bottom-0 left-0 h-5 w-5 border-b-2 border-l-2 border-white/25" />
-                          <span className="absolute bottom-0 right-0 h-5 w-5 border-b-2 border-r-2 border-white/25" />
+                          <span className="absolute left-0 top-0 h-4 w-4 border-l border-t border-white/15" />
+                          <span className="absolute right-0 top-0 h-4 w-4 border-r border-t border-white/15" />
+                          <span className="absolute bottom-0 left-0 h-4 w-4 border-b border-l border-white/15" />
+                          <span className="absolute bottom-0 right-0 h-4 w-4 border-b border-r border-white/15" />
                         </div>
                         <div
                           className="pointer-events-none absolute inset-x-6 bottom-0 h-[2px]"
