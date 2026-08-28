@@ -3,37 +3,50 @@
 import { motion } from "framer-motion";
 import { useEffect, useMemo } from "react";
 
+const DI_X_LOGO = "/logo di.x.webp";
+
 export default function LogoTransition({
-  logo,
   url,
   onDone,
 }: {
-  logo: string;
   url: string;
   onDone: () => void;
 }) {
-  const logos = useMemo(
-    () =>
-      Array.from({ length: 22 }, () => {
-        const size = 44 + Math.random() * 84;
-        const duration = 0.9 + Math.random() * 1.2;
-        const delay = Math.random() * 0.3;
-        const fromX = -30 + Math.random() * 20;
-        const fromY = 80 + Math.random() * 35;
-        const toX = 55 + Math.random() * 60;
-        const toY = -30 - Math.random() * 40;
-        const rotate = -24 + Math.random() * 48;
-        const opacity = 0.5 + Math.random() * 0.5;
-        return { size, duration, delay, fromX, fromY, toX, toY, rotate, opacity };
-      }),
-    []
-  );
+  const logos = useMemo(() => {
+    const waves = [
+      { count: 8, delayBase: 0, delaySpread: 0.1, durMin: 2.0, durMax: 2.3 },
+      { count: 20, delayBase: 0.18, delaySpread: 0.2, durMin: 1.8, durMax: 2.1 },
+      { count: 36, delayBase: 0.38, delaySpread: 0.28, durMin: 1.6, durMax: 2.0 },
+    ];
+    const items: {
+      size: number;
+      duration: number;
+      delay: number;
+      fromX: number;
+      fromY: number;
+      toX: number;
+      toY: number;
+    }[] = [];
+    waves.forEach((w) => {
+      for (let i = 0; i < w.count; i++) {
+        const size = 90 + Math.random() * 130;
+        const duration = w.durMin + Math.random() * (w.durMax - w.durMin);
+        const delay = w.delayBase + Math.random() * w.delaySpread;
+        const fromX = -25 - Math.random() * 15;
+        const fromY = 95 + Math.random() * 20;
+        const toX = 75 + Math.random() * 40;
+        const toY = -25 - Math.random() * 35;
+        items.push({ size, duration, delay, fromX, fromY, toX, toY });
+      }
+    });
+    return items;
+  }, []);
 
   useEffect(() => {
     const t = setTimeout(() => {
       if (url) window.location.href = url;
       onDone();
-    }, 1700);
+    }, 2500);
     return () => clearTimeout(t);
   }, [url, onDone]);
 
@@ -47,12 +60,12 @@ export default function LogoTransition({
       {logos.map((l, i) => (
         <motion.img
           key={i}
-          src={logo}
+          src={DI_X_LOGO}
           alt=""
-          className="absolute select-none object-contain will-change-transform"
-          style={{ width: l.size, opacity: l.opacity, filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.4))" }}
-          initial={{ x: `${l.fromX}vw`, y: `${l.fromY}vh`, rotate: l.rotate }}
-          animate={{ x: `${l.toX}vw`, y: `${l.toY}vh`, rotate: l.rotate * 1.4 }}
+          className="absolute select-none object-contain"
+          style={{ width: l.size }}
+          initial={{ x: `${l.fromX}vw`, y: `${l.fromY}vh` }}
+          animate={{ x: `${l.toX}vw`, y: `${l.toY}vh` }}
           transition={{ duration: l.duration, delay: l.delay, ease: "linear" }}
         />
       ))}

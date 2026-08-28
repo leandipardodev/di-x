@@ -164,20 +164,14 @@ export default function Projects() {
   const lastScrollTime = useRef(0);
   const snapRef = useRef(false);
   const snapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [transition, setTransition] = useState<{ logo: string; url: string } | null>(null);
+  const [transition, setTransition] = useState<{ url: string } | null>(null);
   const { w: cubeW, h: cubeH, perspective, isMobile } = useCubeSize();
   const halfD = cubeW / 2;
 
-  const projectLogo = useCallback((title: string) => {
-    if (title === "Dix gestor") return "/dix-gestor-logo.png";
-    if (title === "Klip") return "/klip-logo.png";
-    return "/boobaa-logo.png";
-  }, []);
-
   const handleFaceClick = useCallback((project: Project) => {
     if (!project.url) return;
-    setTransition({ logo: projectLogo(project.title), url: project.url });
-  }, [projectLogo]);
+    setTransition({ url: project.url });
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -594,7 +588,6 @@ export default function Projects() {
 
       {transition && (
         <LogoTransition
-          logo={transition.logo}
           url={transition.url}
           onDone={() => setTransition(null)}
         />
