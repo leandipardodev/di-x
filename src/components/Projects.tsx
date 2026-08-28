@@ -145,7 +145,7 @@ function CTAFace() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(125% 125% at 50% 42%, transparent 38%, rgba(0,0,0,0.55) 100%)",
+            "radial-gradient(130% 130% at 50% 45%, transparent 45%, rgba(0,0,0,0.3) 100%)",
         }}
       />
       <span className="text-[10px] uppercase tracking-[0.35em] text-white/40">
@@ -328,10 +328,11 @@ const rotateY = useTransform(
   const faceDarken = useTransform(
     scrollYProgress,
     [0, 0.08, 0.15, 0.29, 0.4333, 0.575, 0.7167, 0.858, 0.93, 1],
-    [0.9, 0.9, 0, 0.8, 0, 0.8, 0, 0.8, 0.15, 0]
+    [0.5, 0.5, 0, 0.4, 0, 0.4, 0, 0.4, 0.1, 0]
   );
 
-  const imgOpacity = useTransform(spotlightOp, [0, 1], [0.15, 0.55]);
+  const videoOpacity = useTransform(spotlightOp, [0, 1], [0.35, 1]);
+  const imgOpacity = useTransform(spotlightOp, [0, 1], [0.08, 0.3]);
 
   const flickerBase = useMotionValue(1);
   const flickerSpring = useSpring(flickerBase, { stiffness: 300, damping: 26, restDelta: 0.001 });
@@ -416,7 +417,7 @@ const rotateY = useTransform(
                   width: cubeW * 2.4,
                   height: cubeH * 0.9,
                   background:
-                    "linear-gradient(to bottom, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.10) 55%, transparent 85%)",
+                    "linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 55%, transparent 85%)",
                   filter: "blur(10px)",
                   clipPath:
                     "polygon(35% 0%, 65% 0%, 70% 100%, 30% 100%)",
@@ -476,7 +477,7 @@ const rotateY = useTransform(
                             playsInline
                             preload="auto"
                             className="absolute inset-0 h-full w-full object-cover"
-                            style={{ opacity: imgOpacity }}
+                            style={{ opacity: videoOpacity }}
                           />
                         ) : face.project.title === "Klip" ? (
                           <motion.video
@@ -486,7 +487,7 @@ const rotateY = useTransform(
                             playsInline
                             preload="auto"
                             className="absolute inset-0 h-full w-full object-cover"
-                            style={{ opacity: imgOpacity }}
+                            style={{ opacity: videoOpacity }}
                           />
                         ) : face.project.title === "Dix gestor" ? (
                           <motion.video
@@ -496,17 +497,17 @@ const rotateY = useTransform(
                             playsInline
                             preload="auto"
                             className="absolute inset-0 h-full w-full object-cover"
-                            style={{ opacity: imgOpacity }}
+                            style={{ opacity: videoOpacity }}
                           />
                         ) : (
                           <motion.img
                             src={face.project.image}
                             alt={face.project.title}
                             className="absolute inset-0 h-full w-full object-cover"
-                            style={{ opacity: imgOpacity }}
+                            style={{ opacity: videoOpacity }}
                           />
                         )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
                         <motion.div
                           className="absolute inset-0"
                           style={{
@@ -518,14 +519,14 @@ const rotateY = useTransform(
                         <div
                           className="absolute inset-0"
                           style={{
-                            background: `linear-gradient(180deg, ${face.project.color}38 0%, transparent 32%, transparent 68%, ${face.project.color}45 100%)`,
+                            background: `linear-gradient(180deg, ${face.project.color}22 0%, transparent 32%, transparent 68%, ${face.project.color}28 100%)`,
                           }}
                         />
                         <div
                           className="absolute inset-0"
                           style={{
                             background:
-                              "radial-gradient(125% 125% at 50% 42%, transparent 38%, rgba(0,0,0,0.55) 100%)",
+                              "radial-gradient(130% 130% at 50% 45%, transparent 45%, rgba(0,0,0,0.3) 100%)",
                           }}
                         />
                         <div className="absolute top-5 left-5 font-mono text-[10px] tracking-wider text-white/20">
