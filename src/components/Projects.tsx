@@ -331,6 +331,12 @@ const rotateY = useTransform(
     [0, 1, 1]
   );
 
+  const curtainOp = useTransform(
+    scrollYProgress,
+    [0.9, 0.97, 1],
+    [0, 0.55, 1]
+  );
+
   const spotlightOp = useTransform(
     scrollYProgress,
     [0, 0.08, 0.15, 0.29, 0.4333, 0.575, 0.7167, 0.858, 0.93, 1],
@@ -673,6 +679,11 @@ const rotateY = useTransform(
             ))}
           </div>
         )}
+
+        <motion.div
+          style={{ opacity: curtainOp }}
+          className="pointer-events-none absolute inset-0 z-40 bg-[#0a0a0a]"
+        />
       </div>
     </section>
   );
