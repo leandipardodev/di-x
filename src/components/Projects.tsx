@@ -333,8 +333,8 @@ const rotateY = useTransform(
 
   const curtainOp = useTransform(
     scrollYProgress,
-    [0.84, 1],
-    [0, 1]
+    [0.945, 1],
+    [0, 0.92]
   );
 
   const spotlightOp = useTransform(
