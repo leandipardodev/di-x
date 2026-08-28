@@ -1,6 +1,7 @@
 "use client";
 
 import { RevealLine } from "./Animations";
+import BifurcateLink from "./BifurcateLink";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -48,8 +49,6 @@ export default function Footer() {
                   </span>
                   <div className="mt-4 flex flex-col gap-3">
                     {[
-                      { name: "GitHub", href: "https://github.com/di-x" },
-                      { name: "LinkedIn", href: "https://linkedin.com" },
                       { name: "Twitter", href: "https://twitter.com" },
                     ].map((link) => (
                       <a
@@ -62,6 +61,20 @@ export default function Footer() {
                         {link.name}
                       </a>
                     ))}
+                    <BifurcateLink
+                      label="GitHub"
+                      options={[
+                        { label: "leandipardodev", href: "https://github.com/leandipardodev" },
+                        { label: "DiMa-Program", href: "https://github.com/DiMa-Program" },
+                      ]}
+                    />
+                    <BifurcateLink
+                      label="LinkedIn"
+                      options={[
+                        { label: "Leandro Di Pardo", href: "https://www.linkedin.com/in/leandro-di-pardo-7a5a6518b/" },
+                        { label: "Hermano", href: "#" },
+                      ]}
+                    />
                   </div>
                 </div>
               </RevealLine>

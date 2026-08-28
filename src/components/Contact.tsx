@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { RevealLine, TextReveal, ClipReveal } from "./Animations";
-import { Send, ArrowUpRight } from "lucide-react";
+import BifurcateLink from "./BifurcateLink";
+import { Send } from "lucide-react";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -55,26 +56,20 @@ export default function Contact() {
                   <span className="h-px w-8 bg-border transition-all duration-300 group-hover:w-12 group-hover:bg-foreground" />
                   hello@di-x.studio
                 </a>
-                <a
-                  href="https://github.com/di-x"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-3 text-sm text-muted transition-colors hover:text-foreground"
-                >
-                  <span className="h-px w-8 bg-border transition-all duration-300 group-hover:w-12 group-hover:bg-foreground" />
-                  GitHub
-                  <ArrowUpRight className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-3 text-sm text-muted transition-colors hover:text-foreground"
-                >
-                  <span className="h-px w-8 bg-border transition-all duration-300 group-hover:w-12 group-hover:bg-foreground" />
-                  LinkedIn
-                  <ArrowUpRight className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </a>
+                <BifurcateLink
+                  label="GitHub"
+                  options={[
+                    { label: "leandipardodev", href: "https://github.com/leandipardodev" },
+                    { label: "DiMa-Program", href: "https://github.com/DiMa-Program" },
+                  ]}
+                />
+                <BifurcateLink
+                  label="LinkedIn"
+                  options={[
+                    { label: "Leandro Di Pardo", href: "https://www.linkedin.com/in/leandro-di-pardo-7a5a6518b/" },
+                    { label: "Hermano", href: "#" },
+                  ]}
+                />
               </div>
             </RevealLine>
           </div>
