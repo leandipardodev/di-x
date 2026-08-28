@@ -49,13 +49,6 @@ export default function Contact() {
 
             <RevealLine delay={0.3}>
               <div className="mt-16 space-y-6">
-                <a
-                  href="mailto:hello@di-x.studio"
-                  className="group flex items-center gap-3 text-sm text-muted transition-colors hover:text-foreground"
-                >
-                  <span className="h-px w-8 bg-border transition-all duration-300 group-hover:w-12 group-hover:bg-foreground" />
-                  hello@di-x.studio
-                </a>
                 <BifurcateLink
                   label="GitHub"
                   options={[
