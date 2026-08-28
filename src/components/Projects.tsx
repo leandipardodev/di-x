@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, useScroll, useTransform, useMotionValueEvent, useMotionValue, useSpring, animate } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
+import LogoTransition from "./LogoTransition";
 
 interface Project {
   id: string;
@@ -11,6 +12,7 @@ interface Project {
   year: string;
   color: string;
   image: string;
+  url: string;
 }
 
 const projects: Project[] = [
@@ -23,6 +25,7 @@ const projects: Project[] = [
     year: "2026",
     color: "#1a1a2e",
     image: "/klip.webp",
+    url: "https://klip.com.ar/",
   },
   {
     id: "02",
@@ -33,6 +36,7 @@ const projects: Project[] = [
     year: "2026",
     color: "#0f2e1a",
     image: "/booba-2.webp",
+    url: "",
   },
   {
     id: "03",
@@ -43,6 +47,7 @@ const projects: Project[] = [
     year: "2025",
     color: "#2e1a1a",
     image: "/arca.webp",
+    url: "https://dixgestor.com.ar/login",
   },
 ];
 
@@ -159,8 +164,20 @@ export default function Projects() {
   const lastScrollTime = useRef(0);
   const snapRef = useRef(false);
   const snapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [transition, setTransition] = useState<{ logo: string; url: string } | null>(null);
   const { w: cubeW, h: cubeH, perspective, isMobile } = useCubeSize();
   const halfD = cubeW / 2;
+
+  const projectLogo = useCallback((title: string) => {
+    if (title === "Dix gestor") return "/dix-gestor-logo.png";
+    if (title === "Klip") return "/klip-logo.png";
+    return "/boobaa-logo.png";
+  }, []);
+
+  const handleFaceClick = useCallback((project: Project) => {
+    if (!project.url) return;
+    setTransition({ logo: projectLogo(project.title), url: project.url });
+  }, [projectLogo]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -428,7 +445,10 @@ export default function Projects() {
                 return (
                   <div
                     key={i}
-                    className="absolute overflow-hidden"
+                    onClick={() => face.project && handleFaceClick(face.project)}
+                    className={`absolute overflow-hidden ${
+                      face.project ? "cursor-pointer" : ""
+                    }`}
                     style={{
                       width: face.w,
                       height: face.h,
@@ -571,6 +591,14 @@ export default function Projects() {
           </div>
         )}
       </div>
+
+      {transition && (
+        <LogoTransition
+          logo={transition.logo}
+          url={transition.url}
+          onDone={() => setTransition(null)}
+        />
+      )}
     </section>
   );
 }
