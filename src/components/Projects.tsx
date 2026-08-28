@@ -386,9 +386,9 @@ export default function Projects() {
           <div
             className="pointer-events-none absolute left-1/2 -translate-x-1/2 z-20"
             style={{
-              top: `calc(50% - ${cubeH * 0.85}px)`,
+              top: `calc(50% - ${cubeH * 0.7}px)`,
               width: cubeW * 2.4,
-              height: cubeH * 1.7,
+              height: cubeH * 1.35,
             }}
           >
             <motion.div
@@ -402,7 +402,7 @@ export default function Projects() {
                   background:
                     "linear-gradient(to bottom, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.03) 45%, transparent 80%)",
                   filter: "blur(22px)",
-                  clipPath: "polygon(38% 0%, 62% 0%, 70% 100%, 30% 100%)",
+                  clipPath: "polygon(34% 0%, 66% 0%, 74% 100%, 26% 100%)",
                 }}
               />
 
@@ -413,7 +413,7 @@ export default function Projects() {
                   background:
                     "linear-gradient(to bottom, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.07) 55%, transparent 82%)",
                   filter: "blur(9px)",
-                  clipPath: "polygon(43% 0%, 57% 0%, 64% 100%, 36% 100%)",
+                  clipPath: "polygon(41% 0%, 59% 0%, 67% 100%, 33% 100%)",
                 }}
               />
 
@@ -424,7 +424,7 @@ export default function Projects() {
                   background:
                     "linear-gradient(to bottom, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.18) 40%, rgba(255,255,255,0.06) 75%, transparent 90%)",
                   filter: "blur(4px)",
-                  clipPath: "polygon(46% 0%, 54% 0%, 58% 100%, 42% 100%)",
+                  clipPath: "polygon(45% 0%, 55% 0%, 60% 100%, 40% 100%)",
                 }}
               />
 
@@ -433,9 +433,9 @@ export default function Projects() {
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(112deg, transparent 0%, transparent 42%, rgba(255,255,255,0.12) 47%, rgba(255,255,255,0.03) 51%, rgba(255,255,255,0.03) 56%, transparent 61%), linear-gradient(72deg, transparent 47%, rgba(255,255,255,0.10) 52%, rgba(255,255,255,0.02) 56%, transparent 61%)",
+                    "linear-gradient(112deg, transparent 0%, transparent 40%, rgba(255,255,255,0.12) 45%, rgba(255,255,255,0.03) 49%, rgba(255,255,255,0.03) 54%, transparent 59%), linear-gradient(72deg, transparent 45%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.02) 54%, transparent 59%)",
                   filter: "blur(3px)",
-                  clipPath: "polygon(43% 0%, 57% 0%, 64% 100%, 36% 100%)",
+                  clipPath: "polygon(41% 0%, 59% 0%, 67% 100%, 33% 100%)",
                 }}
               />
 
@@ -460,13 +460,13 @@ export default function Projects() {
                 }}
               />
 
-              {/* ground halo below the cube — gallery light floor spot */}
+              {/* ground halo at cube base — gallery light floor spot */}
               <div
                 className="absolute left-1/2 -translate-x-1/2"
                 style={{
-                  top: `calc(100% - ${cubeH * 0.2}px)`,
+                  top: "86%",
                   width: cubeW * 1.6,
-                  height: cubeH * 0.4,
+                  height: cubeH * 0.3,
                   background:
                     "radial-gradient(ellipse at center top, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 50%, transparent 78%)",
                   filter: "blur(20px)",
@@ -477,9 +477,9 @@ export default function Projects() {
               <div
                 className="absolute left-1/2 -translate-x-1/2"
                 style={{
-                  top: `calc(100% - ${cubeH * 0.16}px)`,
-                  width: cubeW * 0.9,
-                  height: cubeH * 0.06,
+                  top: "90%",
+                  width: cubeW * 1.0,
+                  height: cubeH * 0.05,
                   background:
                     "radial-gradient(ellipse at center top, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.1) 45%, transparent 80%)",
                   filter: "blur(6px)",
