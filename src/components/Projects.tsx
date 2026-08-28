@@ -162,6 +162,9 @@ function CTAFace() {
         <span className="absolute bottom-0 right-0 h-5 w-5 border-b-2 border-r-2 border-white/20" />
       </div>
       <div className="pointer-events-none absolute inset-x-6 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-[2px] bg-gradient-to-b from-white/50 via-white/10 to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-[2px] bg-gradient-to-b from-white/35 via-white/[0.07] to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-white/50 to-white/15" />
     </div>
   );
 }
@@ -576,6 +579,9 @@ const rotateY = useTransform(
                             background: `linear-gradient(90deg, transparent, ${face.project.color}, transparent)`,
                           }}
                         />
+                        <div className="pointer-events-none absolute inset-y-0 left-0 w-[2px] bg-gradient-to-b from-white/60 via-white/10 to-transparent" />
+                        <div className="pointer-events-none absolute inset-y-0 right-0 w-[2px] bg-gradient-to-b from-white/45 via-white/[0.07] to-transparent" />
+                        <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-white/60 to-white/15" />
                       </>
                     ) : face.cta ? (
                       <CTAFace />
@@ -591,8 +597,8 @@ const rotateY = useTransform(
               </motion.div>
 
               <motion.div
-                style={{ opacity: focoIllumination }}
-                className="pointer-events-none absolute left-1/2 top-full -translate-y-1/2"
+                style={{ opacity: focoIllumination, top: `calc(100% + ${cubeW * 0.14}px)` }}
+                className="pointer-events-none absolute left-1/2"
               >
                 <div
                   className="relative"
@@ -618,8 +624,6 @@ const rotateY = useTransform(
                   />
                 </div>
               </motion.div>
-
-              <div className="absolute -bottom-8 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-white/[0.12] to-transparent" />
             </motion.div>
           </div>
 
