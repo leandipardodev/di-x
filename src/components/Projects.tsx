@@ -595,26 +595,28 @@ const rotateY = useTransform(
                 className="pointer-events-none absolute left-1/2 top-full -translate-y-1/2"
               >
                 <div
-                  style={{
-                    width: cubeW * 1.5,
-                    height: cubeW * 0.38,
-                    marginLeft: -cubeW * 0.75,
-                    background:
-                      "radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.07) 40%, rgba(255,255,255,0) 70%)",
-                    filter: "blur(10px)",
-                  }}
-                />
-                <div
-                  style={{
-                    width: cubeW * 0.72,
-                    height: cubeW * 0.18,
-                    marginLeft: -cubeW * 0.36,
-                    marginTop: -cubeW * 0.1,
-                    background:
-                      "radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 70%)",
-                    filter: "blur(6px)",
-                  }}
-                />
+                  className="relative"
+                  style={{ width: cubeW * 1.35, height: cubeW * 0.3, marginLeft: -cubeW * 0.675 }}
+                >
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.06) 45%, rgba(255,255,255,0) 70%)",
+                      filter: "blur(10px)",
+                    }}
+                  />
+                  <div
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                    style={{
+                      width: cubeW * 0.6,
+                      height: cubeW * 0.16,
+                      background:
+                        "radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 70%)",
+                      filter: "blur(6px)",
+                    }}
+                  />
+                </div>
               </motion.div>
 
               <div className="absolute -bottom-8 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-white/[0.12] to-transparent" />
