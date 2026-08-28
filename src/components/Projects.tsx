@@ -384,8 +384,12 @@ export default function Projects() {
           </div>
 
           <div
-            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-full z-20"
-            style={{ width: cubeW * 2.4, height: cubeH * 0.9 }}
+            className="pointer-events-none absolute left-1/2 -translate-x-1/2 z-20"
+            style={{
+              top: `calc(50% - ${cubeH * 0.85}px)`,
+              width: cubeW * 2.4,
+              height: cubeH * 1.7,
+            }}
           >
             <motion.div
               style={{ opacity: focoIllumination }}
@@ -398,7 +402,7 @@ export default function Projects() {
                   background:
                     "linear-gradient(to bottom, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.03) 45%, transparent 80%)",
                   filter: "blur(22px)",
-                  clipPath: "polygon(26% 0%, 74% 0%, 82% 100%, 18% 100%)",
+                  clipPath: "polygon(38% 0%, 62% 0%, 70% 100%, 30% 100%)",
                 }}
               />
 
@@ -409,7 +413,7 @@ export default function Projects() {
                   background:
                     "linear-gradient(to bottom, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.07) 55%, transparent 82%)",
                   filter: "blur(9px)",
-                  clipPath: "polygon(36% 0%, 64% 0%, 71% 100%, 29% 100%)",
+                  clipPath: "polygon(43% 0%, 57% 0%, 64% 100%, 36% 100%)",
                 }}
               />
 
@@ -420,7 +424,7 @@ export default function Projects() {
                   background:
                     "linear-gradient(to bottom, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.18) 40%, rgba(255,255,255,0.06) 75%, transparent 90%)",
                   filter: "blur(4px)",
-                  clipPath: "polygon(42% 0%, 58% 0%, 63% 100%, 37% 100%)",
+                  clipPath: "polygon(46% 0%, 54% 0%, 58% 100%, 42% 100%)",
                 }}
               />
 
@@ -429,9 +433,9 @@ export default function Projects() {
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(112deg, transparent 0%, transparent 36%, rgba(255,255,255,0.12) 42%, rgba(255,255,255,0.03) 46%, rgba(255,255,255,0.03) 52%, transparent 58%), linear-gradient(72deg, transparent 46%, rgba(255,255,255,0.10) 52%, rgba(255,255,255,0.02) 56%, transparent 62%)",
+                    "linear-gradient(112deg, transparent 0%, transparent 42%, rgba(255,255,255,0.12) 47%, rgba(255,255,255,0.03) 51%, rgba(255,255,255,0.03) 56%, transparent 61%), linear-gradient(72deg, transparent 47%, rgba(255,255,255,0.10) 52%, rgba(255,255,255,0.02) 56%, transparent 61%)",
                   filter: "blur(3px)",
-                  clipPath: "polygon(36% 0%, 64% 0%, 71% 100%, 29% 100%)",
+                  clipPath: "polygon(43% 0%, 57% 0%, 64% 100%, 36% 100%)",
                 }}
               />
 
@@ -439,8 +443,8 @@ export default function Projects() {
               <div
                 className="absolute left-1/2 top-0 -translate-x-1/2"
                 style={{
-                  width: cubeW * 0.34,
-                  height: cubeW * 0.34,
+                  width: cubeW * 0.26,
+                  height: cubeW * 0.26,
                   background:
                     "radial-gradient(circle at center, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.25) 38%, transparent 70%)",
                   filter: "blur(2px)",
@@ -449,22 +453,36 @@ export default function Projects() {
               <div
                 className="absolute left-1/2 top-0 -translate-x-1/2"
                 style={{
-                  width: cubeW * 0.14,
-                  height: cubeW * 0.14,
+                  width: cubeW * 0.11,
+                  height: cubeW * 0.11,
                   background:
                     "radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4) 45%, transparent 75%)",
                 }}
               />
 
-              {/* ground glow where the beam lands */}
+              {/* ground halo below the cube — gallery light floor spot */}
               <div
-                className="absolute left-1/2 bottom-0 -translate-x-1/2"
+                className="absolute left-1/2 -translate-x-1/2"
                 style={{
-                  width: cubeW * 1.5,
-                  height: cubeH * 0.16,
+                  top: `calc(100% - ${cubeH * 0.2}px)`,
+                  width: cubeW * 1.6,
+                  height: cubeH * 0.4,
                   background:
-                    "radial-gradient(ellipse at center top, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.05) 55%, transparent 80%)",
-                  filter: "blur(18px)",
+                    "radial-gradient(ellipse at center top, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 50%, transparent 78%)",
+                  filter: "blur(20px)",
+                }}
+              />
+
+              {/* crisp floor spot rim */}
+              <div
+                className="absolute left-1/2 -translate-x-1/2"
+                style={{
+                  top: `calc(100% - ${cubeH * 0.16}px)`,
+                  width: cubeW * 0.9,
+                  height: cubeH * 0.06,
+                  background:
+                    "radial-gradient(ellipse at center top, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.1) 45%, transparent 80%)",
+                  filter: "blur(6px)",
                 }}
               />
             </motion.div>
