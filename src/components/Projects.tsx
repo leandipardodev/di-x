@@ -188,7 +188,7 @@ export default function Projects() {
       const dist = Math.abs(latest - pos);
       if (dist < minDist) { closest = pos; minDist = dist; }
     }
-    if (minDist < 0.015) {
+    if (minDist < 0.06) {
       snapTimerRef.current = setTimeout(() => {
         if (Date.now() - lastScrollTime.current >= 450 && !snapRef.current) {
           snapRef.current = true;
@@ -203,10 +203,10 @@ export default function Projects() {
     }
   });
 
-  const rotateY = useTransform(
+const rotateY = useTransform(
     scrollYProgress,
     [0, 0.15, 1],
-    [-30, 0, -270]
+    [40, 6, -270]
   );
   const rotateX = useTransform(
     scrollYProgress,
