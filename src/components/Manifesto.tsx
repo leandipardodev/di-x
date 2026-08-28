@@ -225,24 +225,25 @@ export default function Manifesto() {
           </div>
         </div>
 
-        <motion.div
-          style={{ opacity: marqueeOpacity }}
-          className="-mx-6 mt-4 cursor-default overflow-hidden py-4 sm:-mx-10 lg:-mx-12 lg:mt-8 lg:py-8"
-        >
-          <div className="-rotate-3 scale-110">
-            {lines.map((line, i) => (
-              <MarqueeLine
-                key={`${line.word}-${i}`}
-                word={line.word}
-                direction={line.direction}
-                speed={line.speed}
-                flickerEvery={line.flickerEvery}
-                scrollYProgress={scrollYProgress}
-              />
-            ))}
-          </div>
-        </motion.div>
-      </div>
+        </div>
+
+      <motion.div
+        style={{ opacity: marqueeOpacity }}
+        className="relative w-full cursor-default overflow-hidden py-4 lg:py-8"
+      >
+        <div className="-rotate-3 scale-110">
+          {lines.map((line, i) => (
+            <MarqueeLine
+              key={`${line.word}-${i}`}
+              word={line.word}
+              direction={line.direction}
+              speed={line.speed}
+              flickerEvery={line.flickerEvery}
+              scrollYProgress={scrollYProgress}
+            />
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 }
