@@ -383,106 +383,20 @@ export default function Projects() {
             <AnnotationBlock project={projects[2]} opacity={f2} />
           </div>
 
-          <div
-            className="pointer-events-none absolute left-1/2 -translate-x-1/2 z-20"
-            style={{
-              top: `calc(50% - ${cubeH * 0.7}px)`,
-              width: cubeW * 2.4,
-              height: cubeH * 1.35,
-            }}
-          >
+          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-full z-20">
             <motion.div
               style={{ opacity: focoIllumination }}
-              className="relative h-full w-full"
+              className="relative"
             >
-              {/* outer soft halo */}
               <div
-                className="absolute inset-0"
                 style={{
+                  width: cubeW * 2.4,
+                  height: cubeH * 0.9,
                   background:
-                    "linear-gradient(to bottom, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.03) 45%, transparent 80%)",
-                  filter: "blur(22px)",
-                  clipPath: "polygon(34% 0%, 66% 0%, 74% 100%, 26% 100%)",
-                }}
-              />
-
-              {/* main cone */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(to bottom, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.07) 55%, transparent 82%)",
-                  filter: "blur(9px)",
-                  clipPath: "polygon(41% 0%, 59% 0%, 67% 100%, 33% 100%)",
-                }}
-              />
-
-              {/* inner bright core */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(to bottom, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.18) 40%, rgba(255,255,255,0.06) 75%, transparent 90%)",
-                  filter: "blur(4px)",
-                  clipPath: "polygon(45% 0%, 55% 0%, 60% 100%, 40% 100%)",
-                }}
-              />
-
-              {/* volumetric rays */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(112deg, transparent 0%, transparent 40%, rgba(255,255,255,0.12) 45%, rgba(255,255,255,0.03) 49%, rgba(255,255,255,0.03) 54%, transparent 59%), linear-gradient(72deg, transparent 45%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.02) 54%, transparent 59%)",
-                  filter: "blur(3px)",
-                  clipPath: "polygon(41% 0%, 59% 0%, 67% 100%, 33% 100%)",
-                }}
-              />
-
-              {/* origin flash */}
-              <div
-                className="absolute left-1/2 top-0 -translate-x-1/2"
-                style={{
-                  width: cubeW * 0.26,
-                  height: cubeW * 0.26,
-                  background:
-                    "radial-gradient(circle at center, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.25) 38%, transparent 70%)",
-                  filter: "blur(2px)",
-                }}
-              />
-              <div
-                className="absolute left-1/2 top-0 -translate-x-1/2"
-                style={{
-                  width: cubeW * 0.11,
-                  height: cubeW * 0.11,
-                  background:
-                    "radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4) 45%, transparent 75%)",
-                }}
-              />
-
-              {/* ground halo at cube base — gallery light floor spot */}
-              <div
-                className="absolute left-1/2 -translate-x-1/2"
-                style={{
-                  top: "86%",
-                  width: cubeW * 1.6,
-                  height: cubeH * 0.3,
-                  background:
-                    "radial-gradient(ellipse at center top, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 50%, transparent 78%)",
-                  filter: "blur(20px)",
-                }}
-              />
-
-              {/* crisp floor spot rim */}
-              <div
-                className="absolute left-1/2 -translate-x-1/2"
-                style={{
-                  top: "90%",
-                  width: cubeW * 1.0,
-                  height: cubeH * 0.05,
-                  background:
-                    "radial-gradient(ellipse at center top, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.1) 45%, transparent 80%)",
+                    "linear-gradient(to bottom, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.10) 55%, transparent 85%)",
                   filter: "blur(6px)",
+                  clipPath:
+                    "polygon(35% 0%, 65% 0%, 70% 100%, 30% 100%)",
                 }}
               />
             </motion.div>
