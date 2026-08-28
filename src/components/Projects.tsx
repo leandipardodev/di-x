@@ -202,7 +202,7 @@ export default function Projects() {
     offset: ["start start", "end end"],
   });
 
-  const facePositions = [0.15, 0.4333, 0.7167, 1.0];
+  const facePositions = [0.15, 0.4333, 0.7167, 0.9];
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     lastScrollTime.current = Date.now();
@@ -231,13 +231,13 @@ export default function Projects() {
 
 const rotateY = useTransform(
     scrollYProgress,
-    [0, 0.15, 1],
-    [40, 0, -270]
+    [0, 0.15, 0.9, 1],
+    [40, 0, -270, -270]
   );
   const rotateX = useTransform(
     scrollYProgress,
-    [0, 0.15, 0.29, 0.4333, 0.575, 0.7167, 0.858, 1],
-    [0, 0, -1.5, 0, 1.5, 0, -1.5, 0]
+    [0, 0.15, 0.29, 0.4333, 0.575, 0.7167, 0.858, 0.9, 1],
+    [0, 0, -1.5, 0, 1.5, 0, -1.5, 0, 0]
   );
   const floatY = useTransform(
     scrollYProgress,
@@ -327,26 +327,26 @@ const rotateY = useTransform(
   );
   const f3 = useTransform(
     scrollYProgress,
-    [0.92, 0.97, 1],
+    [0.83, 0.9, 1],
     [0, 1, 1]
   );
 
   const curtainOp = useTransform(
     scrollYProgress,
-    [0.945, 1],
-    [0, 0.92]
+    [0.92, 1],
+    [0, 0.95]
   );
 
   const spotlightOp = useTransform(
     scrollYProgress,
-    [0, 0.08, 0.15, 0.29, 0.4333, 0.575, 0.7167, 0.858, 0.93, 1],
-    [0, 0, 1, 0.05, 1, 0.05, 1, 0.05, 0.8, 1]
+    [0, 0.08, 0.15, 0.29, 0.4333, 0.575, 0.7167, 0.858, 0.9, 1],
+    [0, 0, 1, 0.05, 1, 0.05, 1, 0.05, 1, 1]
   );
 
   const faceDarken = useTransform(
     scrollYProgress,
-    [0, 0.08, 0.15, 0.29, 0.4333, 0.575, 0.7167, 0.858, 0.93, 1],
-    [0.5, 0.5, 0, 0.4, 0, 0.4, 0, 0.4, 0.1, 0]
+    [0, 0.08, 0.15, 0.29, 0.4333, 0.575, 0.7167, 0.858, 0.9, 1],
+    [0.5, 0.5, 0, 0.4, 0, 0.4, 0, 0.4, 0, 0]
   );
 
   const videoOpacity = useTransform(spotlightOp, [0, 1], [0.35, 1]);
