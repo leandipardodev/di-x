@@ -206,7 +206,7 @@ export default function Projects() {
 const rotateY = useTransform(
     scrollYProgress,
     [0, 0.15, 1],
-    [40, 6, -270]
+    [40, 0, -270]
   );
   const rotateX = useTransform(
     scrollYProgress,
