@@ -394,7 +394,7 @@ export default function Projects() {
                   height: cubeH * 0.9,
                   background:
                     "linear-gradient(to bottom, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.10) 55%, transparent 85%)",
-                  filter: "blur(6px)",
+                  filter: "blur(8px)",
                   clipPath:
                     "polygon(35% 0%, 65% 0%, 70% 100%, 30% 100%)",
                 }}
