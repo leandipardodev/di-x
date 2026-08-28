@@ -383,20 +383,88 @@ export default function Projects() {
             <AnnotationBlock project={projects[2]} opacity={f2} />
           </div>
 
-          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-full z-20">
+          <div
+            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-full z-20"
+            style={{ width: cubeW * 2.4, height: cubeH * 0.9 }}
+          >
             <motion.div
               style={{ opacity: focoIllumination }}
-              className="relative"
+              className="relative h-full w-full"
             >
+              {/* outer soft halo */}
               <div
+                className="absolute inset-0"
                 style={{
-                  width: cubeW * 2.4,
-                  height: cubeH * 0.9,
                   background:
-                    "linear-gradient(to bottom, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.10) 55%, transparent 85%)",
-                  filter: "blur(6px)",
-                  clipPath:
-                    "polygon(35% 0%, 65% 0%, 70% 100%, 30% 100%)",
+                    "linear-gradient(to bottom, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.03) 45%, transparent 80%)",
+                  filter: "blur(22px)",
+                  clipPath: "polygon(26% 0%, 74% 0%, 82% 100%, 18% 100%)",
+                }}
+              />
+
+              {/* main cone */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.07) 55%, transparent 82%)",
+                  filter: "blur(9px)",
+                  clipPath: "polygon(36% 0%, 64% 0%, 71% 100%, 29% 100%)",
+                }}
+              />
+
+              {/* inner bright core */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.18) 40%, rgba(255,255,255,0.06) 75%, transparent 90%)",
+                  filter: "blur(4px)",
+                  clipPath: "polygon(42% 0%, 58% 0%, 63% 100%, 37% 100%)",
+                }}
+              />
+
+              {/* volumetric rays */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(112deg, transparent 0%, transparent 36%, rgba(255,255,255,0.12) 42%, rgba(255,255,255,0.03) 46%, rgba(255,255,255,0.03) 52%, transparent 58%), linear-gradient(72deg, transparent 46%, rgba(255,255,255,0.10) 52%, rgba(255,255,255,0.02) 56%, transparent 62%)",
+                  filter: "blur(3px)",
+                  clipPath: "polygon(36% 0%, 64% 0%, 71% 100%, 29% 100%)",
+                }}
+              />
+
+              {/* origin flash */}
+              <div
+                className="absolute left-1/2 top-0 -translate-x-1/2"
+                style={{
+                  width: cubeW * 0.34,
+                  height: cubeW * 0.34,
+                  background:
+                    "radial-gradient(circle at center, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.25) 38%, transparent 70%)",
+                  filter: "blur(2px)",
+                }}
+              />
+              <div
+                className="absolute left-1/2 top-0 -translate-x-1/2"
+                style={{
+                  width: cubeW * 0.14,
+                  height: cubeW * 0.14,
+                  background:
+                    "radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4) 45%, transparent 75%)",
+                }}
+              />
+
+              {/* ground glow where the beam lands */}
+              <div
+                className="absolute left-1/2 bottom-0 -translate-x-1/2"
+                style={{
+                  width: cubeW * 1.5,
+                  height: cubeH * 0.16,
+                  background:
+                    "radial-gradient(ellipse at center top, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.05) 55%, transparent 80%)",
+                  filter: "blur(18px)",
                 }}
               />
             </motion.div>
