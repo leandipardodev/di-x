@@ -592,7 +592,7 @@ const rotateY = useTransform(
 
               <motion.div
                 style={{ opacity: focoIllumination }}
-                className="pointer-events-none absolute left-1/2 top-full -translate-x-1/2 -translate-y-1/2"
+                className="pointer-events-none absolute left-1/2 top-full -translate-y-1/2"
               >
                 <div
                   style={{
