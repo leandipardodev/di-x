@@ -19,7 +19,7 @@ export default function BifurcateLink({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative">
+    <div>
       <button
         onClick={() => setOpen((o) => !o)}
         className={`group flex cursor-pointer items-center gap-3 text-sm transition-colors ${
@@ -42,34 +42,41 @@ export default function BifurcateLink({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.45, ease: [0.33, 1, 0.68, 1] }}
-            className="overflow-hidden"
+            transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
+            className="overflow-hidden pl-11"
           >
-            <div className="relative mt-3 flex h-16 w-full">
-              {/* bifurcating line */}
+            <div className="relative mt-2 h-14 w-[220px]">
               <svg
-                viewBox="0 0 160 64"
-                className="absolute left-0 top-0 h-16 w-40 text-white/25"
+                viewBox="0 0 120 56"
+                width="120"
+                height="56"
+                className="absolute left-0 top-0 text-white/25"
                 fill="none"
               >
-                <motion.path
-                  d="M40 0 V10"
+                {/* continuation of base line */}
+                <motion.line
+                  x1="0"
+                  y1="28"
+                  x2="20"
+                  y2="28"
                   stroke="currentColor"
                   strokeWidth="1"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
                   transition={{ duration: 0.25, ease: "easeInOut" }}
                 />
+                {/* upper branch */}
                 <motion.path
-                  d="M40 10 C 34 22, 24 26, 16 56"
+                  d="M20 28 C 34 28, 40 14, 52 8 H 88 M 88 4 V 12"
                   stroke="currentColor"
                   strokeWidth="1"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
                   transition={{ duration: 0.4, delay: 0.25, ease: [0.33, 1, 0.68, 1] }}
                 />
+                {/* lower branch */}
                 <motion.path
-                  d="M40 10 C 46 22, 56 26, 64 56"
+                  d="M20 28 C 34 28, 40 42, 52 48 H 88 M 88 44 V 52"
                   stroke="currentColor"
                   strokeWidth="1"
                   initial={{ pathLength: 0 }}
@@ -80,32 +87,32 @@ export default function BifurcateLink({
 
               {/* branch labels */}
               <motion.div
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: 6 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.35, delay: 0.65 }}
-                className="absolute left-0 bottom-0 pr-2"
+                className="absolute left-[92px] top-[1px]"
               >
                 <a
                   href={options[0]?.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-[11px] text-muted transition-colors hover:text-foreground"
+                  className="block text-[11px] leading-none text-muted transition-colors hover:text-foreground"
                 >
                   {options[0]?.label}
                 </a>
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: 6 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.35, delay: 0.65 }}
-                className="absolute right-0 bottom-0 pl-2"
+                className="absolute left-[92px] top-[45px]"
               >
                 <a
                   href={options[1]?.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-[11px] text-muted transition-colors hover:text-foreground"
+                  className="block text-[11px] leading-none text-muted transition-colors hover:text-foreground"
                 >
                   {options[1]?.label}
                 </a>
