@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useEffect, useMemo } from "react";
 
 const DI_X_LOGO = "/logo di.x.webp";
+const ROWS = 14;
 
 export default function LogoTransition({
   url,
@@ -12,41 +13,16 @@ export default function LogoTransition({
   url: string;
   onDone: () => void;
 }) {
-  const logos = useMemo(() => {
-    const waves = [
-      { count: 8, delayBase: 0, delaySpread: 0.1, durMin: 2.0, durMax: 2.3 },
-      { count: 20, delayBase: 0.18, delaySpread: 0.2, durMin: 1.8, durMax: 2.1 },
-      { count: 36, delayBase: 0.38, delaySpread: 0.28, durMin: 1.6, durMax: 2.0 },
-    ];
-    const items: {
-      size: number;
-      duration: number;
-      delay: number;
-      fromX: number;
-      fromY: number;
-      toX: number;
-      toY: number;
-    }[] = [];
-    waves.forEach((w) => {
-      for (let i = 0; i < w.count; i++) {
-        const size = 90 + Math.random() * 130;
-        const duration = w.durMin + Math.random() * (w.durMax - w.durMin);
-        const delay = w.delayBase + Math.random() * w.delaySpread;
-        const fromX = -25 - Math.random() * 15;
-        const fromY = 95 + Math.random() * 20;
-        const toX = 75 + Math.random() * 40;
-        const toY = -25 - Math.random() * 35;
-        items.push({ size, duration, delay, fromX, fromY, toX, toY });
-      }
-    });
-    return items;
-  }, []);
+  const perRow = useMemo(
+    () => Math.max(4, Math.ceil(window.innerWidth / 130)),
+    []
+  );
 
   useEffect(() => {
     const t = setTimeout(() => {
       if (url) window.location.href = url;
       onDone();
-    }, 2500);
+    }, 2400);
     return () => clearTimeout(t);
   }, [url, onDone]);
 
@@ -57,18 +33,38 @@ export default function LogoTransition({
       transition={{ duration: 0.2 }}
       className="fixed inset-0 z-[100] overflow-hidden bg-[#0a0a0a]"
     >
-      {logos.map((l, i) => (
-        <motion.img
-          key={i}
-          src={DI_X_LOGO}
-          alt=""
-          className="absolute select-none object-contain"
-          style={{ width: l.size }}
-          initial={{ x: `${l.fromX}vw`, y: `${l.fromY}vh` }}
-          animate={{ x: `${l.toX}vw`, y: `${l.toY}vh` }}
-          transition={{ duration: l.duration, delay: l.delay, ease: "linear" }}
-        />
-      ))}
+      <motion.div
+        initial={{ x: "-22vw", y: "24vh", rotate: -3 }}
+        animate={{ x: "22vw", y: "-24vh", rotate: -3 }}
+        transition={{ duration: 2.2, ease: "linear" }}
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        style={{ width: "150vw", height: "150vh" }}
+      >
+        {Array.from({ length: ROWS }, (_, r) => (
+          <motion.div
+            key={r}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.12, delay: (r / ROWS) * 1.2 }}
+            className="flex w-full items-center"
+            style={{ height: `${100 / ROWS}%` }}
+          >
+            {Array.from({ length: perRow }, (_, k) => (
+              <div
+                key={k}
+                className="flex h-full flex-1 items-center justify-center"
+              >
+                <img
+                  src={DI_X_LOGO}
+                  alt=""
+                  className="object-contain"
+                  style={{ height: "min(9vh, 110px)", width: "auto" }}
+                />
+              </div>
+            ))}
+          </motion.div>
+        ))}
+      </motion.div>
     </motion.div>
   );
 }
