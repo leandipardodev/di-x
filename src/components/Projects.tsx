@@ -162,9 +162,18 @@ function CTAFace() {
         <span className="absolute bottom-0 right-0 h-5 w-5 border-b-2 border-r-2 border-white/20" />
       </div>
       <div className="pointer-events-none absolute inset-x-6 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-white/25 to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-[2px] bg-gradient-to-b from-white/50 via-white/10 to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-[2px] bg-gradient-to-b from-white/35 via-white/[0.07] to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-white/50 to-white/15" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-[3px]">
+        <div className="absolute inset-0 bg-[#0a0a0a]" />
+        <div className="absolute bottom-0 left-0 top-0 w-px bg-gradient-to-b from-white/65 via-white/20 to-transparent" />
+      </div>
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-[3px]">
+        <div className="absolute inset-0 bg-[#0a0a0a]" />
+        <div className="absolute bottom-0 right-0 top-0 w-px bg-gradient-to-b from-white/45 via-white/15 to-transparent" />
+      </div>
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px]">
+        <div className="absolute inset-0 bg-[#0a0a0a]" />
+        <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-white/60 to-white/15" />
+      </div>
     </div>
   );
 }
@@ -579,9 +588,18 @@ const rotateY = useTransform(
                             background: `linear-gradient(90deg, transparent, ${face.project.color}, transparent)`,
                           }}
                         />
-                        <div className="pointer-events-none absolute inset-y-0 left-0 w-[2px] bg-gradient-to-b from-white/60 via-white/10 to-transparent" />
-                        <div className="pointer-events-none absolute inset-y-0 right-0 w-[2px] bg-gradient-to-b from-white/45 via-white/[0.07] to-transparent" />
-                        <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-white/60 to-white/15" />
+                        <div className="pointer-events-none absolute inset-y-0 left-0 w-[3px]">
+                          <div className="absolute inset-0 bg-[#0a0a0a]" />
+                          <div className="absolute bottom-0 left-0 top-0 w-px bg-gradient-to-b from-white/75 via-white/20 to-transparent" />
+                        </div>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 w-[3px]">
+                          <div className="absolute inset-0 bg-[#0a0a0a]" />
+                          <div className="absolute bottom-0 right-0 top-0 w-px bg-gradient-to-b from-white/50 via-white/15 to-transparent" />
+                        </div>
+                        <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px]">
+                          <div className="absolute inset-0 bg-[#0a0a0a]" />
+                          <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-white/70 to-white/20" />
+                        </div>
                       </>
                     ) : face.cta ? (
                       <CTAFace />
