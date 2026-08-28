@@ -310,20 +310,23 @@ export default function Projects() {
 
   const imgOpacity = useTransform(spotlightOp, [0, 1], [0.15, 0.55]);
 
-  const flickerBase = useMotionValue(0);
-  const flickerSpring = useSpring(flickerBase, { stiffness: 400, damping: 28, restDelta: 0.001 });
+  const flickerBase = useMotionValue(1);
+  const flickerSpring = useSpring(flickerBase, { stiffness: 300, damping: 26, restDelta: 0.001 });
 
   const runFlicker = (done?: () => void) => {
-    const nTicks = 3 + Math.floor(Math.random() * 6);
+    const nTicks = 3 + Math.floor(Math.random() * 5);
+    flickerBase.set(1);
     let i = 0;
     const step = () => {
       if (i < nTicks) {
-        const on = Math.random() < 0.6;
-        flickerBase.set(on ? 0.7 + Math.random() * 0.3 : 0.08 + Math.random() * 0.3);
-        const wait = (on ? 40 + Math.random() * 50 : 25 + Math.random() * 60);
-        setTimeout(() => { i++; step(); }, wait);
+        const dip = 0.05 + Math.random() * 0.35;
+        flickerBase.set(dip);
+        setTimeout(() => {
+          flickerBase.set(1);
+          setTimeout(() => { i++; step(); }, 25 + Math.random() * 50);
+        }, 30 + Math.random() * 60);
       } else {
-        flickerBase.set(0);
+        flickerBase.set(1);
         if (done) done();
       }
     };
@@ -339,9 +342,9 @@ export default function Projects() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const illumination = useTransform(
-    [imgOpacity, flickerSpring],
-    ([base, f]: number[]) => Math.max(0, Math.min(1, base + f * 0.6))
+  const focoIllumination = useTransform(
+    [spotlightOp, flickerSpring],
+    ([spot, f]: number[]) => Math.max(0, Math.min(1, spot * f))
   );
 
 
@@ -382,7 +385,7 @@ export default function Projects() {
 
           <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-full z-20">
             <motion.div
-              style={{ opacity: spotlightOp }}
+              style={{ opacity: focoIllumination }}
               className="relative"
             >
               <div
@@ -481,9 +484,9 @@ export default function Projects() {
                         <motion.div
                           className="absolute inset-0"
                           style={{
-                            opacity: illumination,
+                            opacity: imgOpacity,
                             background:
-                              "linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.16) 25%, transparent 55%, rgba(0,0,0,0.25) 100%)",
+                              "linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.14) 25%, transparent 55%, rgba(0,0,0,0.25) 100%)",
                           }}
                         />
                         <div className="absolute top-5 left-5 font-mono text-[10px] tracking-wider text-white/20">
