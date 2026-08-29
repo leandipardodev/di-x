@@ -40,12 +40,12 @@ body {
 }
 
 .text-stroke {
-  -webkit-text-stroke: 1px rgba(250, 250, 250, 0.3);
+  -webkit-text-stroke: 1px rgba(250, 250, 250, 0.5);
   color: transparent;
 }
 
 .text-stroke:hover {
-  -webkit-text-stroke: 1px rgba(250, 250, 250, 0.8);
+  -webkit-text-stroke: 1px rgba(250, 250, 250, 0.85);
   color: #fafafa;
 }
 

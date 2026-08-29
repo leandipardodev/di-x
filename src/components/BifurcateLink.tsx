@@ -63,7 +63,7 @@ export default function BifurcateLink({
                   viewBox="0 0 120 56"
                   width="120"
                   height="56"
-                  className="absolute left-0 top-0 text-white/25"
+                  className="absolute left-0 top-0 text-white/45"
                   fill="none"
                 >
                   {/* continuation of base line */}

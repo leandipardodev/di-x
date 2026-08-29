@@ -94,8 +94,8 @@ function AnnotationBlock({
             isRight ? "flex-row-reverse" : ""
           }`}
         >
-          <div className="h-px flex-shrink-0 bg-white/15" style={{ width: 48 }} />
-          <span className="text-[10px] uppercase tracking-[0.25em] text-white/35">
+          <div className="h-px flex-shrink-0 bg-white/25" style={{ width: 48 }} />
+          <span className="text-[10px] uppercase tracking-[0.25em] text-white/60">
             {project.year}
           </span>
         </div>
@@ -105,14 +105,14 @@ function AnnotationBlock({
             isRight ? "flex-row-reverse" : ""
           }`}
         >
-          <div className="h-px flex-shrink-0 bg-white/25" style={{ width: 80 }} />
+          <div className="h-px flex-shrink-0 bg-white/40" style={{ width: 80 }} />
           <h3 className="flex-shrink-0 text-xl font-bold tracking-tight text-white lg:text-2xl">
             {project.title}
           </h3>
         </div>
 
         <p
-          className={`mb-5 max-w-[210px] text-[11px] leading-[1.7] text-white/35 ${
+          className={`mb-5 max-w-[210px] text-[11px] leading-[1.7] text-white/60 ${
             isRight ? "ml-auto" : ""
           }`}
         >
@@ -127,7 +127,7 @@ function AnnotationBlock({
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 text-[9px] uppercase tracking-[0.12em] text-white/30"
+              className="border border-white/[0.15] bg-white/[0.06] px-2.5 py-1 text-[9px] uppercase tracking-[0.12em] text-white/50"
             >
               {tag}
             </span>
@@ -148,31 +148,31 @@ function CTAFace() {
             "radial-gradient(130% 130% at 50% 45%, transparent 45%, rgba(0,0,0,0.3) 100%)",
         }}
       />
-      <span className="text-[10px] uppercase tracking-[0.35em] text-white/40">
+      <span className="text-[10px] uppercase tracking-[0.35em] text-white/60">
         ¿Tenés un proyecto?
       </span>
       <h3 className="mt-4 text-2xl font-bold tracking-tight text-white lg:text-3xl">
         Hablemos
       </h3>
-      <div className="mt-6 h-px w-12 bg-white/25" />
+      <div className="mt-6 h-px w-12 bg-white/40" />
       <div className="pointer-events-none absolute inset-3">
-        <span className="absolute left-0 top-0 h-4 w-4 border-l border-t border-white/15" />
-        <span className="absolute right-0 top-0 h-4 w-4 border-r border-t border-white/15" />
-        <span className="absolute bottom-0 left-0 h-4 w-4 border-b border-l border-white/15" />
-        <span className="absolute bottom-0 right-0 h-4 w-4 border-b border-r border-white/15" />
+        <span className="absolute left-0 top-0 h-4 w-4 border-l border-t border-white/25" />
+        <span className="absolute right-0 top-0 h-4 w-4 border-r border-t border-white/25" />
+        <span className="absolute bottom-0 left-0 h-4 w-4 border-b border-l border-white/25" />
+        <span className="absolute bottom-0 right-0 h-4 w-4 border-b border-r border-white/25" />
       </div>
-      <div className="pointer-events-none absolute inset-x-6 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-6 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-white/40 to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 left-0 w-[3px]">
         <div className="absolute inset-0 bg-[#0a0a0a]" />
-        <div className="absolute bottom-0 left-0 top-0 w-px bg-gradient-to-b from-white/65 via-white/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 top-0 w-px bg-gradient-to-b from-white/65 via-white/30 to-transparent" />
       </div>
       <div className="pointer-events-none absolute inset-y-0 right-0 w-[3px]">
         <div className="absolute inset-0 bg-[#0a0a0a]" />
-        <div className="absolute bottom-0 right-0 top-0 w-px bg-gradient-to-b from-white/45 via-white/15 to-transparent" />
+        <div className="absolute bottom-0 right-0 top-0 w-px bg-gradient-to-b from-white/60 via-white/25 to-transparent" />
       </div>
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px]">
         <div className="absolute inset-0 bg-[#0a0a0a]" />
-        <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-white/60 to-white/15" />
+        <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-white/70 to-white/25" />
       </div>
     </div>
   );
@@ -346,10 +346,10 @@ const rotateY = useTransform(
   const faceDarken = useTransform(
     scrollYProgress,
     [0, 0.08, 0.15, 0.29, 0.4333, 0.575, 0.7167, 0.858, 0.9, 1],
-    [0.5, 0.5, 0, 0.4, 0, 0.4, 0, 0.4, 0, 0]
+    [0.35, 0.35, 0, 0.25, 0, 0.25, 0, 0.25, 0, 0]
   );
 
-  const videoOpacity = useTransform(spotlightOp, [0, 1], [0.35, 1]);
+  const videoOpacity = useTransform(spotlightOp, [0, 1], [0.6, 1]);
   const imgOpacity = useTransform(spotlightOp, [0, 1], [0.08, 0.3]);
 
   const flickerBase = useMotionValue(1);
@@ -403,7 +403,7 @@ const rotateY = useTransform(
     <section ref={containerRef} className="relative h-[450vh]">
       <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
         <div className="absolute top-8 left-1/2 -translate-x-1/2">
-          <span className="text-[11px] uppercase tracking-[0.3em] text-white/15">
+          <span className="text-[11px] uppercase tracking-[0.3em] text-white/35">
             Proyectos
           </span>
         </div>
@@ -482,7 +482,7 @@ const rotateY = useTransform(
                       transform: tx,
                       backfaceVisibility: "hidden",
                       backgroundColor: "#0a0a0a",
-                      border: face.project ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(255,255,255,0.03)",
+                      border: face.project ? "1px solid rgba(255,255,255,0.12)" : "1px solid rgba(255,255,255,0.07)",
                     }}
                   >
                     {face.project ? (
@@ -547,7 +547,7 @@ const rotateY = useTransform(
                               "radial-gradient(130% 130% at 50% 45%, transparent 45%, rgba(0,0,0,0.3) 100%)",
                           }}
                         />
-                        <div className="absolute top-5 left-5 font-mono text-[10px] tracking-wider text-white/20">
+                        <div className="absolute top-5 left-5 font-mono text-[10px] tracking-wider text-white/45">
                           {face.project.id}
                         </div>
                         <div
@@ -590,10 +590,10 @@ const rotateY = useTransform(
                             )}
                         </div>
                         <div className="pointer-events-none absolute inset-3">
-                          <span className="absolute left-0 top-0 h-4 w-4 border-l border-t border-white/15" />
-                          <span className="absolute right-0 top-0 h-4 w-4 border-r border-t border-white/15" />
-                          <span className="absolute bottom-0 left-0 h-4 w-4 border-b border-l border-white/15" />
-                          <span className="absolute bottom-0 right-0 h-4 w-4 border-b border-r border-white/15" />
+                          <span className="absolute left-0 top-0 h-4 w-4 border-l border-t border-white/25" />
+                          <span className="absolute right-0 top-0 h-4 w-4 border-r border-t border-white/25" />
+                          <span className="absolute bottom-0 left-0 h-4 w-4 border-b border-l border-white/25" />
+                          <span className="absolute bottom-0 right-0 h-4 w-4 border-b border-r border-white/25" />
                         </div>
                         <div
                           className="pointer-events-none absolute inset-x-6 bottom-0 h-[2px]"
@@ -603,15 +603,15 @@ const rotateY = useTransform(
                         />
                         <div className="pointer-events-none absolute inset-y-0 left-0 w-[3px]">
                           <div className="absolute inset-0 bg-[#0a0a0a]" />
-                          <div className="absolute bottom-0 left-0 top-0 w-px bg-gradient-to-b from-white/75 via-white/20 to-transparent" />
+                          <div className="absolute bottom-0 left-0 top-0 w-px bg-gradient-to-b from-white/75 via-white/30 to-transparent" />
                         </div>
                         <div className="pointer-events-none absolute inset-y-0 right-0 w-[3px]">
                           <div className="absolute inset-0 bg-[#0a0a0a]" />
-                          <div className="absolute bottom-0 right-0 top-0 w-px bg-gradient-to-b from-white/50 via-white/15 to-transparent" />
+                          <div className="absolute bottom-0 right-0 top-0 w-px bg-gradient-to-b from-white/65 via-white/25 to-transparent" />
                         </div>
                         <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px]">
                           <div className="absolute inset-0 bg-[#0a0a0a]" />
-                          <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-white/70 to-white/20" />
+                          <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-white/80 to-white/30" />
                         </div>
                       </>
                     ) : face.cta ? (
@@ -679,7 +679,7 @@ const rotateY = useTransform(
                 <h3 className="text-base font-bold tracking-tight text-white">
                   {face.project!.title}
                 </h3>
-                <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/30">
+                <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/50">
                   {face.project!.year} · {face.project!.tags[0]}
                 </p>
               </motion.div>
